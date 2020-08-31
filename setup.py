@@ -9,7 +9,7 @@ setup(
     name="aiolyric",
     version=version,
     description="AIO package for the Honeywell Lyric Platform.",
-    long_description=io.open("README.rst", encoding="UTF-8").read(),
+    long_description=io.open("README.md", encoding="UTF-8").read(),
     keywords="honeywell lyric thermostat",
     author="Aidan Timson (Timmo)",
     author_email="contact@timmo.xyz",
