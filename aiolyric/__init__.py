@@ -5,8 +5,7 @@ from datetime import datetime, timedelta
 from typing import List
 
 from .base import LyricBase
-from .device import LyricDevice
-from .location import LyricLocation
+from .objects import LyricDevice, LyricLocation
 from .exceptions import LyricException, LyricAuthenticationException
 from .const import BASE_URL
 
