@@ -3,8 +3,8 @@ import asyncio
 
 from aiohttp import ClientSession
 
-from lyric.client import LyricClient
-from lyric.exceptions import LyricException, LyricAuthenticationException
+from aiolyric.client import LyricClient
+from aiolyric.exceptions import LyricException, LyricAuthenticationException
 
 CLIENT_ID = "abc123"
 CODE = "123456"
