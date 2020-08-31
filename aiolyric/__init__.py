@@ -39,10 +39,8 @@ class Lyric(LyricBase):
             f"{BASE_URL}/devices?apikey={self.client_id}&locationId={location_id}"
         )
         json = await response.json()
-        self.logger.info(json)
-        self._devices = [
-            LyricDevice(self._client, device) for device in await json or []
-        ]
+        self.logger.debug(json)
+        self._devices = [LyricDevice(self._client, device) for device in json or []]
 
     async def get_locations(self) -> None:
         """Get Locations."""
@@ -50,7 +48,7 @@ class Lyric(LyricBase):
             f"{BASE_URL}/locations?apikey={self.client_id}"
         )
         json = await response.json()
-        self.logger.info(json)
+        self.logger.debug(json)
         self._locations = [
             LyricLocation(self._client, location) for location in json or []
         ]
