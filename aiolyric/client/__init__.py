@@ -47,8 +47,8 @@ class LyricClient(LyricBase):
             response: ClientResponse = await self._session.request(
                 method,
                 url,
-                **kwargs,
                 headers=headers,
+                **kwargs,
             )
         if response.status != 200:
             if response.status == 401:

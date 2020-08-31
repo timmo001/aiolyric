@@ -2,11 +2,11 @@
 from aiohttp import ClientError, ClientSession, ClientResponse
 from asyncio import CancelledError, TimeoutError, get_event_loop
 from datetime import datetime, timedelta
-from typing import List
+from typing import cast, List
 
-from .objects.base import LyricBase
 from .const import BASE_URL
 from .exceptions import LyricException, LyricAuthenticationException
+from .objects.base import LyricBase
 from .objects.device import LyricDevice
 from .objects.location import LyricLocation
 
@@ -52,3 +52,15 @@ class Lyric(LyricBase):
         self._locations = [
             LyricLocation(self._client, location) for location in json or []
         ]
+
+    async def update_thermostat(self, device_id: str, data: dict) -> dict:
+        response: ClientResponse = await self._client.post(
+            f"{BASE_URL}/devices/thermostats/{device_id}", data=data
+        )
+        return await cast(dict, await response.json())
+
+    async def update_fan(self, device_id: str, data: dict) -> dict:
+        response: ClientResponse = await self._client.post(
+            f"{BASE_URL}/devices/thermostats/{device_id}/fan", data=data
+        )
+        return await cast(dict, await response.json())
