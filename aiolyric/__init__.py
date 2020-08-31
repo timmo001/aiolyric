@@ -51,6 +51,6 @@ class Lyric(LyricBase):
         )
         json = await response.json()
         self.logger.info(json)
-        self.locations = [
+        self._locations = [
             LyricLocation(self._client, location) for location in json or []
         ]
