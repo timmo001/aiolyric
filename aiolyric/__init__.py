@@ -33,8 +33,10 @@ class Lyric(LyricBase):
         response: ClientResponse = await self._client.get(
             f"{BASE_URL}/devices?apikey={client_id}&locationId={location_id}"
         )
+        json = await response.json()
+        self.logger.info(json)
         self._devices = [
-            LyricDevice(self._client, device) for device in await response.json() or []
+            LyricDevice(self._client, device) for device in await json or []
         ]
 
     async def get_locations(self, client_id: str) -> None:
@@ -42,7 +44,8 @@ class Lyric(LyricBase):
         response: ClientResponse = await self._client.get(
             f"{BASE_URL}/locations?apikey={client_id}"
         )
+        json = await response.json()
+        self.logger.info(json)
         self.locations = [
-            LyricLocation(self._client, location)
-            for location in await response.json() or []
+            LyricLocation(self._client, location) for location in json or []
         ]
