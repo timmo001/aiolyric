@@ -40,7 +40,10 @@ class Lyric(LyricBase):
         )
         json = await response.json()
         self.logger.debug(json)
-        self._devices = [LyricDevice(self._client, device) for device in json or []]
+        devices = []
+        for device in json:
+            devices.append(LyricDevice(self._client, device))
+        self._devices = devices
 
     async def get_locations(self) -> None:
         """Get Locations."""
@@ -49,6 +52,7 @@ class Lyric(LyricBase):
         )
         json = await response.json()
         self.logger.debug(json)
-        self._locations = [
-            LyricLocation(self._client, location) for location in json or []
-        ]
+        locations = []
+        for location in json:
+            locations.append(LyricLocation(self._client, location))
+        self._locations = locations
