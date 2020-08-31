@@ -6,7 +6,7 @@ from abc import abstractmethod
 from asyncio import CancelledError, TimeoutError, get_event_loop
 from aiohttp import ClientError, ClientSession, ClientResponse
 
-from ..base import LyricBase
+from ..objects.base import LyricBase
 from ..exceptions import LyricException, LyricAuthenticationException
 
 

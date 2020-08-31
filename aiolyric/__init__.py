@@ -4,10 +4,11 @@ from asyncio import CancelledError, TimeoutError, get_event_loop
 from datetime import datetime, timedelta
 from typing import List
 
-from .base import LyricBase
-from .objects import LyricDevice, LyricLocation
-from .exceptions import LyricException, LyricAuthenticationException
+from .objects.base import LyricBase
 from .const import BASE_URL
+from .exceptions import LyricException, LyricAuthenticationException
+from .objects.device import LyricDevice
+from .objects.location import LyricLocation
 
 
 class Lyric(LyricBase):
