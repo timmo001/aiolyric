@@ -70,7 +70,8 @@ class Lyric(LyricBase):
         if mode is not None:
             data["mode"] = mode
         else:
-            data["mode"] = device.changeableValues.mode
+            if device.changeableValues.mode == "HoldUntil":
+                data["mode"] = "HoldTemporary"
         if heatSetpoint is not None:
             data["heatSetpoint"] = heatSetpoint
         else:
