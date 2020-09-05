@@ -73,6 +73,8 @@ class Lyric(LyricBase):
             data["mode"] = mode
         else:
             data["mode"] = device.changeableValues.mode
+
+        if data["mode"] != "Off":
             if heatSetpoint is not None:
                 data["heatSetpoint"] = heatSetpoint
             else:
@@ -86,7 +88,9 @@ class Lyric(LyricBase):
             if autoChangeoverActive is not None:
                 data["autoChangeoverActive"] = autoChangeoverActive
             elif device.changeableValues.autoChangeoverActive is not None:
-                data["autoChangeoverActive"] = device.changeableValues.autoChangeoverActive
+                data[
+                    "autoChangeoverActive"
+                ] = device.changeableValues.autoChangeoverActive
 
             # Only for LCC devices
             if thermostatSetpointStatus is not None:
