@@ -1,4 +1,6 @@
 """Lyric: Init"""
+import json
+
 from aiohttp import ClientError, ClientSession, ClientResponse
 from asyncio import CancelledError, TimeoutError, get_event_loop
 from datetime import datetime, timedelta
@@ -105,7 +107,7 @@ class Lyric(LyricBase):
 
         response: ClientResponse = await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}?apikey={self._client_id}&locationId={location.locationID}",
-            data=data,
+            data=json.dumps(data),
         )
         return await cast(dict, await response.json())
 
@@ -113,11 +115,13 @@ class Lyric(LyricBase):
         self, location: LyricLocation, device: LyricDevice, mode: str
     ) -> dict:
         """Update Fan."""
+        data = {}
+
         if mode is None:
-            mode = device.fanMode
+            data["mode"] = device.fanMode
 
         response: ClientResponse = await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}/fan?apikey={self._client_id}&locationId={location.locationID}",
-            data={"mode": mode},
+            data=json.dumps(data),
         )
         return await cast(dict, await response.json())
