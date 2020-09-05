@@ -55,7 +55,7 @@ class Lyric(LyricBase):
 
     async def update_thermostat(
         self,
-        location_id: str,
+        location: LyricLocation,
         device: LyricDevice,
         mode=None,
         heatSetpoint=None,
@@ -95,13 +95,13 @@ class Lyric(LyricBase):
 
         response: ClientResponse = await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}",
-            params={"apikey": self._client_id, "locationId": location_id},
+            params={"apikey": self._client_id, "locationId": location.locationID},
             data=data,
         )
         return await cast(dict, await response.json())
 
     async def update_fan(
-        self, location_id: str, device: LyricDevice, mode: str
+        self, location: LyricLocation, device: LyricDevice, mode: str
     ) -> dict:
         """Update Fan."""
         if mode is None:
@@ -109,7 +109,7 @@ class Lyric(LyricBase):
 
         response: ClientResponse = await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}/fan",
-            params={"apikey": self._client_id, "locationId": location_id},
+            params={"apikey": self._client_id, "locationId": location.locationID},
             data={"mode": mode},
         )
         return await cast(dict, await response.json())
