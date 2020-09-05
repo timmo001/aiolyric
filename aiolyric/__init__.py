@@ -66,12 +66,12 @@ class Lyric(LyricBase):
     ) -> dict:
         """Update Theremostat."""
         data = {
-            mode,
-            heatSetpoint,
-            coolSetpoint,
-            autoChangeover,
-            thermostatSetpointStatus,
-            nextPeriodTime,
+            mode: mode,
+            heatSetpoint: heatSetpoint,
+            coolSetpoint: coolSetpoint,
+            autoChangeover: autoChangeover,
+            thermostatSetpointStatus: thermostatSetpointStatus,
+            nextPeriodTime: nextPeriodTime,
         }
 
         if mode is None:
