@@ -60,25 +60,25 @@ class Lyric(LyricBase):
         mode=None,
         heatSetpoint=None,
         coolSetpoint=None,
-        AutoChangeover=None,
+        autoChangeover=None,
         thermostatSetpointStatus=None,
         nextPeriodTime=None,
     ) -> dict:
         """Update Theremostat."""
         if mode is None:
-            mode = device.operationMode
+            mode = device.changeableValues.mode
         if heatSetpoint is None:
-            heatSetpoint = device.heatSetpoint
+            heatSetpoint = device.changeableValues.heatSetpoint
         if coolSetpoint is None:
-            coolSetpoint = device.coolSetpoint
+            coolSetpoint = device.changeableValues.coolSetpoint
 
         if "thermostatSetpointStatus" in device.changeableValues:
             if thermostatSetpointStatus is None:
                 thermostatSetpointStatus = device.thermostatSetpointStatus
 
         if "autoChangeoverActive" in device.changeableValues:
-            if AutoChangeover is None:
-                AutoChangeover = device.changeableValues.get("autoChangeoverActive")
+            if autoChangeover is None:
+                autoChangeover = device.changeableValues.get("autoChangeoverActive")
 
         data = {
             "mode": mode,
@@ -89,7 +89,7 @@ class Lyric(LyricBase):
         if "thermostatSetpointStatus" in device.changeableValues:
             data["thermostatSetpointStatus"] = thermostatSetpointStatus
         if "autoChangeoverActive" in device.changeableValues:
-            data["autoChangeoverActive"] = AutoChangeover
+            data["autoChangeoverActive"] = autoChangeover
         if nextPeriodTime is not None:
             data["nextPeriodTime"] = nextPeriodTime
 
