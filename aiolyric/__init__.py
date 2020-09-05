@@ -79,16 +79,24 @@ class Lyric(LyricBase):
             data["coolSetpoint"] = heatSetpoint
         else:
             data["coolSetpoint"] = device.changeableValues.coolSetpoint
-        if thermostatSetpointStatus is not None:
-            data["thermostatSetpointStatus"] = thermostatSetpointStatus
-        else:
-            data[
-                "thermostatSetpointStatus"
-            ] = device.changeableValues.thermostatSetpointStatus
+
+        # Only for TCC devices
         if autoChangeoverActive is not None:
             data["autoChangeoverActive"] = autoChangeoverActive
         elif device.changeableValues.autoChangeoverActive is not None:
             data["autoChangeoverActive"] = device.changeableValues.autoChangeoverActive
+
+        # Only for LCC devices
+        if thermostatSetpointStatus is not None:
+            data["thermostatSetpointStatus"] = thermostatSetpointStatus
+        elif device.changeableValues.thermostatSetpointStatus is not None:
+            data[
+                "thermostatSetpointStatus"
+            ] = device.changeableValues.thermostatSetpointStatus
+
+        # If HoldUntil, set nextPeriodTime
+        if data["thermostatSetpointStatus"] == "HoldUntil":
+            data["nextPeriodTime"] = nextPeriodTime
 
         response: ClientResponse = await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}?apikey={self._client_id}&locationId={location.locationID}",
