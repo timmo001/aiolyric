@@ -60,8 +60,8 @@ class LyricClient(LyricBase):
                             "headers": headers,
                             **kwargs,
                         },
+                        "response": await response.json(),
                         "status": response.status,
-                        "text": await response.json(),
                     }
                 )
             else:
@@ -73,8 +73,8 @@ class LyricClient(LyricBase):
                             "headers": headers,
                             **kwargs,
                         },
+                        "response": await response.json(),
                         "status": response.status,
-                        "text": await response.text(),
                     }
                 )
         return response
