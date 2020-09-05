@@ -70,8 +70,7 @@ class Lyric(LyricBase):
         if mode is not None:
             data["mode"] = mode
         else:
-            if device.changeableValues.mode == "HoldUntil":
-                data["mode"] = "HoldTemporary"
+            data["mode"] = device.changeableValues.mode
         if heatSetpoint is not None:
             data["heatSetpoint"] = heatSetpoint
         else:
@@ -83,9 +82,12 @@ class Lyric(LyricBase):
         if thermostatSetpointStatus is not None:
             data["thermostatSetpointStatus"] = thermostatSetpointStatus
         else:
-            data[
-                "thermostatSetpointStatus"
-            ] = device.changeableValues.thermostatSetpointStatus
+            if device.changeableValues.mode == "HoldUntil":
+                data["thermostatSetpointStatus"] = "HoldTemporary"
+            else:
+                data[
+                    "thermostatSetpointStatus"
+                ] = device.changeableValues.thermostatSetpointStatus
         if autoChangeoverActive is not None:
             data["autoChangeoverActive"] = autoChangeoverActive
         elif device.changeableValues.autoChangeoverActive is not None:
