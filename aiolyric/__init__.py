@@ -60,35 +60,35 @@ class Lyric(LyricBase):
         mode=None,
         heatSetpoint=None,
         coolSetpoint=None,
-        autoChangeover=None,
+        autoChangeoverActive=None,
         thermostatSetpointStatus=None,
         nextPeriodTime=None,
     ) -> dict:
         """Update Theremostat."""
-        data = {
-            mode: mode,
-            heatSetpoint: heatSetpoint,
-            coolSetpoint: coolSetpoint,
-            autoChangeover: autoChangeover,
-            thermostatSetpointStatus: thermostatSetpointStatus,
-            nextPeriodTime: nextPeriodTime,
-        }
+        data = {}
 
-        if mode is None:
+        if mode is not None:
+            data["mode"] = mode
+        else:
             data["mode"] = device.changeableValues.mode
-        if heatSetpoint is None:
+        if heatSetpoint is not None:
+            data["heatSetpoint"] = heatSetpoint
+        else:
             data["heatSetpoint"] = device.changeableValues.heatSetpoint
-        if coolSetpoint is None:
+        if coolSetpoint is not None:
+            data["coolSetpoint"] = heatSetpoint
+        else:
             data["coolSetpoint"] = device.changeableValues.coolSetpoint
-        if thermostatSetpointStatus is None:
+        if thermostatSetpointStatus is not None:
+            data["thermostatSetpointStatus"] = thermostatSetpointStatus
+        else:
             data[
                 "thermostatSetpointStatus"
             ] = device.changeableValues.thermostatSetpointStatus
-        if (
-            device.changeableValues.autoChangeoverActive is not None
-            and autoChangeover is None
-        ):
-            data["autoChangeover"] = device.changeableValues.autoChangeoverActive
+        if autoChangeoverActive is not None:
+            data["autoChangeoverActive"] = autoChangeoverActive
+        elif device.changeableValues.autoChangeoverActive is not None:
+            data["autoChangeoverActive"] = device.changeableValues.autoChangeoverActive
 
         response: ClientResponse = await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}?apikey={self._client_id}&locationId={location.locationID}",
