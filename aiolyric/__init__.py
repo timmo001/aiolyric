@@ -103,10 +103,7 @@ class Lyric(LyricBase):
         if data["thermostatSetpointStatus"] == "HoldUntil":
             if nextPeriodTime is not None:
                 data["nextPeriodTime"] = nextPeriodTime
-            elif (
-                device.changeableValues.nextPeriodTime == "NoHold"
-                and data["mode"] != "Off"
-            ):
+            elif device.changeableValues.nextPeriodTime == "NoHold" and mode is None:
                 data["nextPeriodTime"] = "TemporaryHold"
             else:
                 data["nextPeriodTime"] = device.changeableValues.nextPeriodTime
