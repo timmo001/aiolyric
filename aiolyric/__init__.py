@@ -73,39 +73,39 @@ class Lyric(LyricBase):
             data["mode"] = mode
         else:
             data["mode"] = device.changeableValues.mode
-        if heatSetpoint is not None:
-            data["heatSetpoint"] = heatSetpoint
-        else:
-            data["heatSetpoint"] = device.changeableValues.heatSetpoint
-        if coolSetpoint is not None:
-            data["coolSetpoint"] = heatSetpoint
-        else:
-            data["coolSetpoint"] = device.changeableValues.coolSetpoint
-
-        # Only for TCC devices
-        if autoChangeoverActive is not None:
-            data["autoChangeoverActive"] = autoChangeoverActive
-        elif device.changeableValues.autoChangeoverActive is not None:
-            data["autoChangeoverActive"] = device.changeableValues.autoChangeoverActive
-
-        # Only for LCC devices
-        if thermostatSetpointStatus is not None:
-            data["thermostatSetpointStatus"] = thermostatSetpointStatus
-        elif device.changeableValues.thermostatSetpointStatus is not None:
-            if device.changeableValues.thermostatSetpointStatus == "NoHold":
-                data["thermostatSetpointStatus"] = "TemporaryHold"
+            if heatSetpoint is not None:
+                data["heatSetpoint"] = heatSetpoint
             else:
-                data[
-                    "thermostatSetpointStatus"
-                ] = device.changeableValues.thermostatSetpointStatus
-
-        if data["thermostatSetpointStatus"] == "HoldUntil":
-            if nextPeriodTime is not None:
-                data["nextPeriodTime"] = nextPeriodTime
-            elif device.changeableValues.nextPeriodTime == "NoHold":
-                data["nextPeriodTime"] = "TemporaryHold"
+                data["heatSetpoint"] = device.changeableValues.heatSetpoint
+            if coolSetpoint is not None:
+                data["coolSetpoint"] = heatSetpoint
             else:
-                data["nextPeriodTime"] = device.changeableValues.nextPeriodTime
+                data["coolSetpoint"] = device.changeableValues.coolSetpoint
+
+            # Only for TCC devices
+            if autoChangeoverActive is not None:
+                data["autoChangeoverActive"] = autoChangeoverActive
+            elif device.changeableValues.autoChangeoverActive is not None:
+                data["autoChangeoverActive"] = device.changeableValues.autoChangeoverActive
+
+            # Only for LCC devices
+            if thermostatSetpointStatus is not None:
+                data["thermostatSetpointStatus"] = thermostatSetpointStatus
+            elif device.changeableValues.thermostatSetpointStatus is not None:
+                if device.changeableValues.thermostatSetpointStatus == "NoHold":
+                    data["thermostatSetpointStatus"] = "TemporaryHold"
+                else:
+                    data[
+                        "thermostatSetpointStatus"
+                    ] = device.changeableValues.thermostatSetpointStatus
+
+            if data["thermostatSetpointStatus"] == "HoldUntil":
+                if nextPeriodTime is not None:
+                    data["nextPeriodTime"] = nextPeriodTime
+                elif device.changeableValues.nextPeriodTime == "NoHold":
+                    data["nextPeriodTime"] = "TemporaryHold"
+                else:
+                    data["nextPeriodTime"] = device.changeableValues.nextPeriodTime
 
         self.logger.debug(data)
 
