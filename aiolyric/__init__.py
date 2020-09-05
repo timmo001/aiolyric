@@ -96,7 +96,10 @@ class Lyric(LyricBase):
 
         # If HoldUntil, set nextPeriodTime
         if data["thermostatSetpointStatus"] == "HoldUntil":
-            data["nextPeriodTime"] = nextPeriodTime
+            if nextPeriodTime is not None:
+                data["nextPeriodTime"] = nextPeriodTime
+            else:
+                data["nextPeriodTime"] = device.changeableValues.nextPeriodTime
 
         response: ClientResponse = await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}?apikey={self._client_id}&locationId={location.locationID}",
