@@ -67,7 +67,12 @@ class LyricClient(LyricBase):
             else:
                 raise LyricException(
                     {
-                        "request": {"method": method, "url": url, "headers": headers},
+                        "request": {
+                            "method": method,
+                            "url": url,
+                            "headers": headers,
+                            **kwargs,
+                        },
                         "status": response.status,
                         "text": await response.text(),
                     }
