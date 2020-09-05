@@ -5,7 +5,7 @@ import logging
 class LyricBase:
     """Base class for Lyric."""
 
-    logger = logging.getLogger("AIOLyric")
+    logger = logging.getLogger(__name__)
 
     def __init__(self, attributes) -> None:
         """Initialize."""
