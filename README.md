@@ -1,6 +1,6 @@
 # AIOLyric
 
-AIO package for the Honeywell Lyric Platform.
+Python package for the Honeywell Lyric Platform.
 
 ## Attributions / Contributions
 
