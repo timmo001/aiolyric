@@ -41,7 +41,8 @@ class LyricClient(LyricBase):
             headers = dict(headers)
 
         access_token = await self.async_get_access_token()
-        headers["authorization"] = f"Bearer {access_token}"
+        headers["Authorization"] = f"Bearer {access_token}"
+        headers["Content-Type"] = "application/json"
 
         async with async_timeout.timeout(20, loop=get_event_loop()):
             response: ClientResponse = await self._session.request(
