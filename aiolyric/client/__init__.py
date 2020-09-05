@@ -54,7 +54,12 @@ class LyricClient(LyricBase):
             if response.status == 401:
                 raise LyricAuthenticationException(
                     {
-                        "request": {"method": method, "url": url, "headers": headers},
+                        "request": {
+                            "method": method,
+                            "url": url,
+                            "headers": headers,
+                            **kwargs,
+                        },
                         "status": response.status,
                         "text": await response.json(),
                     }
