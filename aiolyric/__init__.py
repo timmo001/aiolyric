@@ -1,6 +1,4 @@
 """Lyric: Init"""
-import json
-
 from aiohttp import ClientError, ClientSession, ClientResponse
 from asyncio import CancelledError, TimeoutError, get_event_loop
 from datetime import datetime, timedelta
@@ -107,7 +105,7 @@ class Lyric(LyricBase):
 
         response: ClientResponse = await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}?apikey={self._client_id}&locationId={location.locationID}",
-            data=json.dumps(data),
+            json=data,
         )
         return await cast(dict, await response.json())
 
@@ -122,6 +120,6 @@ class Lyric(LyricBase):
 
         response: ClientResponse = await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}/fan?apikey={self._client_id}&locationId={location.locationID}",
-            data=json.dumps(data),
+            json=data,
         )
         return await cast(dict, await response.json())
