@@ -63,7 +63,7 @@ class Lyric(LyricBase):
         autoChangeoverActive=None,
         thermostatSetpointStatus=None,
         nextPeriodTime=None,
-    ) -> dict:
+    ) -> ClientResponse:
         """Update Theremostat."""
         data = {}
 
@@ -103,23 +103,21 @@ class Lyric(LyricBase):
             else:
                 data["nextPeriodTime"] = device.changeableValues.nextPeriodTime
 
-        response: ClientResponse = await self._client.post(
+        return await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}?apikey={self._client_id}&locationId={location.locationID}",
             json=data,
         )
-        return await cast(dict, await response.json())
 
     async def update_fan(
         self, location: LyricLocation, device: LyricDevice, mode: str
-    ) -> dict:
+    ) -> ClientResponse:
         """Update Fan."""
         data = {}
 
         if mode is None:
             data["mode"] = device.fanMode
 
-        response: ClientResponse = await self._client.post(
+        return await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}/fan?apikey={self._client_id}&locationId={location.locationID}",
             json=data,
         )
-        return await cast(dict, await response.json())
