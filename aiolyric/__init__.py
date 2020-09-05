@@ -91,8 +91,7 @@ class Lyric(LyricBase):
             data["autoChangeover"] = device.changeableValues.autoChangeoverActive
 
         response: ClientResponse = await self._client.post(
-            f"{BASE_URL}/devices/thermostats/{device.deviceID}",
-            params={"apikey": self._client_id, "locationId": location.locationID},
+            f"{BASE_URL}/devices/thermostats/{device.deviceID}?apikey={self._client_id}&locationId={location.locationID}",
             data=data,
         )
         return await cast(dict, await response.json())
@@ -105,8 +104,7 @@ class Lyric(LyricBase):
             mode = device.fanMode
 
         response: ClientResponse = await self._client.post(
-            f"{BASE_URL}/devices/thermostats/{device.deviceID}/fan",
-            params={"apikey": self._client_id, "locationId": location.locationID},
+            f"{BASE_URL}/devices/thermostats/{device.deviceID}/fan?apikey={self._client_id}&locationId={location.locationID}",
             data={"mode": mode},
         )
         return await cast(dict, await response.json())
