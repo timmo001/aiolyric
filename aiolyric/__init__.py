@@ -65,33 +65,30 @@ class Lyric(LyricBase):
         nextPeriodTime=None,
     ) -> dict:
         """Update Theremostat."""
-        if mode is None:
-            mode = device.changeableValues.mode
-        if heatSetpoint is None:
-            heatSetpoint = device.changeableValues.heatSetpoint
-        if coolSetpoint is None:
-            coolSetpoint = device.changeableValues.coolSetpoint
-
-        if "thermostatSetpointStatus" in device.changeableValues:
-            if thermostatSetpointStatus is None:
-                thermostatSetpointStatus = device.thermostatSetpointStatus
-
-        if "autoChangeoverActive" in device.changeableValues:
-            if autoChangeover is None:
-                autoChangeover = device.changeableValues.get("autoChangeoverActive")
-
         data = {
-            "mode": mode,
-            "heatSetpoint": heatSetpoint,
-            "coolSetpoint": coolSetpoint,
+            mode,
+            heatSetpoint,
+            coolSetpoint,
+            autoChangeover,
+            thermostatSetpointStatus,
+            nextPeriodTime,
         }
 
-        if "thermostatSetpointStatus" in device.changeableValues:
-            data["thermostatSetpointStatus"] = thermostatSetpointStatus
-        if "autoChangeoverActive" in device.changeableValues:
-            data["autoChangeoverActive"] = autoChangeover
-        if nextPeriodTime is not None:
-            data["nextPeriodTime"] = nextPeriodTime
+        if mode is None:
+            data["mode"] = device.changeableValues.mode
+        if heatSetpoint is None:
+            data["heatSetpoint"] = device.changeableValues.heatSetpoint
+        if coolSetpoint is None:
+            data["coolSetpoint"] = device.changeableValues.coolSetpoint
+        if thermostatSetpointStatus is None:
+            data[
+                "thermostatSetpointStatus"
+            ] = device.changeableValues.thermostatSetpointStatus
+        if (
+            device.changeableValues.autoChangeoverActive is not None
+            and autoChangeover is None
+        ):
+            data["autoChangeover"] = device.changeableValues.autoChangeoverActive
 
         response: ClientResponse = await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}",
