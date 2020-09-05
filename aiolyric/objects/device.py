@@ -16,11 +16,11 @@ class Vacationhold(LyricBase):
 class Currentscheduleperiod(LyricBase):
     @property
     def day(self):
-        return self.attributes.get("day", "")
+        return self.attributes.get("day", None)
 
     @property
     def period(self):
-        return self.attributes.get("period", "")
+        return self.attributes.get("period", None)
 
 
 class Schedulecapabilities(LyricBase):
@@ -36,11 +36,11 @@ class Schedulecapabilities(LyricBase):
 class Scheduletype(LyricBase):
     @property
     def scheduleType(self):
-        return self.attributes.get("scheduleType", "")
+        return self.attributes.get("scheduleType", None)
 
     @property
     def scheduleSubType(self):
-        return self.attributes.get("scheduleSubType", "")
+        return self.attributes.get("scheduleSubType", None)
 
 
 class SettingsHardwaresettings(LyricBase):
@@ -92,13 +92,17 @@ class Devicesettings(LyricBase):
 class Service(LyricBase):
     @property
     def mode(self):
-        return self.attributes.get("mode", "")
+        return self.attributes.get("mode", None)
 
 
 class Changeablevalues(LyricBase):
     @property
+    def autoChangeoverActive(self):
+        return self.attributes.get("autoChangeoverActive", None)
+
+    @property
     def mode(self):
-        return self.attributes.get("mode", "")
+        return self.attributes.get("mode", None)
 
     @property
     def heatSetpoint(self):
@@ -110,15 +114,15 @@ class Changeablevalues(LyricBase):
 
     @property
     def thermostatSetpointStatus(self):
-        return self.attributes.get("thermostatSetpointStatus", "")
+        return self.attributes.get("thermostatSetpointStatus", None)
 
     @property
     def nextPeriodTime(self):
-        return self.attributes.get("nextPeriodTime", "")
+        return self.attributes.get("nextPeriodTime", None)
 
     @property
     def heatCoolMode(self):
-        return self.attributes.get("heatCoolMode", "")
+        return self.attributes.get("heatCoolMode", None)
 
     @property
     def endHeatSetpoint(self):
@@ -132,7 +136,7 @@ class Changeablevalues(LyricBase):
 class Operationstatus(LyricBase):
     @property
     def mode(self):
-        return self.attributes.get("mode", "")
+        return self.attributes.get("mode", None)
 
     @property
     def fanRequest(self):
@@ -166,7 +170,7 @@ class LyricDevice(LyricBaseClient):
 
     @property
     def scheduleStatus(self):
-        return self.attributes.get("scheduleStatus", "")
+        return self.attributes.get("scheduleStatus", None)
 
     @property
     def allowedTimeIncrements(self):
@@ -178,19 +182,19 @@ class LyricDevice(LyricBaseClient):
 
     @property
     def deviceClass(self):
-        return self.attributes.get("deviceClass", "")
+        return self.attributes.get("deviceClass", None)
 
     @property
     def deviceType(self):
-        return self.attributes.get("deviceType", "")
+        return self.attributes.get("deviceType", None)
 
     @property
     def deviceID(self):
-        return self.attributes.get("deviceID", "")
+        return self.attributes.get("deviceID", None)
 
     @property
     def name(self):
-        return self.attributes.get("name", "")
+        return self.attributes.get("name", None)
 
     @property
     def isAlive(self):
@@ -206,7 +210,7 @@ class LyricDevice(LyricBaseClient):
 
     @property
     def macID(self):
-        return self.attributes.get("macID", "")
+        return self.attributes.get("macID", None)
 
     @property
     def deviceSettings(self):
@@ -218,15 +222,15 @@ class LyricDevice(LyricBaseClient):
 
     @property
     def deviceRegistrationDate(self):
-        return self.attributes.get("deviceRegistrationDate", "")
+        return self.attributes.get("deviceRegistrationDate", None)
 
     @property
     def dataSyncStatus(self):
-        return self.attributes.get("dataSyncStatus", "")
+        return self.attributes.get("dataSyncStatus", None)
 
     @property
     def units(self):
-        return self.attributes.get("units", "")
+        return self.attributes.get("units", None)
 
     @property
     def indoorTemperature(self):
@@ -274,4 +278,4 @@ class LyricDevice(LyricBaseClient):
 
     @property
     def deviceModel(self):
-        return self.attributes.get("deviceModel", "")
+        return self.attributes.get("deviceModel", None)

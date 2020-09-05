@@ -15,11 +15,11 @@ class Locationrolemapping(LyricBase):
 
     @property
     def role(self):
-        return self.attributes.get("role", "")
+        return self.attributes.get("role", None)
 
     @property
     def locationName(self):
-        return self.attributes.get("locationName", "")
+        return self.attributes.get("locationName", None)
 
     @property
     def status(self):
@@ -33,15 +33,15 @@ class Users(LyricBase):
 
     @property
     def username(self):
-        return self.attributes.get("username", "")
+        return self.attributes.get("username", None)
 
     @property
     def firstname(self):
-        return self.attributes.get("firstname", "")
+        return self.attributes.get("firstname", None)
 
     @property
     def lastname(self):
-        return self.attributes.get("lastname", "")
+        return self.attributes.get("lastname", None)
 
     @property
     def created(self):
@@ -68,7 +68,7 @@ class Users(LyricBase):
 
     @property
     def isOptOut(self):
-        return self.attributes.get("isOptOut", "")
+        return self.attributes.get("isOptOut", None)
 
     @property
     def isCurrentUser(self):
@@ -78,11 +78,11 @@ class Users(LyricBase):
 class Time(LyricBase):
     @property
     def start(self):
-        return self.attributes.get("start", "")
+        return self.attributes.get("start", None)
 
     @property
     def end(self):
-        return self.attributes.get("end", "")
+        return self.attributes.get("end", None)
 
 
 class Schedules(LyricBase):
@@ -130,15 +130,15 @@ class LyricLocation(LyricBaseClient):
 
     @property
     def name(self):
-        return self.attributes.get("name", "")
+        return self.attributes.get("name", None)
 
     @property
     def country(self):
-        return self.attributes.get("country", "")
+        return self.attributes.get("country", None)
 
     @property
     def zipcode(self):
-        return self.attributes.get("zipcode", "")
+        return self.attributes.get("zipcode", None)
 
     @property
     def devices(self):
@@ -150,11 +150,11 @@ class LyricLocation(LyricBaseClient):
 
     @property
     def timeZone(self):
-        return self.attributes.get("timeZone", "")
+        return self.attributes.get("timeZone", None)
 
     @property
     def ianaTimeZone(self):
-        return self.attributes.get("ianaTimeZone", "")
+        return self.attributes.get("ianaTimeZone", None)
 
     @property
     def daylightSavingTimeEnabled(self):
