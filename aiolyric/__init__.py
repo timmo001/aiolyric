@@ -65,6 +65,8 @@ class Lyric(LyricBase):
         nextPeriodTime=None,
     ) -> ClientResponse:
         """Update Theremostat."""
+        self.logger.debug("Update Thermostat")
+
         data = {}
 
         if mode is not None:
@@ -103,6 +105,8 @@ class Lyric(LyricBase):
             else:
                 data["nextPeriodTime"] = device.changeableValues.nextPeriodTime
 
+        self.logger.debug(data)
+
         return await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}?apikey={self._client_id}&locationId={location.locationID}",
             json=data,
@@ -112,10 +116,14 @@ class Lyric(LyricBase):
         self, location: LyricLocation, device: LyricDevice, mode: str
     ) -> ClientResponse:
         """Update Fan."""
+        self.logger.debug("Update Fan")
+
         data = {}
 
         if mode is None:
             data["mode"] = device.fanMode
+
+        self.logger.debug(data)
 
         return await self._client.post(
             f"{BASE_URL}/devices/thermostats/{device.deviceID}/fan?apikey={self._client_id}&locationId={location.locationID}",
