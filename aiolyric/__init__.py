@@ -53,14 +53,63 @@ class Lyric(LyricBase):
             LyricLocation(self._client, location) for location in json or []
         ]
 
-    async def update_thermostat(self, device_id: str, data: dict) -> dict:
+    async def update_thermostat(
+        self,
+        location_id: str,
+        device: LyricDevice,
+        mode=None,
+        heatSetpoint=None,
+        coolSetpoint=None,
+        AutoChangeover=None,
+        thermostatSetpointStatus=None,
+        nextPeriodTime=None,
+    ) -> dict:
+        """Update Theremostat."""
+        if mode is None:
+            mode = device.operationMode
+        if heatSetpoint is None:
+            heatSetpoint = device.heatSetpoint
+        if coolSetpoint is None:
+            coolSetpoint = device.coolSetpoint
+
+        if "thermostatSetpointStatus" in device.changeableValues:
+            if thermostatSetpointStatus is None:
+                thermostatSetpointStatus = device.thermostatSetpointStatus
+
+        if "autoChangeoverActive" in device.changeableValues:
+            if AutoChangeover is None:
+                AutoChangeover = device.changeableValues.get("autoChangeoverActive")
+
+        data = {
+            "mode": mode,
+            "heatSetpoint": heatSetpoint,
+            "coolSetpoint": coolSetpoint,
+        }
+
+        if "thermostatSetpointStatus" in device.changeableValues:
+            data["thermostatSetpointStatus"] = thermostatSetpointStatus
+        if "autoChangeoverActive" in device.changeableValues:
+            data["autoChangeoverActive"] = AutoChangeover
+        if nextPeriodTime is not None:
+            data["nextPeriodTime"] = nextPeriodTime
+
         response: ClientResponse = await self._client.post(
-            f"{BASE_URL}/devices/thermostats/{device_id}", data=data
+            f"{BASE_URL}/devices/thermostats/{device.deviceID}",
+            params={"apikey": self._client_id, "locationId": location_id},
+            data=data,
         )
         return await cast(dict, await response.json())
 
-    async def update_fan(self, device_id: str, data: dict) -> dict:
+    async def update_fan(
+        self, location_id: str, device: LyricDevice, mode: str
+    ) -> dict:
+        """Update Fan."""
+        if mode is None:
+            mode = device.fanMode
+
         response: ClientResponse = await self._client.post(
-            f"{BASE_URL}/devices/thermostats/{device_id}/fan", data=data
+            f"{BASE_URL}/devices/thermostats/{device.deviceID}/fan",
+            params={"apikey": self._client_id, "locationId": location_id},
+            data={"mode": mode},
         )
         return await cast(dict, await response.json())
