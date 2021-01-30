@@ -142,7 +142,11 @@ class LyricLocation(LyricBaseClient):
 
     @property
     def devices(self):
-        return [LyricDevice(self.client, x) for x in self.attributes.get("devices", [])]
+        devices = []
+        for x in self.attributes.get("devices", []):
+            x["locationID"] = self.locationID
+            devices.append(LyricDevice(self.client, x))
+        return devices
 
     @property
     def users(self):

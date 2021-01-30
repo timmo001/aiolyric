@@ -149,6 +149,10 @@ class Operationstatus(LyricBase):
 
 class LyricDevice(LyricBaseClient):
     @property
+    def locationID(self):
+        return self.attributes.get("locationID", None)
+
+    @property
     def displayedOutdoorHumidity(self):
         return self.attributes.get("displayedOutdoorHumidity", None)
 
