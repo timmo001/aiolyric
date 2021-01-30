@@ -6,7 +6,7 @@ from tests.responses.location_fixture import location_fixture_response
 
 
 def test_location(location_fixture_response):
-    obj = LyricLocation(location_fixture_response)
+    obj = LyricLocation(None, location_fixture_response)
     assert obj.locationID == location_fixture_response["locationID"]
     assert obj.name == location_fixture_response["name"]
     assert obj.country == location_fixture_response["country"]
@@ -16,8 +16,8 @@ def test_location(location_fixture_response):
         == location_fixture_response["devices"][0]["displayedOutdoorHumidity"]
     )
     assert (
-        obj.devices[0].vacationHold
-        == location_fixture_response["devices"][0]["vacationHold"]
+        obj.devices[0].vacationHold.enabled
+        == location_fixture_response["devices"][0]["vacationHold"]["enabled"]
     )
     assert (
         obj.devices[0].currentSchedulePeriod

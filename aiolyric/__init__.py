@@ -19,9 +19,9 @@ class Lyric(LyricBase):
         self._client = client
         self._client_id = client_id
         self._devices: List[LyricDevice] = []
-        self._devices_dict: dict[LyricDevice] = {}
+        self._devices_dict: dict = None
         self._locations: List[LyricLocation] = []
-        self._locations_dict: dict[LyricLocation] = {}
+        self._locations_dict: dict = None
 
     @property
     def client_id(self) -> str:
@@ -32,12 +32,16 @@ class Lyric(LyricBase):
         return self._devices
 
     @property
-    def devices_dict(self) -> dict[LyricDevice]:
+    def devices_dict(self) -> dict:
         return self._devices_dict
 
     @property
     def locations(self) -> List[LyricLocation]:
         return self._locations
+
+    @property
+    def locations_dict(self) -> dict:
+        return self._locations_dict
 
     async def get_devices(self, location_id: int) -> None:
         """Get Devices."""
@@ -47,7 +51,7 @@ class Lyric(LyricBase):
         json = await response.json()
         self.logger.debug(json)
         self._devices = [LyricDevice(self._client, device) for device in json or []]
-        self._devices_dict: dict[LyricDevice] = {}
+        self._devices_dict: dict = None
         for device in self._devices:
             self._devices_dict[device.macID] = device
 
@@ -61,7 +65,7 @@ class Lyric(LyricBase):
         self._locations = [
             LyricLocation(self._client, location) for location in json or []
         ]
-        self._locations_dict: dict[LyricLocation] = {}
+        self._locations_dict: dict = None
         for location in self._locations:
             self._locations_dict[location.locationID] = location
 

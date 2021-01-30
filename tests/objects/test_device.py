@@ -6,7 +6,7 @@ from tests.responses.device_fixture import device_fixture_response
 
 
 def test_device(device_fixture_response):
-    obj = LyricDevice(device_fixture_response)
+    obj = LyricDevice(None, device_fixture_response)
     assert obj.locationID == device_fixture_response["locationID"]
     assert (
         obj.displayedOutdoorHumidity
