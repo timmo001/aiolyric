@@ -3,7 +3,7 @@ import io
 
 from setuptools import setup, find_packages
 
-version = "1.0.0"
+version = "1.0.1"
 
 setup(
     name="aiolyric",
@@ -15,5 +15,5 @@ setup(
     author_email="contact@timmo.xyz",
     url="https://github.com/timmo001/aiolyric",
     packages=find_packages(exclude=["tests", "generator"]),
-    install_requires=["aiohttp>=3.6.2"],
+    install_requires=["aiohttp>=3.7.3"],
 )
