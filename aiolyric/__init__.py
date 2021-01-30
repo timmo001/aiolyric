@@ -1,11 +1,8 @@
 """Lyric: Init"""
-from aiohttp import ClientError, ClientSession, ClientResponse
-from asyncio import CancelledError, TimeoutError, get_event_loop
-from datetime import datetime, timedelta
-from typing import cast, List
+from aiohttp import ClientResponse
+from typing import List
 
 from .const import BASE_URL
-from .exceptions import LyricException, LyricAuthenticationException
 from .objects.base import LyricBase
 from .objects.device import LyricDevice
 from .objects.location import LyricLocation
