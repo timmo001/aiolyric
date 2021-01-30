@@ -19,7 +19,9 @@ class Lyric(LyricBase):
         self._client = client
         self._client_id = client_id
         self._devices: List[LyricDevice] = []
+        self._devices_dict: dict[LyricDevice] = {}
         self._locations: List[LyricLocation] = []
+        self._locations_dict: dict[LyricLocation] = {}
 
     @property
     def client_id(self) -> str:
@@ -28,6 +30,10 @@ class Lyric(LyricBase):
     @property
     def devices(self) -> List[LyricDevice]:
         return self._devices
+
+    @property
+    def devices_dict(self) -> dict[LyricDevice]:
+        return self._devices_dict
 
     @property
     def locations(self) -> List[LyricLocation]:
@@ -41,6 +47,9 @@ class Lyric(LyricBase):
         json = await response.json()
         self.logger.debug(json)
         self._devices = [LyricDevice(self._client, device) for device in json or []]
+        self._devices_dict: dict[LyricDevice] = {}
+        for device in self._devices:
+            self._devices_dict[device.macID] = device
 
     async def get_locations(self) -> None:
         """Get Locations."""
@@ -52,6 +61,9 @@ class Lyric(LyricBase):
         self._locations = [
             LyricLocation(self._client, location) for location in json or []
         ]
+        self._locations_dict: dict[LyricLocation] = {}
+        for location in self._locations:
+            self._locations_dict[location.locationID] = location
 
     async def update_thermostat(
         self,
