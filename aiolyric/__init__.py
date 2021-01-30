@@ -19,9 +19,9 @@ class Lyric(LyricBase):
         self._client = client
         self._client_id = client_id
         self._devices: List[LyricDevice] = []
-        self._devices_dict: dict = None
+        self._devices_dict: dict = {}
         self._locations: List[LyricLocation] = []
-        self._locations_dict: dict = None
+        self._locations_dict: dict = {}
 
     @property
     def client_id(self) -> str:
@@ -51,7 +51,7 @@ class Lyric(LyricBase):
         json = await response.json()
         self.logger.debug(json)
         self._devices = [LyricDevice(self._client, device) for device in json or []]
-        self._devices_dict: dict = None
+        self._devices_dict: dict = {}
         for device in self._devices:
             self._devices_dict[device.macID] = device
 
@@ -65,7 +65,7 @@ class Lyric(LyricBase):
         self._locations = [
             LyricLocation(self._client, location) for location in json or []
         ]
-        self._locations_dict: dict = None
+        self._locations_dict: dict = {}
         for location in self._locations:
             self._locations_dict[location.locationID] = location
 
