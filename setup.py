@@ -13,6 +13,7 @@ setup(
     keywords="honeywell lyric thermostat",
     author="Aidan Timson (Timmo)",
     author_email="contact@timmo.xyz",
+    license="MIT",
     url="https://github.com/timmo001/aiolyric",
     packages=find_packages(exclude=["tests", "generator"]),
     install_requires=["aiohttp>=3.7.3"],
