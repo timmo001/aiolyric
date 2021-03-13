@@ -20,16 +20,28 @@ def test_location(location_fixture_response):
         == location_fixture_response["devices"][0]["vacationHold"]["enabled"]
     )
     assert (
-        obj.devices[0].currentSchedulePeriod
-        == location_fixture_response["devices"][0]["currentSchedulePeriod"]
+        obj.devices[0].currentSchedulePeriod.day
+        == location_fixture_response["devices"][0]["currentSchedulePeriod"]["day"]
     )
     assert (
-        obj.devices[0].scheduleCapabilities
-        == location_fixture_response["devices"][0]["scheduleCapabilities"]
+        obj.devices[0].currentSchedulePeriod.period
+        == location_fixture_response["devices"][0]["currentSchedulePeriod"]["period"]
     )
     assert (
-        obj.devices[0].scheduleType
-        == location_fixture_response["devices"][0]["scheduleType"]
+        obj.devices[0].scheduleCapabilities.availableScheduleTypes
+        == location_fixture_response["devices"][0]["scheduleCapabilities"]["availableScheduleTypes"]
+    )
+    assert (
+        obj.devices[0].scheduleCapabilities.schedulableFan
+        == location_fixture_response["devices"][0]["scheduleCapabilities"]["schedulableFan"]
+    )
+    assert (
+        obj.devices[0].scheduleType.scheduleType
+        == location_fixture_response["devices"][0]["scheduleType"]["scheduleType"]
+    )
+    assert (
+        obj.devices[0].scheduleType.scheduleSubType
+        == location_fixture_response["devices"][0]["scheduleType"]["scheduleSubType"]
     )
     assert (
         obj.devices[0].scheduleStatus
@@ -40,7 +52,20 @@ def test_location(location_fixture_response):
         == location_fixture_response["devices"][0]["allowedTimeIncrements"]
     )
     assert (
-        obj.devices[0].settings == location_fixture_response["devices"][0]["settings"]
+        obj.devices[0].settings.hardwareSettings.brightness
+        == location_fixture_response["devices"][0]["settings"]["hardwareSettings"]["brightness"]
+    )
+    assert (
+        obj.devices[0].settings.hardwareSettings.maxBrightness
+        == location_fixture_response["devices"][0]["settings"]["hardwareSettings"]["maxBrightness"]
+    )
+    assert (
+        obj.devices[0].settings.temperatureMode.air
+        == location_fixture_response["devices"][0]["settings"]["temperatureMode"]["air"]
+    )
+    assert (
+        obj.devices[0].settings.devicePairingEnabled
+        == location_fixture_response["devices"][0]["settings"]["devicePairingEnabled"]
     )
     assert (
         obj.devices[0].deviceClass
@@ -53,10 +78,6 @@ def test_location(location_fixture_response):
     assert (
         obj.devices[0].deviceID == location_fixture_response["devices"][0]["deviceID"]
     )
-    assert (
-        obj.devices[0].userDefinedDeviceName
-        == location_fixture_response["devices"][0]["userDefinedDeviceName"]
-    )
     assert obj.devices[0].name == location_fixture_response["devices"][0]["name"]
     assert obj.devices[0].isAlive == location_fixture_response["devices"][0]["isAlive"]
     assert (
@@ -68,11 +89,7 @@ def test_location(location_fixture_response):
         == location_fixture_response["devices"][0]["isProvisioned"]
     )
     assert obj.devices[0].macID == location_fixture_response["devices"][0]["macID"]
-    assert (
-        obj.devices[0].deviceSettings
-        == location_fixture_response["devices"][0]["deviceSettings"]
-    )
-    assert obj.devices[0].service == location_fixture_response["devices"][0]["service"]
+    assert obj.devices[0].service.mode == location_fixture_response["devices"][0]["service"]["mode"]
     assert (
         obj.devices[0].deviceRegistrationDate
         == location_fixture_response["devices"][0]["deviceRegistrationDate"]
@@ -118,12 +135,48 @@ def test_location(location_fixture_response):
         == location_fixture_response["devices"][0]["maxCoolSetpoint"]
     )
     assert (
-        obj.devices[0].changeableValues
-        == location_fixture_response["devices"][0]["changeableValues"]
+        obj.devices[0].changeableValues.mode
+        == location_fixture_response["devices"][0]["changeableValues"]["mode"]
     )
     assert (
-        obj.devices[0].operationStatus
-        == location_fixture_response["devices"][0]["operationStatus"]
+        obj.devices[0].changeableValues.heatSetpoint
+        == location_fixture_response["devices"][0]["changeableValues"]["heatSetpoint"]
+    )
+    assert (
+        obj.devices[0].changeableValues.coolSetpoint
+        == location_fixture_response["devices"][0]["changeableValues"]["coolSetpoint"]
+    )
+    assert (
+        obj.devices[0].changeableValues.thermostatSetpointStatus
+        == location_fixture_response["devices"][0]["changeableValues"]["thermostatSetpointStatus"]
+    )
+    assert (
+        obj.devices[0].changeableValues.nextPeriodTime
+        == location_fixture_response["devices"][0]["changeableValues"]["nextPeriodTime"]
+    )
+    assert (
+        obj.devices[0].changeableValues.heatCoolMode
+        == location_fixture_response["devices"][0]["changeableValues"]["heatCoolMode"]
+    )
+    assert (
+        obj.devices[0].changeableValues.endHeatSetpoint
+        == location_fixture_response["devices"][0]["changeableValues"]["endHeatSetpoint"]
+    )
+    assert (
+        obj.devices[0].changeableValues.endCoolSetpoint
+        == location_fixture_response["devices"][0]["changeableValues"]["endCoolSetpoint"]
+    )
+    assert (
+        obj.devices[0].operationStatus.mode
+        == location_fixture_response["devices"][0]["operationStatus"]["mode"]
+    )
+    assert (
+        obj.devices[0].operationStatus.fanRequest
+        == location_fixture_response["devices"][0]["operationStatus"]["fanRequest"]
+    )
+    assert (
+        obj.devices[0].operationStatus.circulationFanRequest
+        == location_fixture_response["devices"][0]["operationStatus"]["circulationFanRequest"]
     )
     assert (
         obj.devices[0].deviceModel
@@ -141,8 +194,20 @@ def test_location(location_fixture_response):
         == location_fixture_response["users"][0]["connectedHomeAccountExists"]
     )
     assert (
-        obj.users[0].locationRoleMapping
-        == location_fixture_response["users"][0]["locationRoleMapping"]
+        obj.users[0].locationRoleMapping[0].locationID
+        == location_fixture_response["users"][0]["locationRoleMapping"][0]["locationID"]
+    )
+    assert (
+        obj.users[0].locationRoleMapping[0].role
+        == location_fixture_response["users"][0]["locationRoleMapping"][0]["role"]
+    )
+    assert (
+        obj.users[0].locationRoleMapping[0].locationName
+        == location_fixture_response["users"][0]["locationRoleMapping"][0]["locationName"]
+    )
+    assert (
+        obj.users[0].locationRoleMapping[0].status
+        == location_fixture_response["users"][0]["locationRoleMapping"][0]["status"]
     )
     assert obj.users[0].isOptOut == location_fixture_response["users"][0]["isOptOut"]
     assert (
@@ -185,10 +250,16 @@ def test_location(location_fixture_response):
         ]
     )
     assert (
-        obj.configuration.faceRecognition.schedules[0].time
+        obj.configuration.faceRecognition.schedules[0].time[0].start
         == location_fixture_response["configuration"]["faceRecognition"]["schedules"][
             0
-        ]["time"]
+        ]["time"][0]["start"]
+    )
+    assert (
+        obj.configuration.faceRecognition.schedules[0].time[0].end
+        == location_fixture_response["configuration"]["faceRecognition"]["schedules"][
+            0
+        ]["time"][0]["end"]
     )
     assert (
         obj.configuration.faceRecognition.schedules[0].days
