@@ -92,7 +92,7 @@ class Lyric(LyricBase):
         else:
             data["heatSetpoint"] = device.changeableValues.heatSetpoint
         if coolSetpoint is not None:
-            data["coolSetpoint"] = heatSetpoint
+            data["coolSetpoint"] = coolSetpoint
         else:
             data["coolSetpoint"] = device.changeableValues.coolSetpoint
 
