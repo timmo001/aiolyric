@@ -153,6 +153,10 @@ class LyricDevice(LyricBaseClient):
         return self.attributes.get("locationID", None)
 
     @property
+    def indoorHumidity(self):
+        return self.attributes.get("indoorHumidity", None)
+    
+    @property
     def displayedOutdoorHumidity(self):
         return self.attributes.get("displayedOutdoorHumidity", None)
 
