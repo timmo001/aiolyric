@@ -91,6 +91,14 @@ class Settings(LyricBase):
     def fanModes(self):
         return SettingsFan(self.attributes.get("allowedModes", []))
 
+    @property
+    def fanChangeableValues(self):
+        return SettingsFan(self.attributes.get("changeableValues", {}))
+    
+    @property
+    def fanMode(self):
+        return fanChangeableValues(self.attributes.get("mode", None))
+
 
 class Devicesettings(LyricBase):
     @property
