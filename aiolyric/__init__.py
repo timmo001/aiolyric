@@ -136,7 +136,9 @@ class Lyric(LyricBase):
 
         data = {}
 
-        if mode is None:
+        if mode is not None:
+            data["mode"] = mode
+        else:
             data["mode"] = device.fanMode
 
         self.logger.debug(data)
