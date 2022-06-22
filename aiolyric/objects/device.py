@@ -63,12 +63,20 @@ class SettingsSpecialmode(LyricBase):
     @property
     def _(self):
         return None
-
+        
+class SettingsFanChangeableValues(LyricBase):
+    @property
+    def mode(self):
+        return self.attributes.get("mode", {})
+        
 class SettingsFan(LyricBase):
     @property
-    def fan(self):
-        return self.atributes.get("fan", {})
+    def allowedModes(self):
+        return self.attributes.get("allowedModes", {})
         
+    @property
+    def changeableValues(self):
+        return SettingsFanChangeableValues(self.attributes.get("changeableValues", {}))
 
 class Settings(LyricBase):
     @property
@@ -88,17 +96,9 @@ class Settings(LyricBase):
         return self.attributes.get("devicePairingEnabled", True)
 
     @property
-    def fanModes(self):
-        return SettingsFan(self.attributes.get("allowedModes", []))
-
-    @property
-    def fanChangeableValues(self):
-        return SettingsFan(self.attributes.get("changeableValues", {}))
+    def fan(self):
+        return SettingsFan(self.attributes.get("fan", {}))
     
-    @property
-    def fanMode(self):
-        return fanChangeableValues(self.attributes.get("mode", None))
-
 
 class Devicesettings(LyricBase):
     @property
