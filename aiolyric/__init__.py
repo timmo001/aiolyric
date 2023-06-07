@@ -1,6 +1,7 @@
 """Lyric: Init"""
-from aiohttp import ClientResponse
 from typing import List
+
+from aiohttp import ClientResponse
 
 from .const import BASE_URL
 from .objects.base import LyricBase
@@ -11,7 +12,11 @@ from .objects.location import LyricLocation
 class Lyric(LyricBase):
     """Handles authentication refresh tokens."""
 
-    def __init__(self, client: "LyricClient", client_id: str) -> None:
+    def __init__(
+        self,
+        client: "LyricClient",
+        client_id: str,
+    ) -> None:
         """Initialize the token manager class."""
         self._client = client
         self._client_id = client_id
@@ -40,7 +45,10 @@ class Lyric(LyricBase):
     def locations_dict(self) -> dict:
         return self._locations_dict
 
-    async def get_devices(self, location_id: int) -> None:
+    async def get_devices(
+        self,
+        location_id: int,
+    ) -> None:
         """Get Devices."""
         response: ClientResponse = await self._client.get(
             f"{BASE_URL}/devices?apikey={self.client_id}&locationId={location_id}"
@@ -129,7 +137,10 @@ class Lyric(LyricBase):
         )
 
     async def update_fan(
-        self, location: LyricLocation, device: LyricDevice, mode: str
+        self,
+        location: LyricLocation,
+        device: LyricDevice,
+        mode: str,
     ) -> ClientResponse:
         """Update Fan."""
         self.logger.debug("Update Fan")
