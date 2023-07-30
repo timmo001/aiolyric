@@ -3,7 +3,7 @@ import io
 
 from setuptools import find_packages, setup
 
-version = "1.0.10"
+version = "1.1.0"
 
 setup(
     name="aiolyric",

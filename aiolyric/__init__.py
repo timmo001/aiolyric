@@ -7,6 +7,7 @@ from .const import BASE_URL
 from .objects.base import LyricBase
 from .objects.device import LyricDevice
 from .objects.location import LyricLocation
+from .objects.priority import LyricPriority, LyricRoom
 
 
 class Lyric(LyricBase):
@@ -24,6 +25,7 @@ class Lyric(LyricBase):
         self._devices_dict: dict = {}
         self._locations: List[LyricLocation] = []
         self._locations_dict: dict = {}
+        self._rooms_dict: dict = {}    
 
     @property
     def client_id(self) -> str:
@@ -44,6 +46,10 @@ class Lyric(LyricBase):
     @property
     def locations_dict(self) -> dict:
         return self._locations_dict
+
+    @property
+    def rooms_dict(self) -> dict[str, LyricRoom]:
+        return self._rooms_dict
 
     async def get_devices(
         self,
@@ -73,6 +79,27 @@ class Lyric(LyricBase):
         self._locations_dict: dict = {}
         for location in self._locations:
             self._locations_dict[location.locationID] = location
+
+    async def get_thermostat_rooms(
+            self,
+            location_id: int,
+            device_id: str
+        ) -> None:
+        """Get Priority, which contains accessory information."""
+        response: ClientResponse = await self._client.get(
+            f"{BASE_URL}/devices/thermostats/{device_id}/priority?apikey={self.client_id}&locationId={location_id}"
+        )
+        json = await response.json()
+        self.logger.debug(json)
+        
+        priority = LyricPriority(json)
+
+        macId = priority.deviceId   # device id in the priority payload refers to the mac address of the device
+        self._rooms_dict[macId]: dict = {}
+        
+        # add each room to the room dictionary. Rooms contain motion, temp, and humidity averages for all accessories in a room
+        for room in priority.currentPriority.rooms:
+            self._rooms_dict[macId][room.id] = room
 
     async def update_thermostat(
         self,
