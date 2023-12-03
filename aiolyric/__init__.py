@@ -48,7 +48,7 @@ class Lyric(LyricBase):
         return self._locations_dict
 
     @property
-    def rooms_dict(self) -> dict[str, LyricRoom]:
+    def rooms_dict(self) -> dict[str, dict[str, LyricRoom]]:
         return self._rooms_dict
 
     async def get_devices(
