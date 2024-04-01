@@ -17,6 +17,7 @@ def test_location(
     assert obj.name == location_fixture_response["name"]
     assert obj.country == location_fixture_response["country"]
     assert obj.zipcode == location_fixture_response["zipcode"]
+    assert isinstance(obj.devices_dict, dict)
     assert (
         obj.devices[0].displayedOutdoorHumidity
         == location_fixture_response["devices"][0]["displayedOutdoorHumidity"]

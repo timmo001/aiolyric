@@ -61,6 +61,12 @@ def test_priority(priority_fixture_response: dict):
         ]
     )
     assert (
+        obj.currentPriority.rooms[0].accessories[0].temperature
+        == priority_fixture_response["currentPriority"]["rooms"][0]["accessories"][0][
+            "temperature"
+        ]
+    )
+    assert (
         obj.currentPriority.rooms[0].accessories[0].status
         == priority_fixture_response["currentPriority"]["rooms"][0]["accessories"][0][
             "status"
