@@ -1,4 +1,4 @@
-"""Lyric: Client."""
+"""Lyric client."""
 
 from abc import abstractmethod
 import asyncio
@@ -52,9 +52,7 @@ class LyricClient:
         **kwargs,
     ) -> ClientResponse:
         """Make a request."""
-        headers = kwargs.get("headers")
-
-        if headers is None:
+        if (headers := kwargs.get("headers")) is None:
             headers = {}
         else:
             headers = dict(headers)
