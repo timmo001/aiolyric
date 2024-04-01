@@ -1,4 +1,4 @@
-# AIOLyric
+# aiolyric
 
 Python package for the Honeywell Lyric Platform.
 
