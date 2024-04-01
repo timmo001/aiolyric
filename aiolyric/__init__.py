@@ -182,12 +182,7 @@ class Lyric:
         """Update Fan."""
         self.logger.debug("Update Fan")
 
-        data = {}
-
-        if mode is not None:
-            data["mode"] = mode
-        else:
-            data["mode"] = device.fanMode
+        data = {"mode": mode}
 
         self.logger.debug(data)
 

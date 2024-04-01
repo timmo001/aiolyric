@@ -48,3 +48,9 @@ async def test_lyric(
         "test",
         "10:00:00",
     )
+
+    await lyric.update_fan(
+        lyric.locations[0],
+        lyric.devices[0],
+        "auto",
+    )
