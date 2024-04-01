@@ -1,9 +1,9 @@
 """Lyric priority."""
 
-from .base import LyricBase
+from .base import LyricBaseObject
 
 
-class LyricAccessories(LyricBase):
+class LyricAccessories(LyricBaseObject):
     """Lyric accessories."""
 
     @property
@@ -42,7 +42,7 @@ class LyricAccessories(LyricBase):
         return self.attributes.get("detectMotion", False)
 
 
-class LyricRoom(LyricBase):
+class LyricRoom(LyricBaseObject):
     """Class representing Lyric rooms."""
 
     @property
@@ -76,7 +76,7 @@ class LyricRoom(LyricBase):
         return [LyricAccessories(x) for x in self.attributes.get("accessories", [])]
 
 
-class CurrentPriority(LyricBase):
+class CurrentPriority(LyricBaseObject):
     """Class representing the current priority."""
 
     @property
@@ -95,7 +95,7 @@ class CurrentPriority(LyricBase):
         return [LyricRoom(x) for x in self.attributes.get("rooms", [])]
 
 
-class LyricPriority(LyricBase):
+class LyricPriority(LyricBaseObject):
     """Class representing Lyric priority."""
 
     @property

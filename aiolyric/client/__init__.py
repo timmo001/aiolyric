@@ -7,10 +7,10 @@ from aiohttp import ClientError, ClientResponse, ClientSession
 import async_timeout
 
 from ..exceptions import LyricAuthenticationException, LyricException
-from ..objects.base import LyricBase
+from ..objects.base import LyricBaseObject
 
 
-class LyricClient(LyricBase):
+class LyricClient(LyricBaseObject):
     """Client to handle API calls."""
 
     def __init__(self, session: ClientSession) -> None:

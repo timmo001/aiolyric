@@ -2,11 +2,11 @@
 
 from typing import List
 
-from .base import LyricBase, LyricBaseClient
+from .base import LyricBaseClient, LyricBaseObject
 from .device import LyricDevice
 
 
-class Locationrolemapping(LyricBase):
+class Locationrolemapping(LyricBaseObject):
     """Represents a location role mapping."""
 
     @property
@@ -30,7 +30,7 @@ class Locationrolemapping(LyricBase):
         return self.attributes.get("status", None)
 
 
-class Users(LyricBase):
+class Users(LyricBaseObject):
     """Represents a user."""
 
     @property
@@ -92,7 +92,7 @@ class Users(LyricBase):
         return self.attributes.get("isCurrentUser", True)
 
 
-class Time(LyricBase):
+class Time(LyricBaseObject):
     """Represents a time range."""
 
     @property
@@ -106,7 +106,7 @@ class Time(LyricBase):
         return self.attributes.get("end", None)
 
 
-class Schedules(LyricBase):
+class Schedules(LyricBaseObject):
     """Represents a list of schedules."""
 
     @property
@@ -120,7 +120,7 @@ class Schedules(LyricBase):
         return self.attributes.get("days", [])
 
 
-class ConfigurationFacerecognition(LyricBase):
+class ConfigurationFacerecognition(LyricBaseObject):
     """Represents the face recognition configuration."""
 
     @property
@@ -149,7 +149,7 @@ class ConfigurationFacerecognition(LyricBase):
         return [Schedules(x) for x in self.attributes.get("schedules", [])]
 
 
-class Configuration(LyricBase):
+class Configuration(LyricBaseObject):
     """Represents the configuration of a location."""
 
     @property

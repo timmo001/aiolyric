@@ -1,9 +1,9 @@
 """Lyric device."""
 
-from .base import LyricBase, LyricBaseClient
+from .base import LyricBaseClient, LyricBaseObject
 
 
-class Vacationhold(LyricBase):
+class Vacationhold(LyricBaseObject):
     """Vacation hold."""
 
     @property
@@ -12,7 +12,7 @@ class Vacationhold(LyricBase):
         return self.attributes.get("enabled", False)
 
 
-class Currentscheduleperiod(LyricBase):
+class Currentscheduleperiod(LyricBaseObject):
     """Current schedule period."""
 
     @property
@@ -26,7 +26,7 @@ class Currentscheduleperiod(LyricBase):
         return self.attributes.get("period", None)
 
 
-class Schedulecapabilities(LyricBase):
+class Schedulecapabilities(LyricBaseObject):
     """Schedule capabilities."""
 
     @property
@@ -40,7 +40,7 @@ class Schedulecapabilities(LyricBase):
         return self.attributes.get("schedulableFan", False)
 
 
-class Scheduletype(LyricBase):
+class Scheduletype(LyricBaseObject):
     """Schedule type."""
 
     @property
@@ -54,7 +54,7 @@ class Scheduletype(LyricBase):
         return self.attributes.get("scheduleSubType", None)
 
 
-class SettingsHardwaresettings(LyricBase):
+class SettingsHardwaresettings(LyricBaseObject):
     """Hardware settings."""
 
     @property
@@ -68,7 +68,7 @@ class SettingsHardwaresettings(LyricBase):
         return self.attributes.get("maxBrightness", None)
 
 
-class SettingsTemperaturemode(LyricBase):
+class SettingsTemperaturemode(LyricBaseObject):
     """Temperature mode."""
 
     @property
@@ -77,7 +77,7 @@ class SettingsTemperaturemode(LyricBase):
         return self.attributes.get("air", True)
 
 
-class SettingsSpecialmode(LyricBase):
+class SettingsSpecialmode(LyricBaseObject):
     """Special mode."""
 
     @property
@@ -86,7 +86,7 @@ class SettingsSpecialmode(LyricBase):
         return None
 
 
-class SettingsFan(LyricBase):
+class SettingsFan(LyricBaseObject):
     """Fan settings."""
 
     @property
@@ -95,7 +95,7 @@ class SettingsFan(LyricBase):
         return self.attributes.get("fan", {})
 
 
-class Settings(LyricBase):
+class Settings(LyricBaseObject):
     """Settings."""
 
     @property
@@ -134,7 +134,7 @@ class Settings(LyricBase):
         return SettingsFan(self.attributes.get("mode", None))
 
 
-class Devicesettings(LyricBase):
+class Devicesettings(LyricBaseObject):
     """Device settings."""
 
     @property
@@ -143,7 +143,7 @@ class Devicesettings(LyricBase):
         return None
 
 
-class Service(LyricBase):
+class Service(LyricBaseObject):
     """Service."""
 
     @property
@@ -152,7 +152,7 @@ class Service(LyricBase):
         return self.attributes.get("mode", None)
 
 
-class Changeablevalues(LyricBase):
+class Changeablevalues(LyricBaseObject):
     """Changeable values."""
 
     @property
@@ -201,7 +201,7 @@ class Changeablevalues(LyricBase):
         return self.attributes.get("endCoolSetpoint", None)
 
 
-class Operationstatus(LyricBase):
+class Operationstatus(LyricBaseObject):
     """Operation status."""
 
     @property

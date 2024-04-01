@@ -1,17 +1,20 @@
 """Lyric: Init."""
 
+import logging
+
 from aiohttp import ClientResponse
 
 from .client import LyricClient
 from .const import BASE_URL
-from .objects.base import LyricBase
 from .objects.device import LyricDevice
 from .objects.location import LyricLocation
 from .objects.priority import LyricPriority, LyricRoom
 
 
-class Lyric(LyricBase):
+class Lyric:
     """Handles authentication refresh tokens."""
+
+    logger = logging.getLogger(__name__)
 
     def __init__(
         self,
@@ -96,25 +99,24 @@ class Lyric(LyricBase):
 
         priority = LyricPriority(json)
 
-        macId = (
-            priority.deviceId
-        )  # device id in the priority payload refers to the mac address of the device
-        self._rooms_dict[macId]: dict = {}
+        # device id in the priority payload refers to the mac address of the device
+        mac_id = priority.deviceId
+        self._rooms_dict[mac_id] = {}
 
         # add each room to the room dictionary. Rooms contain motion, temp, and humidity averages for all accessories in a room
         for room in priority.currentPriority.rooms:
-            self._rooms_dict[macId][room.id] = room
+            self._rooms_dict[mac_id][room.id] = room
 
     async def update_thermostat(
         self,
         location: LyricLocation,
         device: LyricDevice,
         mode=None,
-        heatSetpoint=None,
-        coolSetpoint=None,
-        autoChangeoverActive=None,
-        thermostatSetpointStatus=None,
-        nextPeriodTime=None,
+        heat_setpoint=None,
+        cool_setpoint=None,
+        auto_changeover_active=None,
+        thermostat_setpoint_status=None,
+        next_period_time=None,
     ) -> ClientResponse:
         """Update Theremostat."""
         self.logger.debug("Update Thermostat")
@@ -126,24 +128,24 @@ class Lyric(LyricBase):
         else:
             data["mode"] = device.changeableValues.mode
 
-        if heatSetpoint is not None:
-            data["heatSetpoint"] = heatSetpoint
+        if heat_setpoint is not None:
+            data["heatSetpoint"] = heat_setpoint
         else:
             data["heatSetpoint"] = device.changeableValues.heatSetpoint
-        if coolSetpoint is not None:
-            data["coolSetpoint"] = coolSetpoint
+        if cool_setpoint is not None:
+            data["coolSetpoint"] = cool_setpoint
         else:
             data["coolSetpoint"] = device.changeableValues.coolSetpoint
 
         # Only for TCC devices
-        if autoChangeoverActive is not None:
-            data["autoChangeoverActive"] = autoChangeoverActive
+        if auto_changeover_active is not None:
+            data["autoChangeoverActive"] = auto_changeover_active
         elif device.changeableValues.autoChangeoverActive is not None:
             data["autoChangeoverActive"] = device.changeableValues.autoChangeoverActive
 
         # Only for LCC devices
-        if thermostatSetpointStatus is not None:
-            data["thermostatSetpointStatus"] = thermostatSetpointStatus
+        if thermostat_setpoint_status is not None:
+            data["thermostatSetpointStatus"] = thermostat_setpoint_status
         elif device.changeableValues.thermostatSetpointStatus is not None:
             if device.changeableValues.thermostatSetpointStatus == "NoHold":
                 data["thermostatSetpointStatus"] = "TemporaryHold"
@@ -153,8 +155,8 @@ class Lyric(LyricBase):
                 )
 
         if data.get("thermostatSetpointStatus", "") == "HoldUntil":
-            if nextPeriodTime is not None:
-                data["nextPeriodTime"] = nextPeriodTime
+            if next_period_time is not None:
+                data["nextPeriodTime"] = next_period_time
             elif device.changeableValues.nextPeriodTime == "NoHold" and mode is None:
                 data["nextPeriodTime"] = "TemporaryHold"
             else:
@@ -181,7 +183,7 @@ class Lyric(LyricBase):
         if mode is not None:
             data["mode"] = mode
         else:
-            data["mode"] = device.fanMode
+            data["mode"] = device.settings.fanMode.fan
 
         self.logger.debug(data)
 
