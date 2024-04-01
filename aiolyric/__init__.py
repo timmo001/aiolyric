@@ -1,8 +1,8 @@
-"""Lyric: Init"""
-from typing import List
+"""Lyric: Init."""
 
 from aiohttp import ClientResponse
 
+from .client import LyricClient
 from .const import BASE_URL
 from .objects.base import LyricBase
 from .objects.device import LyricDevice
@@ -15,40 +15,46 @@ class Lyric(LyricBase):
 
     def __init__(
         self,
-        client: "LyricClient",
+        client: LyricClient,
         client_id: str,
     ) -> None:
         """Initialize the token manager class."""
         self._client = client
         self._client_id = client_id
-        self._devices: List[LyricDevice] = []
+        self._devices: list[LyricDevice] = []
         self._devices_dict: dict = {}
-        self._locations: List[LyricLocation] = []
+        self._locations: list[LyricLocation] = []
         self._locations_dict: dict = {}
         self._rooms_dict: dict = {}
 
     @property
     def client_id(self) -> str:
+        """Return the client id."""
         return self._client_id
 
     @property
-    def devices(self) -> List[LyricDevice]:
+    def devices(self) -> list[LyricDevice]:
+        """Return the devices."""
         return self._devices
 
     @property
     def devices_dict(self) -> dict:
+        """Return the devices dict."""
         return self._devices_dict
 
     @property
-    def locations(self) -> List[LyricLocation]:
+    def locations(self) -> list[LyricLocation]:
+        """Return the locations."""
         return self._locations
 
     @property
     def locations_dict(self) -> dict:
+        """Return the locations dict."""
         return self._locations_dict
 
     @property
     def rooms_dict(self) -> dict[str, dict[str, LyricRoom]]:
+        """Return the rooms dict."""
         return self._rooms_dict
 
     async def get_devices(
@@ -80,11 +86,7 @@ class Lyric(LyricBase):
         for location in self._locations:
             self._locations_dict[location.locationID] = location
 
-    async def get_thermostat_rooms(
-            self,
-            location_id: int,
-            device_id: str
-        ) -> None:
+    async def get_thermostat_rooms(self, location_id: int, device_id: str) -> None:
         """Get Priority, which contains accessory information."""
         response: ClientResponse = await self._client.get(
             f"{BASE_URL}/devices/thermostats/{device_id}/priority?apikey={self.client_id}&locationId={location_id}"
@@ -94,7 +96,9 @@ class Lyric(LyricBase):
 
         priority = LyricPriority(json)
 
-        macId = priority.deviceId   # device id in the priority payload refers to the mac address of the device
+        macId = (
+            priority.deviceId
+        )  # device id in the priority payload refers to the mac address of the device
         self._rooms_dict[macId]: dict = {}
 
         # add each room to the room dictionary. Rooms contain motion, temp, and humidity averages for all accessories in a room
@@ -144,9 +148,9 @@ class Lyric(LyricBase):
             if device.changeableValues.thermostatSetpointStatus == "NoHold":
                 data["thermostatSetpointStatus"] = "TemporaryHold"
             else:
-                data[
-                    "thermostatSetpointStatus"
-                ] = device.changeableValues.thermostatSetpointStatus
+                data["thermostatSetpointStatus"] = (
+                    device.changeableValues.thermostatSetpointStatus
+                )
 
         if data.get("thermostatSetpointStatus", "") == "HoldUntil":
             if nextPeriodTime is not None:

@@ -1,4 +1,4 @@
-"""Lyric: Exceptions"""
+"""Lyric: Exceptions."""
 
 
 class LyricException(BaseException):

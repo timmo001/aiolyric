@@ -1,4 +1,4 @@
-"""Lyric: Client"""
+"""Lyric: Client."""
 from abc import abstractmethod
 from asyncio import CancelledError, TimeoutError, get_event_loop
 import logging
