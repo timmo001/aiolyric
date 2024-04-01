@@ -1,4 +1,4 @@
-"""Lyric: Init."""
+"""Lyric."""
 
 import logging
 

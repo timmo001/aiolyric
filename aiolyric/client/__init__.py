@@ -1,19 +1,23 @@
 """Lyric: Client."""
+
 from abc import abstractmethod
-from asyncio import CancelledError, TimeoutError, get_event_loop
+import asyncio
 import logging
 
-from aiohttp import ClientError, ClientResponse, ClientSession
-import async_timeout
+from aiohttp import ClientResponse, ClientSession
 
 from ..exceptions import LyricAuthenticationException, LyricException
-from ..objects.base import LyricBaseObject
 
 
-class LyricClient(LyricBaseObject):
+class LyricClient:
     """Client to handle API calls."""
 
-    def __init__(self, session: ClientSession) -> None:
+    logger = logging.getLogger(__name__)
+
+    def __init__(
+        self,
+        session: ClientSession,
+    ) -> None:
         """Initialize the client."""
         self._session = session
 
@@ -21,16 +25,31 @@ class LyricClient(LyricBaseObject):
     async def async_get_access_token(self) -> str:
         """Return a valid access token."""
 
-    async def get(self, url: str, **kwargs) -> ClientResponse:
+    async def get(
+        self,
+        url: str,
+        **kwargs,
+    ) -> ClientResponse:
         """Make a GET request."""
         return await self.request("GET", url, **kwargs)
 
-    async def post(self, url: str, **kwargs) -> ClientResponse:
+    async def post(
+        self,
+        url: str,
+        **kwargs,
+    ) -> ClientResponse:
         """Make a POST request."""
-        return await self.request("POST", url, **kwargs)
+        return await self.request(
+            "POST",
+            url,
+            **kwargs,
+        )
 
     async def request(
-        self, method: str in ["GET", "POST"], url: str, **kwargs
+        self,
+        method: str,
+        url: str,
+        **kwargs,
     ) -> ClientResponse:
         """Make a request."""
         headers = kwargs.get("headers")
@@ -44,7 +63,7 @@ class LyricClient(LyricBaseObject):
         headers["Authorization"] = f"Bearer {access_token}"
         headers["Content-Type"] = "application/json"
 
-        async with async_timeout.timeout(20):
+        async with asyncio.timeout(20):
             response: ClientResponse = await self._session.request(
                 method,
                 url,
@@ -65,17 +84,16 @@ class LyricClient(LyricBaseObject):
                         "status": response.status,
                     }
                 )
-            else:
-                raise LyricException(
-                    {
-                        "request": {
-                            "method": method,
-                            "url": url,
-                            "headers": headers,
-                            **kwargs,
-                        },
-                        "response": await response.json(),
-                        "status": response.status,
-                    }
-                )
+            raise LyricException(
+                {
+                    "request": {
+                        "method": method,
+                        "url": url,
+                        "headers": headers,
+                        **kwargs,
+                    },
+                    "response": await response.json(),
+                    "status": response.status,
+                }
+            )
         return response
