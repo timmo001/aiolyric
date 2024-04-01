@@ -1,12 +1,16 @@
 """Tests for the location object."""
 
+from aiolyric.client import LyricClient
 from aiolyric.objects.location import LyricLocation
 
 
-def test_location(location_fixture_response: dict):
+def test_location(
+    location_fixture_response: dict,
+    lyric_client: LyricClient,
+):
     """Test location object."""
     obj = LyricLocation(
-        None,
+        lyric_client,
         location_fixture_response,
     )
     assert obj.locationID == location_fixture_response["locationID"]

@@ -81,20 +81,6 @@ class SettingsTemperaturemode(LyricBaseObject):
 class SettingsSpecialmode(LyricBaseObject):
     """Special mode."""
 
-    @property
-    def _(self):
-        """Return None."""
-        return None
-
-
-class SettingsFan(LyricBaseObject):
-    """Fan settings."""
-
-    @property
-    def fan(self):
-        """Return the fan settings."""
-        return self.attributes.get("fan", {})
-
 
 class Settings(LyricBaseObject):
     """Settings."""
@@ -132,16 +118,11 @@ class Settings(LyricBaseObject):
     @property
     def fanMode(self):
         """Return the fan mode."""
-        return SettingsFan(self.attributes.get("mode", None))
+        return self.attributes.get("mode", None)
 
 
 class Devicesettings(LyricBaseObject):
     """Device settings."""
-
-    @property
-    def _(self):
-        """Return None."""
-        return None
 
 
 class Service(LyricBaseObject):

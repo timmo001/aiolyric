@@ -1,14 +1,15 @@
 """Test device object."""
 
-from aiolyric.objects.device import LyricDevice
+from aiolyric.client import LyricClient
+from aiolyric.objects.device import LyricDevice, SettingsSpecialmode
 
 
-def test_device(device_fixture_response: dict):
+def test_device(
+    device_fixture_response: dict,
+    lyric_client: LyricClient,
+):
     """Test device object."""
-    obj = LyricDevice(
-        None,
-        device_fixture_response,
-    )
+    obj = LyricDevice(lyric_client, device_fixture_response)
     assert obj.locationID == device_fixture_response["locationID"]
     assert (
         obj.displayedOutdoorHumidity
@@ -55,6 +56,7 @@ def test_device(device_fixture_response: dict):
         obj.settings.temperatureMode.air
         == device_fixture_response["settings"]["temperatureMode"]["air"]
     )
+    assert isinstance(obj.settings.specialMode, SettingsSpecialmode)
     assert (
         obj.settings.devicePairingEnabled
         == device_fixture_response["settings"]["devicePairingEnabled"]
