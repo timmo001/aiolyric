@@ -1,4 +1,5 @@
 """Lyric location."""
+# pylint: disable=invalid-name
 
 from typing import List
 

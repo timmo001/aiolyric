@@ -1,4 +1,5 @@
 """Lyric device."""
+# pylint: disable=invalid-name
 
 from .base import LyricBaseClient, LyricBaseObject
 

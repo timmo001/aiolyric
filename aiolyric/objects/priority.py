@@ -1,4 +1,5 @@
 """Lyric priority."""
+# pylint: disable=invalid-name
 
 from .base import LyricBaseObject
 
