@@ -1,8 +1,6 @@
 """Lyric location."""
 # pylint: disable=invalid-name
 
-from typing import List
-
 from .base import LyricBaseClient, LyricBaseObject
 from .device import LyricDevice
 
@@ -183,7 +181,7 @@ class LyricLocation(LyricBaseClient):
         return self.attributes.get("zipcode", None)
 
     @property
-    def devices(self) -> List[LyricDevice]:
+    def devices(self) -> list[LyricDevice]:
         """The devices associated with the location."""
         devices = []
         for x in self.attributes.get("devices", []):
