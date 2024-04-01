@@ -1,15 +1,14 @@
 """Lyric location."""
-# pylint: disable=invalid-name
 
 from .base import LyricBaseClient, LyricBaseObject
 from .device import LyricDevice
 
 
-class Locationrolemapping(LyricBaseObject):
+class LocationRoleMapping(LyricBaseObject):
     """Represents a location role mapping."""
 
     @property
-    def locationID(self):
+    def location_id(self):
         """The ID of the location."""
         return self.attributes.get("locationID", None)
 
@@ -19,7 +18,7 @@ class Locationrolemapping(LyricBaseObject):
         return self.attributes.get("role", None)
 
     @property
-    def locationName(self):
+    def location_name(self):
         """The name of the location."""
         return self.attributes.get("locationName", None)
 
@@ -29,11 +28,11 @@ class Locationrolemapping(LyricBaseObject):
         return self.attributes.get("status", None)
 
 
-class Users(LyricBaseObject):
+class User(LyricBaseObject):
     """Represents a user."""
 
     @property
-    def userID(self):
+    def user_id(self):
         """The ID of the user."""
         return self.attributes.get("userID", None)
 
@@ -43,12 +42,12 @@ class Users(LyricBaseObject):
         return self.attributes.get("username", None)
 
     @property
-    def firstname(self):
+    def first_name(self):
         """The first name of the user."""
         return self.attributes.get("firstname", None)
 
     @property
-    def lastname(self):
+    def last_name(self):
         """The last name of the user."""
         return self.attributes.get("lastname", None)
 
@@ -68,25 +67,25 @@ class Users(LyricBaseObject):
         return self.attributes.get("activated", True)
 
     @property
-    def connectedHomeAccountExists(self):
+    def connected_home_account_exists(self):
         """Whether a connected home account exists for the user."""
         return self.attributes.get("connectedHomeAccountExists", True)
 
     @property
-    def locationRoleMapping(self):
+    def location_role_mapping(self):
         """The location role mappings of the user."""
         return [
-            Locationrolemapping(x)
+            LocationRoleMapping(x)
             for x in self.attributes.get("locationRoleMapping", [])
         ]
 
     @property
-    def isOptOut(self):
+    def is_opt_out(self):
         """Whether the user has opted out."""
         return self.attributes.get("isOptOut", None)
 
     @property
-    def isCurrentUser(self):
+    def is_current_user(self):
         """Whether the user is the current user."""
         return self.attributes.get("isCurrentUser", True)
 
@@ -119,7 +118,7 @@ class Schedules(LyricBaseObject):
         return self.attributes.get("days", [])
 
 
-class ConfigurationFacerecognition(LyricBaseObject):
+class ConfigurationFaceRecognition(LyricBaseObject):
     """Represents the face recognition configuration."""
 
     @property
@@ -128,17 +127,17 @@ class ConfigurationFacerecognition(LyricBaseObject):
         return self.attributes.get("enabled", False)
 
     @property
-    def maxPersons(self):
+    def max_persons(self):
         """The maximum number of persons for face recognition."""
         return self.attributes.get("maxPersons", None)
 
     @property
-    def maxEtas(self):
+    def max_etas(self):
         """The maximum number of ETAs for face recognition."""
         return self.attributes.get("maxEtas", None)
 
     @property
-    def maxEtaPersons(self):
+    def max_eta_persons(self):
         """The maximum number of ETA persons for face recognition."""
         return self.attributes.get("maxEtaPersons", None)
 
@@ -152,16 +151,16 @@ class Configuration(LyricBaseObject):
     """Represents the configuration of a location."""
 
     @property
-    def faceRecognition(self):
+    def face_recognition(self):
         """The face recognition configuration."""
-        return ConfigurationFacerecognition(self.attributes.get("faceRecognition", {}))
+        return ConfigurationFaceRecognition(self.attributes.get("faceRecognition", {}))
 
 
 class LyricLocation(LyricBaseClient):
     """Represents a Lyric location."""
 
     @property
-    def locationID(self):
+    def location_id(self):
         """The ID of the location."""
         return self.attributes.get("locationID", None)
 
@@ -185,7 +184,7 @@ class LyricLocation(LyricBaseClient):
         """The devices associated with the location."""
         devices = []
         for x in self.attributes.get("devices", []):
-            x["locationID"] = self.locationID
+            x["locationID"] = self.location_id
             devices.append(LyricDevice(self.client, x))
         return devices
 
@@ -194,51 +193,51 @@ class LyricLocation(LyricBaseClient):
         """A dictionary of devices associated with the location."""
         devices_dict: dict = {}
         for device in self.devices:
-            devices_dict[device.macID] = device
+            devices_dict[device.mac_id] = device
         return devices_dict
 
     @property
     def users(self):
         """The users associated with the location."""
-        return [Users(x) for x in self.attributes.get("users", [])]
+        return [User(x) for x in self.attributes.get("users", [])]
 
     @property
-    def timeZone(self):
+    def time_zone(self):
         """The timezone of the location."""
         return self.attributes.get("timeZone", None)
 
     @property
-    def ianaTimeZone(self):
+    def iana_time_zone(self):
         """The IANA timezone of the location."""
         return self.attributes.get("ianaTimeZone", None)
 
     @property
-    def daylightSavingTimeEnabled(self):
+    def daylight_saving_time_enabled(self):
         """Whether daylight saving time is enabled for the location."""
         return self.attributes.get("daylightSavingTimeEnabled", True)
 
     @property
-    def geoFenceEnabled(self):
+    def geo_fence_enabled(self):
         """Whether geofencing is enabled for the location."""
         return self.attributes.get("geoFenceEnabled", False)
 
     @property
-    def predictiveAIREnabled(self):
-        """Whether predictive AI is enabled for the location."""
+    def predictive_air_enabled(self):
+        """Whether predictive air is enabled for the location."""
         return self.attributes.get("predictiveAIREnabled", False)
 
     @property
-    def comfortLevel(self):
+    def comfort_level(self):
         """The comfort level of the location."""
         return self.attributes.get("comfortLevel", None)
 
     @property
-    def geoFenceNotificationEnabled(self):
+    def geo_fence_notification_enabled(self):
         """Whether geofence notifications are enabled for the location."""
         return self.attributes.get("geoFenceNotificationEnabled", False)
 
     @property
-    def geoFenceNotificationTypeId(self):
+    def geo_fence_notification_type_id(self):
         """The ID of the geofence notification type for the location."""
         return self.attributes.get("geoFenceNotificationTypeId", None)
 

@@ -1,7 +1,7 @@
 """Test device object."""
 
 from aiolyric.client import LyricClient
-from aiolyric.objects.device import Devicesettings, LyricDevice, SettingsSpecialmode
+from aiolyric.objects.device import DeviceSettings, LyricDevice, SettingsSpecialMode
 
 
 def test_device(
@@ -10,131 +10,137 @@ def test_device(
 ):
     """Test device object."""
     obj = LyricDevice(lyric_client, device_fixture_response)
-    assert obj.locationID == device_fixture_response["locationID"]
-    assert obj.indoorHumidity == device_fixture_response["indoorHumidity"]
+    assert obj.location_id == device_fixture_response["locationID"]
+    assert obj.indoor_humidity == device_fixture_response["indoorHumidity"]
     assert (
-        obj.displayedOutdoorHumidity
+        obj.displayed_outdoor_humidity
         == device_fixture_response["displayedOutdoorHumidity"]
     )
     assert (
-        obj.vacationHold.enabled == device_fixture_response["vacationHold"]["enabled"]
+        obj.vacation_hold.enabled == device_fixture_response["vacationHold"]["enabled"]
     )
     assert (
-        obj.currentSchedulePeriod.day
+        obj.current_schedule_period.day
         == device_fixture_response["currentSchedulePeriod"]["day"]
     )
     assert (
-        obj.currentSchedulePeriod.period
+        obj.current_schedule_period.period
         == device_fixture_response["currentSchedulePeriod"]["period"]
     )
     assert (
-        obj.scheduleCapabilities.availableScheduleTypes[0]
+        obj.schedule_capabilities.available_schedule_types[0]
         == device_fixture_response["scheduleCapabilities"]["availableScheduleTypes"][0]
     )
     assert (
-        obj.scheduleCapabilities.schedulableFan
+        obj.schedule_capabilities.schedulable_fan
         == device_fixture_response["scheduleCapabilities"]["schedulableFan"]
     )
     assert (
-        obj.scheduleType.scheduleType
+        obj.schedule_type.schedule_type
         == device_fixture_response["scheduleType"]["scheduleType"]
     )
     assert (
-        obj.scheduleType.scheduleSubType
+        obj.schedule_type.schedule_sub_type
         == device_fixture_response["scheduleType"]["scheduleSubType"]
     )
-    assert obj.scheduleStatus == device_fixture_response["scheduleStatus"]
-    assert obj.allowedTimeIncrements == device_fixture_response["allowedTimeIncrements"]
+    assert obj.schedule_status == device_fixture_response["scheduleStatus"]
     assert (
-        obj.settings.hardwareSettings.brightness
+        obj.allowed_time_increments == device_fixture_response["allowedTimeIncrements"]
+    )
+    assert (
+        obj.settings.hardware_settings.brightness
         == device_fixture_response["settings"]["hardwareSettings"]["brightness"]
     )
     assert (
-        obj.settings.hardwareSettings.maxBrightness
+        obj.settings.hardware_settings.max_brightness
         == device_fixture_response["settings"]["hardwareSettings"]["maxBrightness"]
     )
     assert (
-        obj.settings.temperatureMode.air
+        obj.settings.temperature_mode.air
         == device_fixture_response["settings"]["temperatureMode"]["air"]
     )
-    assert isinstance(obj.settings.specialMode, SettingsSpecialmode)
+    assert isinstance(obj.settings.special_mode, SettingsSpecialMode)
     assert (
-        obj.settings.devicePairingEnabled
+        obj.settings.device_pairing_enabled
         == device_fixture_response["settings"]["devicePairingEnabled"]
     )
-    assert obj.deviceClass == device_fixture_response["deviceClass"]
-    assert obj.deviceType == device_fixture_response["deviceType"]
-    assert obj.deviceID == device_fixture_response["deviceID"]
+    assert obj.device_class == device_fixture_response["deviceClass"]
+    assert obj.device_type == device_fixture_response["deviceType"]
+    assert obj.device_id == device_fixture_response["deviceID"]
     assert obj.name == device_fixture_response["name"]
-    assert obj.isAlive == device_fixture_response["isAlive"]
-    assert obj.isUpgrading == device_fixture_response["isUpgrading"]
-    assert obj.isProvisioned == device_fixture_response["isProvisioned"]
-    assert obj.macID == device_fixture_response["macID"]
-    assert isinstance(obj.deviceSettings, Devicesettings)
+    assert obj.is_alive == device_fixture_response["isAlive"]
+    assert obj.is_upgrading == device_fixture_response["isUpgrading"]
+    assert obj.is_provisioned == device_fixture_response["isProvisioned"]
+    assert obj.mac_id == device_fixture_response["macID"]
+    assert isinstance(obj.device_settings, DeviceSettings)
     assert obj.service.mode == device_fixture_response["service"]["mode"]
     assert (
-        obj.deviceRegistrationDate == device_fixture_response["deviceRegistrationDate"]
+        obj.device_registration_date
+        == device_fixture_response["deviceRegistrationDate"]
     )
-    assert obj.dataSyncStatus == device_fixture_response["dataSyncStatus"]
+    assert obj.data_sync_status == device_fixture_response["dataSyncStatus"]
     assert obj.units == device_fixture_response["units"]
-    assert obj.indoorTemperature == device_fixture_response["indoorTemperature"]
-    assert obj.outdoorTemperature == device_fixture_response["outdoorTemperature"]
-    assert obj.allowedModes[0] == device_fixture_response["allowedModes"][0]
+    assert obj.indoor_temperature == device_fixture_response["indoorTemperature"]
+    assert obj.outdoor_temperature == device_fixture_response["outdoorTemperature"]
+    assert obj.allowed_modes[0] == device_fixture_response["allowedModes"][0]
     assert obj.deadband == device_fixture_response["deadband"]
-    assert obj.hasDualSetpointStatus == device_fixture_response["hasDualSetpointStatus"]
-    assert obj.minHeatSetpoint == device_fixture_response["minHeatSetpoint"]
-    assert obj.maxHeatSetpoint == device_fixture_response["maxHeatSetpoint"]
-    assert obj.minCoolSetpoint == device_fixture_response["minCoolSetpoint"]
-    assert obj.maxCoolSetpoint == device_fixture_response["maxCoolSetpoint"]
     assert (
-        obj.changeableValues.autoChangeoverActive
+        obj.has_dual_setpoint_status == device_fixture_response["hasDualSetpointStatus"]
+    )
+    assert obj.min_heat_setpoint == device_fixture_response["minHeatSetpoint"]
+    assert obj.max_heat_setpoint == device_fixture_response["maxHeatSetpoint"]
+    assert obj.min_cool_setpoint == device_fixture_response["minCoolSetpoint"]
+    assert obj.max_cool_setpoint == device_fixture_response["maxCoolSetpoint"]
+    assert (
+        obj.changeable_values.auto_changeover_active
         == device_fixture_response["changeableValues"]["autoChangeoverActive"]
     )
     assert (
-        obj.changeableValues.emergencyHeatActive
+        obj.changeable_values.emergency_heat_active
         == device_fixture_response["changeableValues"]["emergencyHeatActive"]
     )
     assert (
-        obj.changeableValues.mode == device_fixture_response["changeableValues"]["mode"]
+        obj.changeable_values.mode
+        == device_fixture_response["changeableValues"]["mode"]
     )
     assert (
-        obj.changeableValues.heatSetpoint
+        obj.changeable_values.heat_setpoint
         == device_fixture_response["changeableValues"]["heatSetpoint"]
     )
     assert (
-        obj.changeableValues.coolSetpoint
+        obj.changeable_values.cool_setpoint
         == device_fixture_response["changeableValues"]["coolSetpoint"]
     )
     assert (
-        obj.changeableValues.thermostatSetpointStatus
+        obj.changeable_values.thermostat_setpoint_status
         == device_fixture_response["changeableValues"]["thermostatSetpointStatus"]
     )
     assert (
-        obj.changeableValues.nextPeriodTime
+        obj.changeable_values.next_period_time
         == device_fixture_response["changeableValues"]["nextPeriodTime"]
     )
     assert (
-        obj.changeableValues.heatCoolMode
+        obj.changeable_values.heat_cool_mode
         == device_fixture_response["changeableValues"]["heatCoolMode"]
     )
     assert (
-        obj.changeableValues.endHeatSetpoint
+        obj.changeable_values.end_heat_setpoint
         == device_fixture_response["changeableValues"]["endHeatSetpoint"]
     )
     assert (
-        obj.changeableValues.endCoolSetpoint
+        obj.changeable_values.end_cool_setpoint
         == device_fixture_response["changeableValues"]["endCoolSetpoint"]
     )
     assert (
-        obj.operationStatus.mode == device_fixture_response["operationStatus"]["mode"]
+        obj.operation_status.mode == device_fixture_response["operationStatus"]["mode"]
     )
     assert (
-        obj.operationStatus.fanRequest
+        obj.operation_status.fan_request
         == device_fixture_response["operationStatus"]["fanRequest"]
     )
     assert (
-        obj.operationStatus.circulationFanRequest
+        obj.operation_status.circulation_fan_request
         == device_fixture_response["operationStatus"]["circulationFanRequest"]
     )
-    assert obj.deviceModel == device_fixture_response["deviceModel"]
-    assert obj.fanMode == device_fixture_response["fanMode"]
+    assert obj.device_model == device_fixture_response["deviceModel"]
+    assert obj.fan_mode == device_fixture_response["fanMode"]

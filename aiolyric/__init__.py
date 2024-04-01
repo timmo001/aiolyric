@@ -73,7 +73,7 @@ class Lyric:
         self._devices = [LyricDevice(self._client, device) for device in json or []]
         self._devices_dict: dict = {}
         for device in self._devices:
-            self._devices_dict[device.macID] = device
+            self._devices_dict[device.mac_id] = device
 
     async def get_locations(self) -> None:
         """Get Locations."""
@@ -87,7 +87,7 @@ class Lyric:
         ]
         self._locations_dict: dict = {}
         for location in self._locations:
-            self._locations_dict[location.locationID] = location
+            self._locations_dict[location.location_id] = location
 
     async def get_thermostat_rooms(
         self,
@@ -104,11 +104,11 @@ class Lyric:
         priority = LyricPriority(json)
 
         # device id in the priority payload refers to the mac address of the device
-        mac_id = priority.deviceId
+        mac_id = priority.device_id
         self._rooms_dict[mac_id] = {}
 
         # add each room to the room dictionary. Rooms contain motion, temp, and humidity averages for all accessories in a room
-        for room in priority.currentPriority.rooms:
+        for room in priority.current_priority.rooms:
             self._rooms_dict[mac_id][room.id] = room
 
     async def update_thermostat(
@@ -130,46 +130,48 @@ class Lyric:
         if mode is not None:
             data["mode"] = mode
         else:
-            data["mode"] = device.changeableValues.mode
+            data["mode"] = device.changeable_values.mode
 
         if heat_setpoint is not None:
             data["heatSetpoint"] = heat_setpoint
         else:
-            data["heatSetpoint"] = device.changeableValues.heatSetpoint
+            data["heatSetpoint"] = device.changeable_values.heat_setpoint
         if cool_setpoint is not None:
             data["coolSetpoint"] = cool_setpoint
         else:
-            data["coolSetpoint"] = device.changeableValues.coolSetpoint
+            data["coolSetpoint"] = device.changeable_values.cool_setpoint
 
         # Only for TCC devices
         if auto_changeover_active is not None:
             data["autoChangeoverActive"] = auto_changeover_active
-        elif device.changeableValues.autoChangeoverActive is not None:
-            data["autoChangeoverActive"] = device.changeableValues.autoChangeoverActive
+        elif device.changeable_values.auto_changeover_active is not None:
+            data["autoChangeoverActive"] = (
+                device.changeable_values.auto_changeover_active
+            )
 
         # Only for LCC devices
         if thermostat_setpoint_status is not None:
             data["thermostatSetpointStatus"] = thermostat_setpoint_status
-        elif device.changeableValues.thermostatSetpointStatus is not None:
-            if device.changeableValues.thermostatSetpointStatus == "NoHold":
+        elif device.changeable_values.thermostat_setpoint_status is not None:
+            if device.changeable_values.thermostat_setpoint_status == "NoHold":
                 data["thermostatSetpointStatus"] = "TemporaryHold"
             else:
                 data["thermostatSetpointStatus"] = (
-                    device.changeableValues.thermostatSetpointStatus
+                    device.changeable_values.thermostat_setpoint_status
                 )
 
         if data.get("thermostatSetpointStatus", "") == "HoldUntil":
             if next_period_time is not None:
                 data["nextPeriodTime"] = next_period_time
-            elif device.changeableValues.nextPeriodTime == "NoHold" and mode is None:
+            elif device.changeable_values.next_period_time == "NoHold" and mode is None:
                 data["nextPeriodTime"] = "TemporaryHold"
             else:
-                data["nextPeriodTime"] = device.changeableValues.nextPeriodTime
+                data["nextPeriodTime"] = device.changeable_values.next_period_time
 
         self.logger.debug(data)
 
         return await self._client.post(
-            f"{BASE_URL}/devices/thermostats/{device.deviceID}?apikey={self._client_id}&locationId={location.locationID}",
+            f"{BASE_URL}/devices/thermostats/{device.device_id}?apikey={self._client_id}&locationId={location.location_id}",
             json=data,
         )
 
@@ -187,6 +189,6 @@ class Lyric:
         self.logger.debug(data)
 
         return await self._client.post(
-            f"{BASE_URL}/devices/thermostats/{device.deviceID}/fan?apikey={self._client_id}&locationId={location.locationID}",
+            f"{BASE_URL}/devices/thermostats/{device.device_id}/fan?apikey={self._client_id}&locationId={location.location_id}",
             json=data,
         )
