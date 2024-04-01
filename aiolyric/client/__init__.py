@@ -1,13 +1,13 @@
 """Lyric: Client"""
-import async_timeout
-import logging
-
 from abc import abstractmethod
 from asyncio import CancelledError, TimeoutError, get_event_loop
-from aiohttp import ClientError, ClientSession, ClientResponse
+import logging
 
+from aiohttp import ClientError, ClientResponse, ClientSession
+import async_timeout
+
+from ..exceptions import LyricAuthenticationException, LyricException
 from ..objects.base import LyricBase
-from ..exceptions import LyricException, LyricAuthenticationException
 
 
 class LyricClient(LyricBase):

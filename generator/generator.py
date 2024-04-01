@@ -1,7 +1,7 @@
-import json
-import re
-import os
 from datetime import datetime
+import json
+import os
+import re
 
 DATE = datetime.now()
 
@@ -63,7 +63,7 @@ INHERIT = []
 
 
 def get_input():
-    with open("generator/input.json", "r") as inputdata:
+    with open("generator/input.json") as inputdata:
         return json.loads(inputdata.read())
 
 

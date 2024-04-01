@@ -25,7 +25,7 @@ class Lyric(LyricBase):
         self._devices_dict: dict = {}
         self._locations: List[LyricLocation] = []
         self._locations_dict: dict = {}
-        self._rooms_dict: dict = {}    
+        self._rooms_dict: dict = {}
 
     @property
     def client_id(self) -> str:
@@ -91,12 +91,12 @@ class Lyric(LyricBase):
         )
         json = await response.json()
         self.logger.debug(json)
-        
+
         priority = LyricPriority(json)
 
         macId = priority.deviceId   # device id in the priority payload refers to the mac address of the device
         self._rooms_dict[macId]: dict = {}
-        
+
         # add each room to the room dictionary. Rooms contain motion, temp, and humidity averages for all accessories in a room
         for room in priority.currentPriority.rooms:
             self._rooms_dict[macId][room.id] = room
