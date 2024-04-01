@@ -1,4 +1,4 @@
-"""Tests for the location object"""
+"""Tests for the location object."""
 
 from aiolyric.objects.location import LyricLocation
 
