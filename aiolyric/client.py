@@ -6,7 +6,7 @@ import logging
 
 from aiohttp import ClientResponse, ClientSession
 
-from ..exceptions import LyricAuthenticationException, LyricException
+from .exceptions import LyricAuthenticationException, LyricException
 
 
 class LyricClient:
