@@ -50,6 +50,7 @@ def device_fixture_response() -> dict:
     """Return a fixture response for a device."""
     return {
         "locationID": 123456,
+        "indoorHumidity": 51,
         "displayedOutdoorHumidity": 51,
         "vacationHold": {"enabled": False},
         "currentSchedulePeriod": {"day": "Monday", "period": "P2"},
@@ -90,13 +91,15 @@ def device_fixture_response() -> dict:
         "maxCoolSetpoint": -18,
         "changeableValues": {
             "mode": "Heat",
+            "autoChangeoverActive": False,
+            "emergencyHeatActive": False,
             "heatSetpoint": 15,
             "coolSetpoint": 28,
             "thermostatSetpointStatus": "NoHold",
             "nextPeriodTime": "19:00:00",
+            "endHeatSetpoint": 62,
+            "endCoolSetpoint": 85,
             "heatCoolMode": "Heat",
-            "endHeatSetpoint": None,
-            "endCoolSetpoint": None,
         },
         "operationStatus": {
             "mode": "EquipmentOff",
@@ -104,6 +107,7 @@ def device_fixture_response() -> dict:
             "circulationFanRequest": False,
         },
         "deviceModel": "T5-T6",
+        "fanMode": "Auto",
     }
 
 

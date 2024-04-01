@@ -183,7 +183,7 @@ class Lyric:
         if mode is not None:
             data["mode"] = mode
         else:
-            data["mode"] = device.settings.fanMode.fan
+            data["mode"] = device.fanMode
 
         self.logger.debug(data)
 
