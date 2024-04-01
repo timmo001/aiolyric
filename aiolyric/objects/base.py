@@ -1,21 +1,31 @@
-"""Lyric: Base"""
+"""Lyric base."""
+
 import logging
 
+from ..client import LyricClient
 
-class LyricBase:
+
+class LyricBaseObject:
     """Base class for Lyric."""
 
     logger = logging.getLogger(__name__)
 
-    def __init__(self, attributes) -> None:
+    def __init__(
+        self,
+        attributes: dict,
+    ) -> None:
         """Initialize."""
         self.attributes = attributes
 
 
-class LyricBaseClient(LyricBase):
+class LyricBaseClient(LyricBaseObject):
     """Base class for Lyric."""
 
-    def __init__(self, client: "AIOGitHubAPIClient", attributes: dict) -> None:
+    def __init__(
+        self,
+        client: LyricClient,
+        attributes: dict,
+    ) -> None:
         """Initialise."""
         super().__init__(attributes)
         self.client = client

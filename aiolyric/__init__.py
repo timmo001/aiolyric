@@ -1,54 +1,63 @@
-"""Lyric: Init"""
-from typing import List
+"""Lyric."""
+
+import logging
 
 from aiohttp import ClientResponse
 
+from .client import LyricClient
 from .const import BASE_URL
-from .objects.base import LyricBase
 from .objects.device import LyricDevice
 from .objects.location import LyricLocation
 from .objects.priority import LyricPriority, LyricRoom
 
 
-class Lyric(LyricBase):
+class Lyric:
     """Handles authentication refresh tokens."""
+
+    logger = logging.getLogger(__name__)
 
     def __init__(
         self,
-        client: "LyricClient",
+        client: LyricClient,
         client_id: str,
     ) -> None:
         """Initialize the token manager class."""
         self._client = client
         self._client_id = client_id
-        self._devices: List[LyricDevice] = []
+        self._devices: list[LyricDevice] = []
         self._devices_dict: dict = {}
-        self._locations: List[LyricLocation] = []
+        self._locations: list[LyricLocation] = []
         self._locations_dict: dict = {}
         self._rooms_dict: dict = {}
 
     @property
     def client_id(self) -> str:
+        """Return the client id."""
         return self._client_id
 
     @property
-    def devices(self) -> List[LyricDevice]:
+    def devices(self) -> list[LyricDevice]:
+        """Return the devices."""
         return self._devices
 
     @property
     def devices_dict(self) -> dict:
+        """Return the devices dict."""
         return self._devices_dict
 
     @property
-    def locations(self) -> List[LyricLocation]:
+    def locations(self) -> list[LyricLocation]:
+        """Return the locations."""
         return self._locations
 
     @property
     def locations_dict(self) -> dict:
+        """Return the locations dict."""
         return self._locations_dict
 
     @property
     def rooms_dict(self) -> dict[str, dict[str, LyricRoom]]:
+        """Return the rooms dict."""
         return self._rooms_dict
 
     async def get_devices(
@@ -80,11 +89,7 @@ class Lyric(LyricBase):
         for location in self._locations:
             self._locations_dict[location.locationID] = location
 
-    async def get_thermostat_rooms(
-            self,
-            location_id: int,
-            device_id: str
-        ) -> None:
+    async def get_thermostat_rooms(self, location_id: int, device_id: str) -> None:
         """Get Priority, which contains accessory information."""
         response: ClientResponse = await self._client.get(
             f"{BASE_URL}/devices/thermostats/{device_id}/priority?apikey={self.client_id}&locationId={location_id}"
@@ -94,23 +99,24 @@ class Lyric(LyricBase):
 
         priority = LyricPriority(json)
 
-        macId = priority.deviceId   # device id in the priority payload refers to the mac address of the device
-        self._rooms_dict[macId]: dict = {}
+        # device id in the priority payload refers to the mac address of the device
+        mac_id = priority.deviceId
+        self._rooms_dict[mac_id] = {}
 
         # add each room to the room dictionary. Rooms contain motion, temp, and humidity averages for all accessories in a room
         for room in priority.currentPriority.rooms:
-            self._rooms_dict[macId][room.id] = room
+            self._rooms_dict[mac_id][room.id] = room
 
     async def update_thermostat(
         self,
         location: LyricLocation,
         device: LyricDevice,
         mode=None,
-        heatSetpoint=None,
-        coolSetpoint=None,
-        autoChangeoverActive=None,
-        thermostatSetpointStatus=None,
-        nextPeriodTime=None,
+        heat_setpoint=None,
+        cool_setpoint=None,
+        auto_changeover_active=None,
+        thermostat_setpoint_status=None,
+        next_period_time=None,
     ) -> ClientResponse:
         """Update Theremostat."""
         self.logger.debug("Update Thermostat")
@@ -122,35 +128,35 @@ class Lyric(LyricBase):
         else:
             data["mode"] = device.changeableValues.mode
 
-        if heatSetpoint is not None:
-            data["heatSetpoint"] = heatSetpoint
+        if heat_setpoint is not None:
+            data["heatSetpoint"] = heat_setpoint
         else:
             data["heatSetpoint"] = device.changeableValues.heatSetpoint
-        if coolSetpoint is not None:
-            data["coolSetpoint"] = coolSetpoint
+        if cool_setpoint is not None:
+            data["coolSetpoint"] = cool_setpoint
         else:
             data["coolSetpoint"] = device.changeableValues.coolSetpoint
 
         # Only for TCC devices
-        if autoChangeoverActive is not None:
-            data["autoChangeoverActive"] = autoChangeoverActive
+        if auto_changeover_active is not None:
+            data["autoChangeoverActive"] = auto_changeover_active
         elif device.changeableValues.autoChangeoverActive is not None:
             data["autoChangeoverActive"] = device.changeableValues.autoChangeoverActive
 
         # Only for LCC devices
-        if thermostatSetpointStatus is not None:
-            data["thermostatSetpointStatus"] = thermostatSetpointStatus
+        if thermostat_setpoint_status is not None:
+            data["thermostatSetpointStatus"] = thermostat_setpoint_status
         elif device.changeableValues.thermostatSetpointStatus is not None:
             if device.changeableValues.thermostatSetpointStatus == "NoHold":
                 data["thermostatSetpointStatus"] = "TemporaryHold"
             else:
-                data[
-                    "thermostatSetpointStatus"
-                ] = device.changeableValues.thermostatSetpointStatus
+                data["thermostatSetpointStatus"] = (
+                    device.changeableValues.thermostatSetpointStatus
+                )
 
         if data.get("thermostatSetpointStatus", "") == "HoldUntil":
-            if nextPeriodTime is not None:
-                data["nextPeriodTime"] = nextPeriodTime
+            if next_period_time is not None:
+                data["nextPeriodTime"] = next_period_time
             elif device.changeableValues.nextPeriodTime == "NoHold" and mode is None:
                 data["nextPeriodTime"] = "TemporaryHold"
             else:
@@ -177,7 +183,7 @@ class Lyric(LyricBase):
         if mode is not None:
             data["mode"] = mode
         else:
-            data["mode"] = device.fanMode
+            data["mode"] = device.settings.fanMode.fan
 
         self.logger.debug(data)
 

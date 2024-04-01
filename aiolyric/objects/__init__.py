@@ -1,1 +1,1 @@
-"""Lyric: Objects"""
+"""Lyric objects."""
