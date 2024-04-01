@@ -3,7 +3,7 @@
 from aiolyric.objects.location import LyricLocation
 
 
-def test_location(location_fixture_response):
+def test_location(location_fixture_response: dict):
     """Test location object."""
     obj = LyricLocation(
         None,

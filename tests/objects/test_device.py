@@ -3,7 +3,7 @@
 from aiolyric.objects.device import LyricDevice
 
 
-def test_device(device_fixture_response):
+def test_device(device_fixture_response: dict):
     """Test device object."""
     obj = LyricDevice(
         None,

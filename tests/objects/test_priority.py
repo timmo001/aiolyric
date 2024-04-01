@@ -3,7 +3,7 @@
 from aiolyric.objects.priority import LyricPriority
 
 
-def test_priority(priority_fixture_response):
+def test_priority(priority_fixture_response: dict):
     """Test priority object."""
     obj = LyricPriority(priority_fixture_response)
     assert obj.deviceId == priority_fixture_response["deviceId"]
