@@ -1,4 +1,4 @@
-"""Test the http client module."""
+"""Test the lytic client module."""
 
 from aioresponses import aioresponses
 import pytest

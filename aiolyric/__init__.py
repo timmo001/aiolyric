@@ -89,7 +89,11 @@ class Lyric:
         for location in self._locations:
             self._locations_dict[location.locationID] = location
 
-    async def get_thermostat_rooms(self, location_id: int, device_id: str) -> None:
+    async def get_thermostat_rooms(
+        self,
+        location_id: int,
+        device_id: str,
+    ) -> None:
         """Get Priority, which contains accessory information."""
         response: ClientResponse = await self._client.get(
             f"{BASE_URL}/devices/thermostats/{device_id}/priority?apikey={self.client_id}&locationId={location_id}"
@@ -111,12 +115,12 @@ class Lyric:
         self,
         location: LyricLocation,
         device: LyricDevice,
-        mode=None,
-        heat_setpoint=None,
-        cool_setpoint=None,
-        auto_changeover_active=None,
-        thermostat_setpoint_status=None,
-        next_period_time=None,
+        mode: str | None = None,
+        heat_setpoint: int | float | None = None,
+        cool_setpoint: int | float | None = None,
+        auto_changeover_active: bool | None = None,
+        thermostat_setpoint_status: str | None = None,
+        next_period_time: str | None = None,
     ) -> ClientResponse:
         """Update Theremostat."""
         self.logger.debug("Update Thermostat")
