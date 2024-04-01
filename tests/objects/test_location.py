@@ -1,18 +1,23 @@
 """Tests for the location object."""
 
+from aiolyric.client import LyricClient
 from aiolyric.objects.location import LyricLocation
 
 
-def test_location(location_fixture_response):
+def test_location(
+    location_fixture_response: dict,
+    lyric_client: LyricClient,
+):
     """Test location object."""
     obj = LyricLocation(
-        None,
+        lyric_client,
         location_fixture_response,
     )
     assert obj.locationID == location_fixture_response["locationID"]
     assert obj.name == location_fixture_response["name"]
     assert obj.country == location_fixture_response["country"]
     assert obj.zipcode == location_fixture_response["zipcode"]
+    assert isinstance(obj.devices_dict, dict)
     assert (
         obj.devices[0].displayedOutdoorHumidity
         == location_fixture_response["devices"][0]["displayedOutdoorHumidity"]

@@ -1,15 +1,17 @@
 """Test device object."""
 
-from aiolyric.objects.device import LyricDevice
+from aiolyric.client import LyricClient
+from aiolyric.objects.device import Devicesettings, LyricDevice, SettingsSpecialmode
 
 
-def test_device(device_fixture_response):
+def test_device(
+    device_fixture_response: dict,
+    lyric_client: LyricClient,
+):
     """Test device object."""
-    obj = LyricDevice(
-        None,
-        device_fixture_response,
-    )
+    obj = LyricDevice(lyric_client, device_fixture_response)
     assert obj.locationID == device_fixture_response["locationID"]
+    assert obj.indoorHumidity == device_fixture_response["indoorHumidity"]
     assert (
         obj.displayedOutdoorHumidity
         == device_fixture_response["displayedOutdoorHumidity"]
@@ -55,6 +57,7 @@ def test_device(device_fixture_response):
         obj.settings.temperatureMode.air
         == device_fixture_response["settings"]["temperatureMode"]["air"]
     )
+    assert isinstance(obj.settings.specialMode, SettingsSpecialmode)
     assert (
         obj.settings.devicePairingEnabled
         == device_fixture_response["settings"]["devicePairingEnabled"]
@@ -67,6 +70,7 @@ def test_device(device_fixture_response):
     assert obj.isUpgrading == device_fixture_response["isUpgrading"]
     assert obj.isProvisioned == device_fixture_response["isProvisioned"]
     assert obj.macID == device_fixture_response["macID"]
+    assert isinstance(obj.deviceSettings, Devicesettings)
     assert obj.service.mode == device_fixture_response["service"]["mode"]
     assert (
         obj.deviceRegistrationDate == device_fixture_response["deviceRegistrationDate"]
@@ -82,6 +86,14 @@ def test_device(device_fixture_response):
     assert obj.maxHeatSetpoint == device_fixture_response["maxHeatSetpoint"]
     assert obj.minCoolSetpoint == device_fixture_response["minCoolSetpoint"]
     assert obj.maxCoolSetpoint == device_fixture_response["maxCoolSetpoint"]
+    assert (
+        obj.changeableValues.autoChangeoverActive
+        == device_fixture_response["changeableValues"]["autoChangeoverActive"]
+    )
+    assert (
+        obj.changeableValues.emergencyHeatActive
+        == device_fixture_response["changeableValues"]["emergencyHeatActive"]
+    )
     assert (
         obj.changeableValues.mode == device_fixture_response["changeableValues"]["mode"]
     )
@@ -125,3 +137,4 @@ def test_device(device_fixture_response):
         == device_fixture_response["operationStatus"]["circulationFanRequest"]
     )
     assert obj.deviceModel == device_fixture_response["deviceModel"]
+    assert obj.fanMode == device_fixture_response["fanMode"]

@@ -81,20 +81,6 @@ class SettingsTemperaturemode(LyricBaseObject):
 class SettingsSpecialmode(LyricBaseObject):
     """Special mode."""
 
-    @property
-    def _(self):
-        """Return None."""
-        return None
-
-
-class SettingsFan(LyricBaseObject):
-    """Fan settings."""
-
-    @property
-    def fan(self):
-        """Return the fan settings."""
-        return self.attributes.get("fan", {})
-
 
 class Settings(LyricBaseObject):
     """Settings."""
@@ -119,29 +105,9 @@ class Settings(LyricBaseObject):
         """Return if device pairing is enabled."""
         return self.attributes.get("devicePairingEnabled", True)
 
-    @property
-    def fanModes(self):
-        """Return fan modes."""
-        return SettingsFan(self.attributes.get("allowedModes", []))
-
-    @property
-    def fanChangeableValues(self):
-        """Return fan changeable values."""
-        return SettingsFan(self.attributes.get("changeableValues", {}))
-
-    @property
-    def fanMode(self):
-        """Return the fan mode."""
-        return SettingsFan(self.attributes.get("mode", None))
-
 
 class Devicesettings(LyricBaseObject):
     """Device settings."""
-
-    @property
-    def _(self):
-        """Return None."""
-        return None
 
 
 class Service(LyricBaseObject):
@@ -157,14 +123,19 @@ class Changeablevalues(LyricBaseObject):
     """Changeable values."""
 
     @property
+    def mode(self):
+        """Return the mode."""
+        return self.attributes.get("mode", None)
+
+    @property
     def autoChangeoverActive(self):
         """Return if auto changeover is active."""
         return self.attributes.get("autoChangeoverActive", None)
 
     @property
-    def mode(self):
-        """Return the mode."""
-        return self.attributes.get("mode", None)
+    def emergencyHeatActive(self):
+        """Return the thermostat setpoint status."""
+        return self.attributes.get("emergencyHeatActive", None)
 
     @property
     def heatSetpoint(self):
@@ -398,3 +369,8 @@ class LyricDevice(LyricBaseClient):
     def deviceModel(self):
         """Return the device model."""
         return self.attributes.get("deviceModel", None)
+
+    @property
+    def fanMode(self):
+        """Return the fan mode."""
+        return self.attributes.get("fanMode", None)
