@@ -54,8 +54,6 @@ class LyricClient:
         """Make a request."""
         if (headers := kwargs.get("headers")) is None:
             headers = {}
-        else:
-            headers = dict(headers)
 
         access_token = await self.async_get_access_token()
         headers["Authorization"] = f"Bearer {access_token}"
