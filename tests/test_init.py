@@ -41,7 +41,19 @@ async def test_lyric(
     await lyric.update_thermostat(
         lyric.locations[0],
         lyric.devices[0],
-        "Heat",
+        "NoHold",
+    )
+
+    await lyric.update_thermostat(
+        lyric.locations[0],
+        lyric.devices[0],
+        "HoldUntil",
+    )
+
+    await lyric.update_thermostat(
+        lyric.locations[0],
+        lyric.devices[0],
+        "HoldUntil",
         75,
         20,
         True,
