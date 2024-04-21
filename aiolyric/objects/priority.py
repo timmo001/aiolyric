@@ -3,8 +3,8 @@
 from .base import LyricBaseObject
 
 
-class LyricAccessories(LyricBaseObject):
-    """Lyric accessories."""
+class LyricAccessory(LyricBaseObject):
+    """Lyric accessory."""
 
     @property
     def id(self):
@@ -73,7 +73,7 @@ class LyricRoom(LyricBaseObject):
     @property
     def accessories(self):
         """Get the list of accessories in the room."""
-        return [LyricAccessories(x) for x in self.attributes.get("accessories", [])]
+        return [LyricAccessory(x) for x in self.attributes.get("accessories", [])]
 
 
 class CurrentPriority(LyricBaseObject):
