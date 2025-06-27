@@ -192,3 +192,24 @@ class Lyric:
             f"{BASE_URL}/devices/thermostats/{device.device_id}/fan?apikey={self._client_id}&locationId={location.location_id}",
             json=data,
         )
+
+    async def update_priority(
+        self,
+        location: LyricLocation,
+        device: LyricDevice,
+        type: str,
+        rooms: list[int],
+    ) -> ClientResponse:
+        """Update Fan."""
+        self.logger.debug("Update Fan")
+
+        priority = {"priorityType": type, "selectedRooms": rooms}
+        
+        data = {"currentPriority": priority}
+
+        self.logger.debug(data)
+
+        return await self._client.post(
+            f"{BASE_URL}/devices/thermostats/{device.device_id}/priority?apikey={self._client_id}&locationId={location.location_id}",
+            json=data,
+        )
