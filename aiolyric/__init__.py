@@ -200,8 +200,8 @@ class Lyric:
         priority_type: str,
         rooms: list[int],
     ) -> ClientResponse:
-        """Update Fan."""
-        self.logger.debug("Update Fan")
+        """Update Priority."""
+        self.logger.debug("Update Priority")
 
         priority = {
             "priorityType": priority_type,
