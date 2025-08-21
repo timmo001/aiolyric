@@ -204,7 +204,7 @@ class Lyric:
         self.logger.debug("Update Fan")
 
         priority = {"priorityType": type, "selectedRooms": rooms}
-        
+
         data = {"currentPriority": priority}
 
         self.logger.debug(data)
