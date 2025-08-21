@@ -10,7 +10,7 @@ with open("README.md", encoding="utf-8") as f:
 
 setup(
     name="aiolyric",
-    version="2.0.2.dev0",
+    version="2.0.2",
     author="Aidan Timson (Timmo)",
     author_email="aidan@timmo.dev",
     description="Python package for the Honeywell Lyric Platform",
