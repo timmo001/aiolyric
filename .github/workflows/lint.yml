@@ -24,15 +24,24 @@ jobs:
     uses: timmo001/workflows/.github/workflows/lint-markdown-links.yml@master
   lint-markdownlint:
     uses: timmo001/workflows/.github/workflows/lint-markdownlint.yml@master
-  lint-prettier:
-    uses: timmo001/workflows/.github/workflows/lint-prettier.yml@master
-    with:
-      file-types: "{json,yml,yaml}"
   lint-pylint:
-    uses: timmo001/workflows/.github/workflows/lint-pylint.yml@master
-    with:
-      module-name: aiolyric
+    name: Lint (pylint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies (uv)
+        run: |
+          uv pip install -e .
+          uv pip install -r requirements.txt -r requirements_test.txt "pylint>=3.2"
+      - name: Run pylint (uses pyproject.toml) via uv
+        run: |
+          uv run pylint --rcfile=pyproject.toml aiolyric
   lint-ruff:
     uses: timmo001/workflows/.github/workflows/lint-ruff.yml@master
-  lint-yamllint:
-    uses: timmo001/workflows/.github/workflows/lint-yamllint.yml@master

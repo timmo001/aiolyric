@@ -1,11 +1,6 @@
-"""
-Provides aiolyric version information.
-"""
+"""Provides aiolyric version information."""
 
-# This file is auto-generated! Do not edit!
-# Use `python -m incremental.update aiolyric` to change this file.
+# Maintained by scripts in ./script/ and the version in setup.py
 
-from incremental import Version
-
-__version__ = Version("aiolyric", 2, 0, 2, dev=0)
+__version__ = "2.0.2.dev0"
 __all__ = ["__version__"]
