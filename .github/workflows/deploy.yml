@@ -31,26 +31,29 @@ jobs:
           cache: "pip"
       - name: Install uv
         uses: astral-sh/setup-uv@v5
+      - name: Create venv (uv)
+        run: |
+          uv venv
       - name: 🏗 Install build tooling (uv)
         run: |
           uv pip install --upgrade setuptools wheel twine
       - name: 🔢 Get old version
         id: get-version-old
         run: |
-          result=$(python script/get_version.py)
+          result=$(uv run python script/get_version.py)
           echo "version=$result" >> $GITHUB_OUTPUT
       - name: 🔢 Set correct version - Development
         if: ${{ github.event_name != 'release' }}
         run: |
-          python script/set_dev_version.py
+          uv run python script/set_dev_version.py
       - name: 🔢 Set correct version - Release
         if: ${{ github.event_name == 'release' }}
         run: |
-          python script/set_release_version.py
+          uv run python script/set_release_version.py
       - name: 🔢 Get current version
         id: get-version-current
         run: |
-          result=$(python script/get_version.py)
+          result=$(uv run python script/get_version.py)
           echo "version=$result" >> $GITHUB_OUTPUT
       - name: ⤵️ Pull latest changes from GitHub
         run: |
@@ -72,15 +75,15 @@ jobs:
       - name: 🔢 Increment version - Development
         if: ${{ github.event_name != 'release' }}
         run: |
-          python script/increment_version_dev.py
+          uv run python script/increment_version_dev.py
       - name: 🔢 Increment version - Release
         if: ${{ github.event_name == 'release' }}
         run: |
-          python script/increment_version_release.py
+          uv run python script/increment_version_release.py
       - name: 🔢 Get new version
         id: get-version-new
         run: |
-          result=$(python script/get_version.py)
+          result=$(uv run python script/get_version.py)
           echo "version=$result" >> $GITHUB_OUTPUT
       - name: ⤵️ Pull latest changes from GitHub
         run: |

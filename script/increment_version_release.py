@@ -6,8 +6,8 @@ X.Y.Z (or X.Y.Z.devN) -> X.Y.(Z+1).dev0
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
+import re
 
 
 def main() -> None:

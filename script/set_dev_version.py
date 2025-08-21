@@ -6,8 +6,8 @@ If the version already includes a `.dev` suffix, no change is made.
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
+import re
 
 
 def main() -> None:

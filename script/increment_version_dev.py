@@ -7,8 +7,8 @@ If version is X.Y.Z -> X.Y.(Z+1).dev0
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
+import re
 
 
 def main() -> None:
