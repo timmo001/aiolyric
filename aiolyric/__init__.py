@@ -197,13 +197,16 @@ class Lyric:
         self,
         location: LyricLocation,
         device: LyricDevice,
-        type: str,
+        priority_type: str,
         rooms: list[int],
     ) -> ClientResponse:
         """Update Fan."""
         self.logger.debug("Update Fan")
 
-        priority = {"priorityType": type, "selectedRooms": rooms}
+        priority = {
+            "priorityType": priority_type,
+            "selectedRooms": rooms,
+        }
 
         data = {"currentPriority": priority}
 
