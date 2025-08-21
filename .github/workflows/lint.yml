@@ -30,21 +30,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-      - name: Create venv (uv)
+      - name: Install dependencies
         run: |
-          uv venv
-      - name: Install dependencies (uv)
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install -r requirements.txt -r requirements_test.txt
+          pip install "pylint>=3.2"
+      - name: Run pylint (uses pyproject.toml)
         run: |
-          uv pip install -e .
-          uv pip install -r requirements.txt -r requirements_test.txt "pylint>=3.2"
-      - name: Run pylint (uses pyproject.toml) via uv
-        run: |
-          uv run --no-project pylint --rcfile=pyproject.toml aiolyric
+          pylint --rcfile=pyproject.toml aiolyric
   lint-ruff:
     uses: timmo001/workflows/.github/workflows/lint-ruff.yml@master

@@ -19,23 +19,8 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Create venv (uv)
-        run: |
-          uv venv
-      - name: Install deps (uv)
-        run: |
-          uv pip install -e .
-          uv pip install -r requirements.txt -r requirements_test.txt
-      - name: Run tests (uv)
-        run: |
-          uv run --no-project pytest -q --disable-warnings --maxfail=1
+    uses: timmo001/workflows/.github/workflows/test-pytest.yml@master
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    with:
+      module-name: "aiolyric"

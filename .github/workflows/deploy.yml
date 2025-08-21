@@ -29,31 +29,26 @@ jobs:
           python-version: "3.12"
           architecture: "x64"
           cache: "pip"
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-      - name: Create venv (uv)
+      - name: 🏗 Install build tooling
         run: |
-          uv venv
-      - name: 🏗 Install build tooling (uv)
-        run: |
-          uv pip install --upgrade setuptools wheel twine
+          python -m pip install --upgrade setuptools wheel twine
       - name: 🔢 Get old version
         id: get-version-old
         run: |
-          result=$(uv run --no-project python script/get_version.py)
+          result=$(python script/get_version.py)
           echo "version=$result" >> $GITHUB_OUTPUT
       - name: 🔢 Set correct version - Development
         if: ${{ github.event_name != 'release' }}
         run: |
-          uv run --no-project python script/set_dev_version.py
+          python script/set_dev_version.py
       - name: 🔢 Set correct version - Release
         if: ${{ github.event_name == 'release' }}
         run: |
-          uv run --no-project python script/set_release_version.py
+          python script/set_release_version.py
       - name: 🔢 Get current version
         id: get-version-current
         run: |
-          result=$(uv run --no-project python script/get_version.py)
+          result=$(python script/get_version.py)
           echo "version=$result" >> $GITHUB_OUTPUT
       - name: ⤵️ Pull latest changes from GitHub
         run: |
@@ -65,9 +60,9 @@ jobs:
         with:
           commit_message: |
             Bump ${{ env.MODULE_NAME }} version to ${{ steps.get-version-current.outputs.version }}
-      - name: 🏗 Build distributions (uv)
+      - name: 🏗 Build distributions
         run: |
-          uv run --no-project python setup.py sdist bdist_wheel
+          python setup.py sdist bdist_wheel
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
@@ -75,15 +70,15 @@ jobs:
       - name: 🔢 Increment version - Development
         if: ${{ github.event_name != 'release' }}
         run: |
-          uv run --no-project python script/increment_version_dev.py
+          python script/increment_version_dev.py
       - name: 🔢 Increment version - Release
         if: ${{ github.event_name == 'release' }}
         run: |
-          uv run --no-project python script/increment_version_release.py
+          python script/increment_version_release.py
       - name: 🔢 Get new version
         id: get-version-new
         run: |
-          result=$(uv run --no-project python script/get_version.py)
+          result=$(python script/get_version.py)
           echo "version=$result" >> $GITHUB_OUTPUT
       - name: ⤵️ Pull latest changes from GitHub
         run: |

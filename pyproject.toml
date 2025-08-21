@@ -9,7 +9,7 @@ ignore = [
 # Use a conservative default here; 2 should speed up most setups and not hurt
 # any too bad. Override on command line as appropriate.
 jobs = 2
-init-hook = """
+init-hook = """\
     from pathlib import Path; \
     import sys; \
 
@@ -75,6 +75,7 @@ disable = [
     "too-many-statements",
     "unused-argument",
     "wrong-import-order",
+    "too-many-positional-arguments",
 ]
 enable = [
     #"useless-suppression",  # temporarily every now and then to clean them up
@@ -117,6 +118,10 @@ norecursedirs = [
     ".git",
     "testing_config",
 ]
+log_cli = true
+log_cli_level = "DEBUG"
+log_cli_format = "%(asctime)s.%(msecs)03d %(levelname)-8s %(threadName)s %(name)s:%(filename)s:%(lineno)s %(message)s"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 log_format = "%(asctime)s.%(msecs)03d %(levelname)-8s %(threadName)s %(name)s:%(filename)s:%(lineno)s %(message)s"
 log_date_format = "%Y-%m-%d %H:%M:%S"
 asyncio_mode = "auto"
@@ -184,6 +189,7 @@ select = [
     "UP",  # pyupgrade
     "W",  # pycodestyle
 ]
+
 ignore = [
     "D202",  # No blank lines allowed after function docstring
     "D203",  # 1 blank line required before class docstring
