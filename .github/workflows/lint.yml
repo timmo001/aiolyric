@@ -45,6 +45,6 @@ jobs:
           uv pip install -r requirements.txt -r requirements_test.txt "pylint>=3.2"
       - name: Run pylint (uses pyproject.toml) via uv
         run: |
-          uv run pylint --rcfile=pyproject.toml aiolyric
+          uv run --no-project pylint --rcfile=pyproject.toml aiolyric
   lint-ruff:
     uses: timmo001/workflows/.github/workflows/lint-ruff.yml@master

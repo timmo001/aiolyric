@@ -38,4 +38,4 @@ jobs:
           uv pip install -r requirements.txt -r requirements_test.txt
       - name: Run tests (uv)
         run: |
-          uv run pytest -q --disable-warnings --maxfail=1
+          uv run --no-project pytest -q --disable-warnings --maxfail=1
