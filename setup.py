@@ -20,6 +20,6 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/timmo001/aiolyric",
     install_requires=requirements,
-    packages=find_packages(exclude=["tests", "generator"]),
+    packages=find_packages(exclude=["tests", "tests.*", "generator", "generator.*"]),
     python_requires=">=3.11",
 )
