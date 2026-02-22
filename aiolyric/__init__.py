@@ -198,21 +198,23 @@ class Lyric:
         location: LyricLocation,
         device: LyricDevice,
         priority_type: str,
-        rooms: list[int],
+        rooms: list[int] | None = None,
     ) -> ClientResponse:
         """Update Priority."""
         self.logger.debug("Update Priority")
 
-        priority = {
+        priority: dict = {
             "priorityType": priority_type,
-            "selectedRooms": rooms,
         }
+
+        if rooms is not None:
+            priority["selectedRooms"] = rooms
 
         data = {"currentPriority": priority}
 
         self.logger.debug(data)
 
-        return await self._client.post(
+        return await self._client.put(
             f"{BASE_URL}/devices/thermostats/{device.device_id}/priority?apikey={self._client_id}&locationId={location.location_id}",
             json=data,
         )
