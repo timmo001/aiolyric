@@ -1,2 +1,2 @@
-aiohttp>=3.12.15
+aiohttp>=3.13.5
 packaging>=26.2
