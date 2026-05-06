@@ -207,7 +207,6 @@ ignore = [
     "PLW2901", # Outer {outer_kind} variable {name} overwritten by inner {inner_kind} target
     "UP006", # keep type annotation style as is
     "UP007", # keep type annotation style as is
-    "UP038", # Use `X | Y` in `isinstance` call instead of `(X, Y)`
 ]
 
 [tool.ruff.lint.flake8-import-conventions.extend-aliases]
@@ -222,11 +221,13 @@ fixture-parentheses = false
 
 [tool.ruff.lint.isort]
 force-sort-within-sections = true
+known-first-party = [
+    "aiolyric",
+]
 combine-as-imports = true
 split-on-trailing-comma = false
 
 [tool.ruff.lint.per-file-ignores]
-"_version.py" = ["D200", "D212"]
 # Allow for main entry & scripts to write to stdout
 "script/*" = ["T20"]
 
