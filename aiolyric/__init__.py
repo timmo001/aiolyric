@@ -28,6 +28,7 @@ class Lyric:
         self._devices_dict: dict = {}
         self._locations: list[LyricLocation] = []
         self._locations_dict: dict = {}
+        self._priorities_dict: dict[str, LyricPriority] = {}
         self._rooms_dict: dict = {}
 
     @property
@@ -54,6 +55,11 @@ class Lyric:
     def locations_dict(self) -> dict:
         """Return the locations dict."""
         return self._locations_dict
+
+    @property
+    def priorities_dict(self) -> dict[str, LyricPriority]:
+        """Return the priorities dict, keyed by device MAC address."""
+        return self._priorities_dict
 
     @property
     def rooms_dict(self) -> dict[str, dict[str, LyricRoom]]:
@@ -105,6 +111,7 @@ class Lyric:
 
         # device id in the priority payload refers to the mac address of the device
         mac_id = priority.device_id
+        self._priorities_dict[mac_id] = priority
         self._rooms_dict[mac_id] = {}
 
         # add each room to the room dictionary. Rooms contain motion, temp, and humidity averages for all accessories in a room
