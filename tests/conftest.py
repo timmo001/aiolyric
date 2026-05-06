@@ -70,6 +70,13 @@ def mock_aioresponse():
             repeat=True,
         )
 
+        mocker.put(
+            f"{BASE_URL}/devices/thermostats/LCC-00A01AB1ABCD/priority?apikey=test&locationId=123456",
+            payload=RESPONSE_JSON_BASIC,
+            status=200,
+            repeat=True,
+        )
+
         yield mocker
 
 
