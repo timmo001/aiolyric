@@ -24,12 +24,12 @@ def main() -> None:
         print("No dev suffix to strip")
         return
 
-    new_contents = contents.replace(
-        f'version="{version}"', f'version="{new_version}"', 1
-    )
+    new_contents = contents.replace(f'version="{version}"', f'version="{new_version}"', 1)
     setup_path.write_text(new_contents, encoding="utf-8")
     print(f"Updated version to {new_version}")
 
 
 if __name__ == "__main__":
     main()
+
+

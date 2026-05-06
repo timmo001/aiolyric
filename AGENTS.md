@@ -1,0 +1,22 @@
+# aiolyric - Agent Guidelines
+
+Python library for the Honeywell Lyric API.
+
+## Quick Start
+
+- **Build**: `python -m build`
+- **Lint**: `ruff check .` and `pylint aiolyric`
+- **Format**: `ruff format .` and `black .`
+- **Test all**: `pytest`
+- **Test single**: `pytest tests/test_module.py::test_function`
+
+## Code Style
+
+- **Python**: 3.11+, use `from __future__ import annotations`
+- **Formatting**: 4-space indentation, Black formatter, 88 char line length
+- **Imports**: isort with black profile, group first-party imports
+- **Types**: Use type hints, prefer `|` union syntax, dataclasses with slots
+- **Naming**: snake_case for variables/functions, PascalCase for classes
+- **Error handling**: Use specific exceptions, avoid bare except clauses
+- **Docstrings**: Google-style, present tense
+- **Testing**: Use pytest with syrupy for snapshots

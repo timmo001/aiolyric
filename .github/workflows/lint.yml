@@ -23,7 +23,17 @@ jobs:
   lint-markdown-links:
     uses: timmo001/workflows/.github/workflows/lint-markdown-links.yml@master
   lint-markdownlint:
-    uses: timmo001/workflows/.github/workflows/lint-markdownlint.yml@master
+    name: 👕 MarkdownLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+      - name: 🚀 Run mdl
+        uses: actionshub/markdownlint@main
+        with:
+          filesToIgnoreRegex: "AGENTS\\.md"
   lint-pylint:
     name: Lint (pylint)
     runs-on: ubuntu-latest

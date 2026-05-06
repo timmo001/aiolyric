@@ -27,14 +27,14 @@ def main() -> None:
         raise SystemExit(f"Unexpected base version format: {base}")
 
     major, minor, patch = base_match.groups()
-    new_version = f"{major}.{minor}.{int(patch) + 1}.dev0"
+    new_version = f"{major}.{minor}.{int(patch)+1}.dev0"
 
-    new_contents = contents.replace(
-        f'version="{version}"', f'version="{new_version}"', 1
-    )
+    new_contents = contents.replace(f'version="{version}"', f'version="{new_version}"', 1)
     setup_path.write_text(new_contents, encoding="utf-8")
     print(f"Updated version to {new_version}")
 
 
 if __name__ == "__main__":
     main()
+
+
