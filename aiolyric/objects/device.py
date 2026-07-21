@@ -81,6 +81,29 @@ class SettingsSpecialMode(LyricBaseObject):
     """Special mode."""
 
 
+class SettingsFanChangeableValues(LyricBaseObject):
+    """Fan changeable values."""
+
+    @property
+    def mode(self):
+        """Return the fan mode."""
+        return self.attributes.get("mode", None)
+
+
+class SettingsFan(LyricBaseObject):
+    """Fan settings."""
+
+    @property
+    def allowed_modes(self):
+        """Return the allowed fan modes."""
+        return self.attributes.get("allowedModes", [])
+
+    @property
+    def changeable_values(self):
+        """Return the fan changeable values."""
+        return SettingsFanChangeableValues(self.attributes.get("changeableValues", {}))
+
+
 class Settings(LyricBaseObject):
     """Settings."""
 
@@ -88,6 +111,11 @@ class Settings(LyricBaseObject):
     def hardware_settings(self):
         """Return hardware settings."""
         return SettingsHardwareSettings(self.attributes.get("hardwareSettings", {}))
+
+    @property
+    def fan(self):
+        """Return fan settings."""
+        return SettingsFan(self.attributes.get("fan", {}))
 
     @property
     def temperature_mode(self):
