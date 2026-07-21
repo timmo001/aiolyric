@@ -14,12 +14,12 @@ class LyricAccessory(LyricBaseObject):
     @property
     def type(self):
         """Get the type of the accessory."""
-        return self.attributes.get("type", "")
+        return self.attributes.get("sensorType", "")
 
     @property
     def exclude_temp(self):
         """Check if temperature is excluded for the accessory."""
-        return self.attributes.get("excludeTemp", False)
+        return self.attributes.get("excludeTemperature", False)
 
     @property
     def exclude_motion(self):
@@ -53,17 +53,17 @@ class LyricRoom(LyricBaseObject):
     @property
     def room_name(self):
         """Get the name of the room."""
-        return self.attributes.get("roomName", "")
+        return self.attributes.get("name", "")
 
     @property
     def room_avg_temp(self):
         """Get the average temperature of the room."""
-        return self.attributes.get("roomAvgTemp", None)
+        return self.attributes.get("avgTemperature", None)
 
     @property
     def room_avg_humidity(self):
         """Get the average humidity of the room."""
-        return self.attributes.get("roomAvgHumidity", None)
+        return self.attributes.get("avgHumidity", None)
 
     @property
     def overall_motion(self):
@@ -106,9 +106,9 @@ class LyricPriority(LyricBaseObject):
     @property
     def status(self):
         """Get the status of the priority."""
-        return self.attributes.get("status", "")
+        return self.attributes.get("priorityStatus", "")
 
     @property
     def current_priority(self):
         """Get the current priority."""
-        return CurrentPriority(self.attributes.get("currentPriority", {}))
+        return CurrentPriority(self.attributes.get("priority", {}))

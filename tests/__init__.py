@@ -186,22 +186,22 @@ RESPONSE_JSON_LOCATION: Final[dict] = {
 
 RESPONSE_JSON_PRIORITY: Final[dict] = {
     "deviceId": "00A01AB1ABCD",
-    "status": "NoHold",
-    "currentPriority": {
+    "priorityStatus": "NoHold",
+    "priority": {
         "priorityType": "PickARoom",
         "selectedRooms": [0],
         "rooms": [
             {
                 "id": 0,
-                "roomName": "Hallway",
-                "roomAvgTemp": 76,
-                "roomAvgHumidity": 54,
+                "name": "Hallway",
+                "avgTemperature": 76,
+                "avgHumidity": 54,
                 "overallMotion": False,
                 "accessories": [
                     {
                         "id": 0,
-                        "type": "Thermostat",
-                        "excludeTemp": False,
+                        "sensorType": "Thermostat",
+                        "excludeTemperature": False,
                         "excludeMotion": False,
                         "temperature": 75.828,
                         "status": "Ok",
@@ -211,15 +211,15 @@ RESPONSE_JSON_PRIORITY: Final[dict] = {
             },
             {
                 "id": 1,
-                "roomName": "Office",
-                "roomAvgTemp": 76,
-                "roomAvgHumidity": 52,
+                "name": "Office",
+                "avgTemperature": 76,
+                "avgHumidity": 52,
                 "overallMotion": True,
                 "accessories": [
                     {
                         "id": 1,
-                        "type": "IndoorAirSensor",
-                        "excludeTemp": False,
+                        "sensorType": "IndoorAirSensor",
+                        "excludeTemperature": False,
                         "excludeMotion": False,
                         "temperature": 76,
                         "status": "Ok",
@@ -229,15 +229,15 @@ RESPONSE_JSON_PRIORITY: Final[dict] = {
             },
             {
                 "id": 2,
-                "roomName": "Master Bedroom",
-                "roomAvgTemp": 76,
-                "roomAvgHumidity": 52,
+                "name": "Master Bedroom",
+                "avgTemperature": 76,
+                "avgHumidity": 52,
                 "overallMotion": False,
                 "accessories": [
                     {
                         "id": 2,
-                        "type": "IndoorAirSensor",
-                        "excludeTemp": False,
+                        "sensorType": "IndoorAirSensor",
+                        "excludeTemperature": False,
                         "excludeMotion": False,
                         "temperature": 76,
                         "status": "Ok",
