@@ -41,7 +41,7 @@ def test_device(
     )
     assert (
         obj.schedule_type.schedule_sub_type
-        == device_fixture_response["scheduleType"]["scheduleSubType"]
+        == device_fixture_response["scheduleType"]["scheduleSubtype"]
     )
     assert obj.schedule_status == device_fixture_response["scheduleStatus"]
     assert (
