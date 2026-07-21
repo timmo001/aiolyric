@@ -66,9 +66,7 @@ def test_priority(priority_fixture_response: dict):
     )
     assert (
         obj.current_priority.rooms[0].accessories[0].status
-        == priority_fixture_response["priority"]["rooms"][0]["accessories"][0][
-            "status"
-        ]
+        == priority_fixture_response["priority"]["rooms"][0]["accessories"][0]["status"]
     )
     assert (
         obj.current_priority.rooms[0].accessories[0].detect_motion
