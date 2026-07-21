@@ -142,5 +142,29 @@ def test_device(
         obj.operation_status.circulation_fan_request
         == device_fixture_response["operationStatus"]["circulationFanRequest"]
     )
+    assert (
+        obj.heat_and_cool_demand.current_stage
+        == device_fixture_response["heatAndCoolDemand"]["CurrentStage"]
+    )
+    assert (
+        obj.heat_and_cool_demand.demand
+        == device_fixture_response["heatAndCoolDemand"]["Demand"]
+    )
+    assert (
+        obj.heat_and_cool_demand.mode
+        == device_fixture_response["heatAndCoolDemand"]["Mode"]
+    )
+    assert (
+        obj.heat_and_cool_demand.stages_on
+        == device_fixture_response["heatAndCoolDemand"]["StagesOn"]
+    )
+    assert (
+        obj.heat_and_cool_demand.fan_request
+        == device_fixture_response["heatAndCoolDemand"]["FanRequest"]
+    )
+    assert (
+        obj.heat_and_cool_demand.circulation_fan_request
+        == device_fixture_response["heatAndCoolDemand"]["CirculationFanRequest"]
+    )
     assert obj.device_model == device_fixture_response["deviceModel"]
     assert obj.fan_mode == device_fixture_response["fanMode"]

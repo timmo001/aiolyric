@@ -191,6 +191,40 @@ class OperationStatus(LyricBaseObject):
         return self.attributes.get("circulationFanRequest", False)
 
 
+class HeatAndCoolDemand(LyricBaseObject):
+    """Heat and cool demand."""
+
+    @property
+    def current_stage(self):
+        """Return the current equipment stage."""
+        return self.attributes.get("CurrentStage", None)
+
+    @property
+    def demand(self):
+        """Return the demand percentage."""
+        return self.attributes.get("Demand", None)
+
+    @property
+    def mode(self):
+        """Return the mode."""
+        return self.attributes.get("Mode", None)
+
+    @property
+    def stages_on(self):
+        """Return which equipment stages are on."""
+        return self.attributes.get("StagesOn", [])
+
+    @property
+    def fan_request(self):
+        """Return the fan request."""
+        return self.attributes.get("FanRequest", False)
+
+    @property
+    def circulation_fan_request(self):
+        """Return the circulation fan request."""
+        return self.attributes.get("CirculationFanRequest", False)
+
+
 class LyricDevice(LyricBaseClient):
     """Lyric Device."""
 
@@ -363,6 +397,11 @@ class LyricDevice(LyricBaseClient):
     def operation_status(self):
         """Return the operation status."""
         return OperationStatus(self.attributes.get("operationStatus", {}))
+
+    @property
+    def heat_and_cool_demand(self):
+        """Return the heat and cool demand."""
+        return HeatAndCoolDemand(self.attributes.get("heatAndCoolDemand", {}))
 
     @property
     def device_model(self):
