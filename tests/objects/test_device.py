@@ -22,7 +22,7 @@ def test_device(
         == device_fixture_response["displayedOutdoorHumidity"]
     )
     assert (
-        obj.vacation_hold.enabled == device_fixture_response["vacationHold"]["enabled"]
+        obj.vacation_hold.enabled == device_fixture_response["vacationHold"]["Enabled"]
     )
     assert (
         obj.current_schedule_period.day

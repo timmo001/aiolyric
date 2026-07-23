@@ -24,7 +24,7 @@ def test_location(
     )
     assert (
         obj.devices[0].vacation_hold.enabled
-        == location_fixture_response["devices"][0]["vacationHold"]["enabled"]
+        == location_fixture_response["devices"][0]["vacationHold"]["Enabled"]
     )
     assert (
         obj.devices[0].current_schedule_period.day
