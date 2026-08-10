@@ -1,9 +1,10 @@
 """Fixtures for testing."""
 
 from collections.abc import AsyncGenerator
+from unittest.mock import Mock
 
-from aiohttp import ClientSession
-from aioresponses import aioresponses
+from aiohttp import ClientResponse, ClientSession
+from aioresponses import aioresponses, core as aioresponses_core
 import pytest
 
 from aiolyric.client import LyricClient
@@ -20,7 +21,20 @@ from . import (
 @pytest.fixture(autouse=True)
 def mock_aioresponse():
     """Return a client session."""
-    with aioresponses() as mocker:
+    class CompatibleClientResponse(ClientResponse):
+        def __init__(self, *args, **kwargs):
+            kwargs["stream_writer"] = Mock(output_size=0)
+            super().__init__(*args, **kwargs)
+
+    with (
+        pytest.MonkeyPatch.context() as monkeypatch,
+        aioresponses() as mocker,
+    ):
+        monkeypatch.setattr(
+            aioresponses_core,
+            "ClientResponse",
+            CompatibleClientResponse,
+        )
         mocker.get(
             AUTH_URL,
             payload=RESPONSE_JSON_BASIC,
