@@ -14,7 +14,7 @@ RESPONSE_JSON_DEVICE: Final[dict] = {
         "availableScheduleTypes": ["None", "Geofenced", "TimedEmea"],
         "schedulableFan": False,
     },
-    "scheduleType": {"scheduleType": "Timed", "scheduleSubType": "EMEA"},
+    "scheduleType": {"scheduleType": "Timed", "scheduleSubtype": "EMEA"},
     "scheduleStatus": "Resume",
     "allowedTimeIncrements": 10,
     "settings": {
@@ -85,7 +85,7 @@ RESPONSE_JSON_LOCATION: Final[dict] = {
                 "availableScheduleTypes": ["None", "Geofenced", "TimedEmea"],
                 "schedulableFan": False,
             },
-            "scheduleType": {"scheduleType": "Timed", "scheduleSubType": "EMEA"},
+            "scheduleType": {"scheduleType": "Timed", "scheduleSubtype": "EMEA"},
             "scheduleStatus": "Resume",
             "allowedTimeIncrements": 10,
             "settings": {

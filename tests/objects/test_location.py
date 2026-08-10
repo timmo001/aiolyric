@@ -52,7 +52,7 @@ def test_location(
     )
     assert (
         obj.devices[0].schedule_type.schedule_sub_type
-        == location_fixture_response["devices"][0]["scheduleType"]["scheduleSubType"]
+        == location_fixture_response["devices"][0]["scheduleType"]["scheduleSubtype"]
     )
     assert (
         obj.devices[0].schedule_status

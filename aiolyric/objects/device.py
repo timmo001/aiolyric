@@ -51,7 +51,9 @@ class ScheduleType(LyricBaseObject):
     @property
     def schedule_sub_type(self):
         """Return the schedule sub type."""
-        return self.attributes.get("scheduleSubType", None)
+        return self.attributes.get(
+            "scheduleSubType", self.attributes.get("scheduleSubtype", None)
+        )
 
 
 class SettingsHardwareSettings(LyricBaseObject):
