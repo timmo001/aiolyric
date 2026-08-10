@@ -56,6 +56,14 @@ def test_device(
         == device_fixture_response["settings"]["hardwareSettings"]["maxBrightness"]
     )
     assert (
+        obj.settings.fan.allowed_modes
+        == device_fixture_response["settings"]["fan"]["allowedModes"]
+    )
+    assert (
+        obj.settings.fan.changeable_values.mode
+        == device_fixture_response["settings"]["fan"]["changeableValues"]["mode"]
+    )
+    assert (
         obj.settings.temperature_mode.air
         == device_fixture_response["settings"]["temperatureMode"]["air"]
     )

@@ -75,6 +75,16 @@ def test_location(
         ]
     )
     assert (
+        obj.devices[0].settings.fan.allowed_modes
+        == location_fixture_response["devices"][0]["settings"]["fan"]["allowedModes"]
+    )
+    assert (
+        obj.devices[0].settings.fan.changeable_values.mode
+        == location_fixture_response["devices"][0]["settings"]["fan"][
+            "changeableValues"
+        ]["mode"]
+    )
+    assert (
         obj.devices[0].settings.temperature_mode.air
         == location_fixture_response["devices"][0]["settings"]["temperatureMode"]["air"]
     )

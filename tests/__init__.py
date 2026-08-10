@@ -19,6 +19,10 @@ RESPONSE_JSON_DEVICE: Final[dict] = {
     "allowedTimeIncrements": 10,
     "settings": {
         "hardwareSettings": {"brightness": 5, "maxBrightness": 5},
+        "fan": {
+            "allowedModes": ["On", "Auto", "Circulate"],
+            "changeableValues": {"mode": "Auto"},
+        },
         "temperatureMode": {"air": True},
         "specialMode": {},
         "devicePairingEnabled": True,
@@ -86,6 +90,10 @@ RESPONSE_JSON_LOCATION: Final[dict] = {
             "allowedTimeIncrements": 10,
             "settings": {
                 "hardwareSettings": {"brightness": 5, "maxBrightness": 5},
+                "fan": {
+                    "allowedModes": ["On", "Auto", "Circulate"],
+                    "changeableValues": {"mode": "Auto"},
+                },
                 "temperatureMode": {"air": True},
                 "specialMode": {},
                 "devicePairingEnabled": True,
