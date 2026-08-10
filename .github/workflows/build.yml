@@ -20,5 +20,3 @@ concurrency:
 jobs:
   build:
     uses: timmo001/workflows/.github/workflows/build-python-linux.yml@master
-    with:
-      pre-install-command: rm -rf .venv
