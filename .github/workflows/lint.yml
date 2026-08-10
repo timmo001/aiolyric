@@ -19,19 +19,19 @@ concurrency:
 
 jobs:
   lint-jsonlint:
-    uses: timmo001/workflows/.github/workflows/lint-jsonlint.yml@master
+    uses: timmo001/workflows/.github/workflows/lint-jsonlint.yml@1ed6e00bfeecec20f59b49bb96a40969ccc8821b # master
   lint-markdown-links:
-    uses: timmo001/workflows/.github/workflows/lint-markdown-links.yml@master
+    uses: timmo001/workflows/.github/workflows/lint-markdown-links.yml@1ed6e00bfeecec20f59b49bb96a40969ccc8821b # master
   lint-markdownlint:
     name: 👕 MarkdownLint
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           ref: ${{ github.head_ref }}
       - name: 🚀 Run mdl
-        uses: actionshub/markdownlint@main
+        uses: actionshub/markdownlint@6c82ff529253530dfbf75c37570876c52692835f # main
         with:
           filesToIgnoreRegex: "AGENTS\\.md"
   lint-pylint:
@@ -39,9 +39,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.13"
       - name: Install dependencies
@@ -54,4 +54,4 @@ jobs:
         run: |
           pylint --rcfile=pyproject.toml aiolyric
   lint-ruff:
-    uses: timmo001/workflows/.github/workflows/lint-ruff.yml@master
+    uses: timmo001/workflows/.github/workflows/lint-ruff.yml@1ed6e00bfeecec20f59b49bb96a40969ccc8821b # master
