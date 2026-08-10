@@ -260,6 +260,11 @@ class LyricDevice(LyricBaseClient):
         return self.attributes.get("deviceID", None)
 
     @property
+    def device_os_version(self):
+        """Return the device OS/firmware version."""
+        return self.attributes.get("deviceOsVersion", None)
+
+    @property
     def name(self):
         """Return the name."""
         return self.attributes.get("name", None)

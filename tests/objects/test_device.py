@@ -67,6 +67,7 @@ def test_device(
     assert obj.device_class == device_fixture_response["deviceClass"]
     assert obj.device_type == device_fixture_response["deviceType"]
     assert obj.device_id == device_fixture_response["deviceID"]
+    assert obj.device_os_version == device_fixture_response["deviceOsVersion"]
     assert obj.name == device_fixture_response["name"]
     assert obj.is_alive == device_fixture_response["isAlive"]
     assert obj.is_upgrading == device_fixture_response["isUpgrading"]

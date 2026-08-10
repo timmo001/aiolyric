@@ -93,6 +93,10 @@ def test_location(
     assert (
         obj.devices[0].device_id == location_fixture_response["devices"][0]["deviceID"]
     )
+    assert (
+        obj.devices[0].device_os_version
+        == location_fixture_response["devices"][0]["deviceOsVersion"]
+    )
     assert obj.devices[0].name == location_fixture_response["devices"][0]["name"]
     assert obj.devices[0].is_alive == location_fixture_response["devices"][0]["isAlive"]
     assert (
