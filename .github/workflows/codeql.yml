@@ -24,4 +24,4 @@ permissions:
 
 jobs:
   codeql-analyze-python:
-    uses: timmo001/workflows/.github/workflows/codeql-python.yml@master
+    uses: timmo001/workflows/.github/workflows/codeql-python.yml@1ed6e00bfeecec20f59b49bb96a40969ccc8821b # master
