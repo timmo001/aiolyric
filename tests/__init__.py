@@ -62,6 +62,14 @@ RESPONSE_JSON_DEVICE: Final[dict] = {
         "fanRequest": False,
         "circulationFanRequest": False,
     },
+    "heatAndCoolDemand": {
+        "CurrentStage": 1,
+        "Demand": 33,
+        "Mode": "Cool",
+        "StagesOn": [True, False, False, False],
+        "FanRequest": True,
+        "CirculationFanRequest": False,
+    },
     "deviceModel": "T5-T6",
     "fanMode": "Auto",
 }
@@ -126,6 +134,14 @@ RESPONSE_JSON_LOCATION: Final[dict] = {
                 "mode": "EquipmentOff",
                 "fanRequest": False,
                 "circulationFanRequest": False,
+            },
+            "heatAndCoolDemand": {
+                "CurrentStage": 1,
+                "Demand": 33,
+                "Mode": "Cool",
+                "StagesOn": [True, False, False, False],
+                "FanRequest": True,
+                "CirculationFanRequest": False,
             },
             "deviceModel": "T5-T6",
         }
