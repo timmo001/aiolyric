@@ -6,6 +6,7 @@ from aiolyric.objects.device import (
     LyricDevice,
     ScheduleType,
     SettingsSpecialMode,
+    VacationHold,
 )
 
 
@@ -165,3 +166,10 @@ def test_schedule_type_sub_type_key_variants():
     assert ScheduleType({"scheduleSubType": "EMEA"}).schedule_sub_type == "EMEA"
     assert ScheduleType({"scheduleSubtype": "EMEA"}).schedule_sub_type == "EMEA"
     assert ScheduleType({}).schedule_sub_type is None
+
+
+def test_vacation_hold_enabled_key_variants():
+    """Test enabled accepts both the documented and live API keys."""
+    assert VacationHold({"enabled": True}).enabled is True
+    assert VacationHold({"Enabled": True}).enabled is True
+    assert VacationHold({}).enabled is False
