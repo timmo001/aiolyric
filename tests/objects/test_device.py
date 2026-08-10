@@ -1,7 +1,12 @@
 """Test device object."""
 
 from aiolyric.client import LyricClient
-from aiolyric.objects.device import DeviceSettings, LyricDevice, SettingsSpecialMode
+from aiolyric.objects.device import (
+    DeviceSettings,
+    LyricDevice,
+    ScheduleType,
+    SettingsSpecialMode,
+)
 
 
 def test_device(
@@ -144,3 +149,10 @@ def test_device(
     )
     assert obj.device_model == device_fixture_response["deviceModel"]
     assert obj.fan_mode == device_fixture_response["fanMode"]
+
+
+def test_schedule_type_sub_type_key_variants():
+    """Test schedule_sub_type accepts both the documented and live API keys."""
+    assert ScheduleType({"scheduleSubType": "EMEA"}).schedule_sub_type == "EMEA"
+    assert ScheduleType({"scheduleSubtype": "EMEA"}).schedule_sub_type == "EMEA"
+    assert ScheduleType({}).schedule_sub_type is None
