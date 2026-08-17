@@ -15,6 +15,7 @@ from . import (
     RESPONSE_JSON_DEVICE,
     RESPONSE_JSON_LOCATION,
     RESPONSE_JSON_PRIORITY,
+    RESPONSE_JSON_PRIORITY_CLASSIC,
 )
 
 
@@ -110,3 +111,9 @@ def location_fixture_response() -> dict:
 def priority_fixture_response() -> dict:
     """Return a fixture response for a priority."""
     return RESPONSE_JSON_PRIORITY
+
+
+@pytest.fixture()
+def priority_classic_fixture_response() -> dict:
+    """Return a classic schema fixture response for a priority."""
+    return RESPONSE_JSON_PRIORITY_CLASSIC

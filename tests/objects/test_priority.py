@@ -74,3 +74,35 @@ def test_priority(priority_fixture_response: dict):
             "detectMotion"
         ]
     )
+
+
+def test_priority_classic_schema(priority_classic_fixture_response: dict):
+    """Test priority object with the classic response schema.
+
+    Resideo still serves this schema to part of its accounts, so both key
+    sets must parse to the same values.
+    """
+    obj = LyricPriority(priority_classic_fixture_response)
+    assert obj.device_id == "00A01AB1ABCD"
+    assert obj.status == "NoHold"
+    assert obj.current_priority.priority_type == "PickARoom"
+    assert obj.current_priority.selected_rooms == [0]
+
+    rooms = obj.current_priority.rooms
+    assert len(rooms) == 2
+    assert rooms[0].id == 0
+    assert rooms[0].room_name == "Hallway"
+    assert rooms[0].room_avg_temp == 76
+    assert rooms[0].room_avg_humidity == 54
+    assert rooms[0].overall_motion is False
+    assert rooms[1].room_name == "Office"
+    assert rooms[1].overall_motion is True
+
+    accessory = rooms[1].accessories[0]
+    assert accessory.id == 1
+    assert accessory.type == "IndoorAirSensor"
+    assert accessory.exclude_temp is False
+    assert accessory.exclude_motion is False
+    assert accessory.temperature == 76
+    assert accessory.status == "Ok"
+    assert accessory.detect_motion is True
