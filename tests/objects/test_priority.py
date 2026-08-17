@@ -1,6 +1,6 @@
 """Tests for the Priority object."""
 
-from aiolyric.objects.priority import LyricPriority
+from aiolyric.objects.priority import LyricAccessory, LyricPriority, LyricRoom
 
 
 def test_priority(priority_fixture_response: dict):
@@ -106,3 +106,21 @@ def test_priority_classic_schema(priority_classic_fixture_response: dict):
     assert accessory.temperature == 76
     assert accessory.status == "Ok"
     assert accessory.detect_motion is True
+
+
+def test_priority_missing_keys():
+    """Test defaults when a payload carries neither schema's keys."""
+    obj = LyricPriority({})
+    assert obj.device_id == ""
+    assert obj.status == ""
+    assert obj.current_priority.priority_type == ""
+    assert obj.current_priority.rooms == []
+
+    room = LyricRoom({})
+    assert room.room_name == ""
+    assert room.room_avg_temp is None
+    assert room.room_avg_humidity is None
+
+    accessory = LyricAccessory({})
+    assert accessory.type == ""
+    assert accessory.exclude_temp is False
