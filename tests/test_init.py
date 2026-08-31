@@ -66,3 +66,22 @@ async def test_lyric(
         lyric.devices[0],
         "auto",
     )
+
+    await lyric.update_priority(
+        lyric.locations[0],
+        lyric.devices[0],
+        "PickARoom",
+        [0, 1],
+    )
+
+    await lyric.update_priority(
+        lyric.locations[0],
+        lyric.devices[0],
+        "FollowMe",
+    )
+
+    await lyric.update_priority(
+        lyric.locations[0],
+        lyric.devices[0],
+        "WholeHouse",
+    )
