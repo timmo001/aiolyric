@@ -45,6 +45,18 @@ class LyricClient:
             **kwargs,
         )
 
+    async def put(
+        self,
+        url: str,
+        **kwargs,
+    ) -> ClientResponse:
+        """Make a PUT request."""
+        return await self.request(
+            "PUT",
+            url,
+            **kwargs,
+        )
+
     async def request(
         self,
         method: str,
