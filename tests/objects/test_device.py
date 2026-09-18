@@ -2,6 +2,7 @@
 
 from aiolyric.client import LyricClient
 from aiolyric.objects.device import (
+    CurrentSchedulePeriod,
     DeviceSettings,
     LyricDevice,
     ScheduleType,
@@ -26,11 +27,11 @@ def test_device(
     )
     assert (
         obj.current_schedule_period.day
-        == device_fixture_response["currentSchedulePeriod"]["day"]
+        == device_fixture_response["currentSchedulePeriod"]["Day"]
     )
     assert (
         obj.current_schedule_period.period
-        == device_fixture_response["currentSchedulePeriod"]["period"]
+        == device_fixture_response["currentSchedulePeriod"]["Period"]
     )
     assert (
         obj.schedule_capabilities.available_schedule_types[0]
@@ -165,3 +166,13 @@ def test_schedule_type_sub_type_key_variants():
     assert ScheduleType({"scheduleSubType": "EMEA"}).schedule_sub_type == "EMEA"
     assert ScheduleType({"scheduleSubtype": "EMEA"}).schedule_sub_type == "EMEA"
     assert ScheduleType({}).schedule_sub_type is None
+
+
+def test_current_schedule_period_key_variants():
+    """Test day/period accept both the documented and live API keys."""
+    assert CurrentSchedulePeriod({"day": "Monday", "period": "P2"}).day == "Monday"
+    assert CurrentSchedulePeriod({"Day": "Monday", "Period": "P2"}).day == "Monday"
+    assert CurrentSchedulePeriod({"day": "Monday", "period": "P2"}).period == "P2"
+    assert CurrentSchedulePeriod({"Day": "Monday", "Period": "P2"}).period == "P2"
+    assert CurrentSchedulePeriod({}).day is None
+    assert CurrentSchedulePeriod({}).period is None

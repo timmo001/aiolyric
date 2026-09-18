@@ -28,11 +28,11 @@ def test_location(
     )
     assert (
         obj.devices[0].current_schedule_period.day
-        == location_fixture_response["devices"][0]["currentSchedulePeriod"]["day"]
+        == location_fixture_response["devices"][0]["currentSchedulePeriod"]["Day"]
     )
     assert (
         obj.devices[0].current_schedule_period.period
-        == location_fixture_response["devices"][0]["currentSchedulePeriod"]["period"]
+        == location_fixture_response["devices"][0]["currentSchedulePeriod"]["Period"]
     )
     assert (
         obj.devices[0].schedule_capabilities.available_schedule_types

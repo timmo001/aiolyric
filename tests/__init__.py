@@ -9,7 +9,7 @@ RESPONSE_JSON_DEVICE: Final[dict] = {
     "indoorHumidity": 51,
     "displayedOutdoorHumidity": 51,
     "vacationHold": {"enabled": False},
-    "currentSchedulePeriod": {"day": "Monday", "period": "P2"},
+    "currentSchedulePeriod": {"Day": "Monday", "Period": "P2"},
     "scheduleCapabilities": {
         "availableScheduleTypes": ["None", "Geofenced", "TimedEmea"],
         "schedulableFan": False,
@@ -80,7 +80,7 @@ RESPONSE_JSON_LOCATION: Final[dict] = {
         {
             "displayedOutdoorHumidity": 51,
             "vacationHold": {"enabled": False},
-            "currentSchedulePeriod": {"day": "Monday", "period": "P2"},
+            "currentSchedulePeriod": {"Day": "Monday", "Period": "P2"},
             "scheduleCapabilities": {
                 "availableScheduleTypes": ["None", "Geofenced", "TimedEmea"],
                 "schedulableFan": False,
