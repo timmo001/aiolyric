@@ -19,9 +19,9 @@ concurrency:
 
 jobs:
   lint-jsonlint:
-    uses: timmo001/workflows/.github/workflows/lint-jsonlint.yml@1ed6e00bfeecec20f59b49bb96a40969ccc8821b # master
+    uses: timmo001/workflows/.github/workflows/lint-jsonlint.yml@0f94251168336b74fadf271a955d24d1de4de343 # 20260927.1
   lint-markdown-links:
-    uses: timmo001/workflows/.github/workflows/lint-markdown-links.yml@1ed6e00bfeecec20f59b49bb96a40969ccc8821b # master
+    uses: timmo001/workflows/.github/workflows/lint-markdown-links.yml@0f94251168336b74fadf271a955d24d1de4de343 # 20260927.1
   lint-markdownlint:
     name: 👕 MarkdownLint
     runs-on: ubuntu-latest
@@ -54,4 +54,4 @@ jobs:
         run: |
           pylint --rcfile=pyproject.toml aiolyric
   lint-ruff:
-    uses: timmo001/workflows/.github/workflows/lint-ruff.yml@1ed6e00bfeecec20f59b49bb96a40969ccc8821b # master
+    uses: timmo001/workflows/.github/workflows/lint-ruff.yml@0f94251168336b74fadf271a955d24d1de4de343 # 20260927.1
