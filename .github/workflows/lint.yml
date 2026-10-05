@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   lint-jsonlint:
-    uses: timmo001/workflows/.github/workflows/lint-jsonlint.yml@0f94251168336b74fadf271a955d24d1de4de343 # 20260927.1
+    uses: timmo001/workflows/.github/workflows/lint-jsonlint.yml@a76c7b0547b8e4c16fdbbdb9d2ba3cbab144b168 # 20261002.1
   lint-markdown-links:
     uses: timmo001/workflows/.github/workflows/lint-markdown-links.yml@d787ea887605af00fd70650e7be38acbdab95aad # 20260929.0
   lint-markdownlint:
