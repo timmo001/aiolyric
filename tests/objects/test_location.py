@@ -219,6 +219,32 @@ def test_location(
         ]
     )
     assert (
+        obj.devices[0].heat_and_cool_demand.current_stage
+        == location_fixture_response["devices"][0]["heatAndCoolDemand"]["CurrentStage"]
+    )
+    assert (
+        obj.devices[0].heat_and_cool_demand.demand
+        == location_fixture_response["devices"][0]["heatAndCoolDemand"]["Demand"]
+    )
+    assert (
+        obj.devices[0].heat_and_cool_demand.mode
+        == location_fixture_response["devices"][0]["heatAndCoolDemand"]["Mode"]
+    )
+    assert (
+        obj.devices[0].heat_and_cool_demand.stages_on
+        == location_fixture_response["devices"][0]["heatAndCoolDemand"]["StagesOn"]
+    )
+    assert (
+        obj.devices[0].heat_and_cool_demand.fan_request
+        == location_fixture_response["devices"][0]["heatAndCoolDemand"]["FanRequest"]
+    )
+    assert (
+        obj.devices[0].heat_and_cool_demand.circulation_fan_request
+        == location_fixture_response["devices"][0]["heatAndCoolDemand"][
+            "CirculationFanRequest"
+        ]
+    )
+    assert (
         obj.devices[0].device_model
         == location_fixture_response["devices"][0]["deviceModel"]
     )
