@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   test:
-    uses: timmo001/workflows/.github/workflows/test-pytest.yml@fcc6d0528cf0533614d1162c5c5b8ebbb6dfdad5 # 20261008.1
+    uses: timmo001/workflows/.github/workflows/test-pytest.yml@2fb2fa1ffdd2f4808768bf86828482660e366a13 # 20261008.3
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     with:

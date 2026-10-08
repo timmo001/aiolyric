@@ -24,4 +24,4 @@ permissions:
 
 jobs:
   codeql-analyze-python:
-    uses: timmo001/workflows/.github/workflows/codeql-python.yml@fcc6d0528cf0533614d1162c5c5b8ebbb6dfdad5 # 20261008.1
+    uses: timmo001/workflows/.github/workflows/codeql-python.yml@2fb2fa1ffdd2f4808768bf86828482660e366a13 # 20261008.3
