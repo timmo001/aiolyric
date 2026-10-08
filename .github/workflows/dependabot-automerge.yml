@@ -11,4 +11,4 @@ permissions:
 
 jobs:
   dependabot-automerge:
-    uses: timmo001/workflows/.github/workflows/dependabot-automerge-any.yml@f72d1eb6c310502499f5551d65ceca1e478eb266 # 20261003.0
+    uses: timmo001/workflows/.github/workflows/dependabot-automerge-any.yml@2fb8b15d5e72caaea35cc5e4541733d87ef66002 # 20261008.0
