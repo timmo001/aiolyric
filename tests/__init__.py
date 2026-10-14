@@ -95,6 +95,9 @@ RESPONSE_JSON_DEVICE: Final[dict] = {
 RESPONSE_JSON_LOCATION: Final[dict] = {
     "locationID": 123456,
     "name": "Home",
+    "streetAddress": "1 Example Street",
+    "city": "London",
+    "state": "",
     "country": "GB",
     "zipcode": "AB12 3AB",
     "devices": [
@@ -191,9 +194,20 @@ RESPONSE_JSON_LOCATION: Final[dict] = {
             "isCurrentUser": True,
         }
     ],
+    "timeZoneId": "GMTStandardTime",
     "timeZone": "GMT Standard Time",
     "ianaTimeZone": "Europe/London",
     "daylightSavingTimeEnabled": True,
+    "geoFences": [
+        {
+            "geofenceEnabled": True,
+            "geoFenceID": 566868,
+            "latitude": 51.5,
+            "longitude": -0.12,
+            "radius": 500,
+            "geoOccupancy": {"withinFence": 0, "outsideFence": 1},
+        }
+    ],
     "geoFenceEnabled": False,
     "predictiveAIREnabled": False,
     "comfortLevel": 0,

@@ -156,6 +156,54 @@ class Configuration(LyricBaseObject):
         return ConfigurationFaceRecognition(self.attributes.get("faceRecognition", {}))
 
 
+class GeoOccupancy(LyricBaseObject):
+    """Represents how many users are inside or outside a geofence."""
+
+    @property
+    def within_fence(self):
+        """The number of users within the geofence."""
+        return self.attributes.get("withinFence", None)
+
+    @property
+    def outside_fence(self):
+        """The number of users outside the geofence."""
+        return self.attributes.get("outsideFence", None)
+
+
+class GeoFence(LyricBaseObject):
+    """Represents a geofence."""
+
+    @property
+    def enabled(self):
+        """Whether the geofence is enabled."""
+        return self.attributes.get("geofenceEnabled", False)
+
+    @property
+    def geo_fence_id(self):
+        """The ID of the geofence."""
+        return self.attributes.get("geoFenceID", None)
+
+    @property
+    def latitude(self):
+        """The latitude of the geofence."""
+        return self.attributes.get("latitude", None)
+
+    @property
+    def longitude(self):
+        """The longitude of the geofence."""
+        return self.attributes.get("longitude", None)
+
+    @property
+    def radius(self):
+        """The radius of the geofence."""
+        return self.attributes.get("radius", None)
+
+    @property
+    def geo_occupancy(self):
+        """The occupancy of the geofence."""
+        return GeoOccupancy(self.attributes.get("geoOccupancy", {}))
+
+
 class LyricLocation(LyricBaseClient):
     """Represents a Lyric location."""
 
@@ -168,6 +216,21 @@ class LyricLocation(LyricBaseClient):
     def name(self):
         """The name of the location."""
         return self.attributes.get("name", None)
+
+    @property
+    def street_address(self):
+        """The street address of the location."""
+        return self.attributes.get("streetAddress", None)
+
+    @property
+    def city(self):
+        """The city of the location."""
+        return self.attributes.get("city", None)
+
+    @property
+    def state(self):
+        """The state of the location."""
+        return self.attributes.get("state", None)
 
     @property
     def country(self):
@@ -207,6 +270,11 @@ class LyricLocation(LyricBaseClient):
         return self.attributes.get("timeZone", None)
 
     @property
+    def time_zone_id(self):
+        """The ID of the timezone of the location."""
+        return self.attributes.get("timeZoneId", None)
+
+    @property
     def iana_time_zone(self):
         """The IANA timezone of the location."""
         return self.attributes.get("ianaTimeZone", None)
@@ -215,6 +283,11 @@ class LyricLocation(LyricBaseClient):
     def daylight_saving_time_enabled(self):
         """Whether daylight saving time is enabled for the location."""
         return self.attributes.get("daylightSavingTimeEnabled", True)
+
+    @property
+    def geo_fences(self):
+        """The geofences of the location."""
+        return [GeoFence(x) for x in self.attributes.get("geoFences", [])]
 
     @property
     def geo_fence_enabled(self):

@@ -15,6 +15,24 @@ def test_location(
     )
     assert obj.location_id == location_fixture_response["locationID"]
     assert obj.name == location_fixture_response["name"]
+    assert obj.street_address == location_fixture_response["streetAddress"]
+    assert obj.city == location_fixture_response["city"]
+    assert obj.state == location_fixture_response["state"]
+    assert obj.time_zone_id == location_fixture_response["timeZoneId"]
+    geo_fence = location_fixture_response["geoFences"][0]
+    assert obj.geo_fences[0].enabled == geo_fence["geofenceEnabled"]
+    assert obj.geo_fences[0].geo_fence_id == geo_fence["geoFenceID"]
+    assert obj.geo_fences[0].latitude == geo_fence["latitude"]
+    assert obj.geo_fences[0].longitude == geo_fence["longitude"]
+    assert obj.geo_fences[0].radius == geo_fence["radius"]
+    assert (
+        obj.geo_fences[0].geo_occupancy.within_fence
+        == geo_fence["geoOccupancy"]["withinFence"]
+    )
+    assert (
+        obj.geo_fences[0].geo_occupancy.outside_fence
+        == geo_fence["geoOccupancy"]["outsideFence"]
+    )
     assert obj.country == location_fixture_response["country"]
     assert obj.zipcode == location_fixture_response["zipcode"]
     assert isinstance(obj.devices_dict, dict)
