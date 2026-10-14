@@ -7,6 +7,7 @@ from aiohttp import ClientResponse
 from .client import LyricClient
 from .const import BASE_URL
 from .objects.device import LyricDevice
+from .objects.group import LyricGroup
 from .objects.location import LyricLocation
 from .objects.priority import LyricPriority, LyricRoom
 
@@ -30,6 +31,7 @@ class Lyric:
         self._locations_dict: dict = {}
         self._priorities_dict: dict[str, LyricPriority] = {}
         self._rooms_dict: dict = {}
+        self._groups_dict: dict[str, dict[int, LyricGroup]] = {}
 
     @property
     def client_id(self) -> str:
@@ -65,6 +67,11 @@ class Lyric:
     def rooms_dict(self) -> dict[str, dict[str, LyricRoom]]:
         """Return the rooms dict."""
         return self._rooms_dict
+
+    @property
+    def groups_dict(self) -> dict[str, dict[int, LyricGroup]]:
+        """Return the groups dict, keyed by device ID then group ID."""
+        return self._groups_dict
 
     async def get_devices(
         self,
@@ -117,6 +124,21 @@ class Lyric:
         # add each room to the room dictionary. Rooms contain motion, temp, and humidity averages for all accessories in a room
         for room in priority.current_priority.rooms:
             self._rooms_dict[mac_id][room.id] = room
+
+    async def get_group_rooms(
+        self,
+        location_id: int,
+        device_id: str,
+        group_id: int,
+    ) -> None:
+        """Get the rooms in a group, with each room's accessories."""
+        response: ClientResponse = await self._client.get(
+            f"{BASE_URL}/devices/thermostats/{device_id}/group/{group_id}/rooms?apikey={self.client_id}&locationId={location_id}"
+        )
+        json = await response.json()
+        self.logger.debug(json)
+
+        self._groups_dict.setdefault(device_id, {})[group_id] = LyricGroup(json)
 
     async def update_thermostat(
         self,

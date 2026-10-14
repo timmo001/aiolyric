@@ -52,6 +52,9 @@ async def test_lyric(
     assert thermostat_rooms is None
     assert isinstance(lyric.rooms_dict, dict)
 
+    await lyric.get_group_rooms(1, "test", 0)
+    assert lyric.groups_dict["test"][0].rooms[0].name == "Hallway"
+
     await lyric.update_thermostat(
         lyric.locations[0],
         lyric.devices[0],

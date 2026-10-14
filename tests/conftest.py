@@ -13,6 +13,7 @@ from aiolyric.const import AUTH_URL, BASE_URL, TOKEN_URL
 from . import (
     RESPONSE_JSON_BASIC,
     RESPONSE_JSON_DEVICE,
+    RESPONSE_JSON_GROUP,
     RESPONSE_JSON_LOCATION,
     RESPONSE_JSON_PRIORITY,
     RESPONSE_JSON_PRIORITY_CLASSIC,
@@ -73,6 +74,12 @@ def mock_aioresponse():
             status=200,
             repeat=True,
         )
+        mocker.get(
+            f"{BASE_URL}/devices/thermostats/test/group/0/rooms?apikey=test&locationId=1",
+            payload=RESPONSE_JSON_GROUP,
+            status=200,
+            repeat=True,
+        )
         mocker.post(
             f"{BASE_URL}/devices/thermostats/LCC-00A01AB1ABCD?apikey=test&locationId=123456",
             payload=RESPONSE_JSON_BASIC,
@@ -125,3 +132,9 @@ def priority_fixture_response() -> dict:
 def priority_classic_fixture_response() -> dict:
     """Return a classic schema fixture response for a priority."""
     return RESPONSE_JSON_PRIORITY_CLASSIC
+
+
+@pytest.fixture
+def group_fixture_response() -> dict:
+    """Return a fixture response for the rooms in a group."""
+    return RESPONSE_JSON_GROUP

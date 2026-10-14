@@ -348,3 +348,47 @@ RESPONSE_JSON_PRIORITY_CLASSIC: Final[dict] = {
         ],
     },
 }
+
+RESPONSE_JSON_GROUP: Final[dict] = {
+    "deviceId": "LCC-00A01AB1ABCD",
+    "groupId": 0,
+    "rooms": [
+        {
+            "id": 0,
+            "name": "Hallway",
+            "type": "LivingSpace",
+            "avgTemperature": 72.766,
+            "avgHumidity": 24,
+            "accessories": [
+                {
+                    "accessoryId": 0,
+                    "accessoryAttribute": {
+                        "type": "IndoorAirSensor",
+                        "connectionMethod": "RL",
+                        "name": "Hallway",
+                        "model": "4352",
+                        "serialNumber": "",
+                        "softwareRevision": "1.0.3.0",
+                        "hardwareRevision": "48.49.45.65",
+                    },
+                    "accessoryValue": {
+                        "coolSetpoint": 0,
+                        "heatSetpoint": 0,
+                        "indoorHumidity": 22,
+                        "indoorTemperature": 72.969,
+                        "motionDet": True,
+                        "occupancyDet": False,
+                        "excludeTemp": False,
+                        "excludeMotion": False,
+                        "pressure": 0,
+                        "occupancySensitivity": "Medium",
+                        "occupancyTimeout": 0,
+                        "status": "Ok",
+                        "batteryStatus": "Low",
+                        "rssiAverage": -44,
+                    },
+                }
+            ],
+        }
+    ],
+}
