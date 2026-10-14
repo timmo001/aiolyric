@@ -9,7 +9,7 @@ class VacationHold(LyricBaseObject):
     @property
     def enabled(self):
         """Return if enabled."""
-        return self.attributes.get("enabled", False)
+        return self.attributes.get("enabled", self.attributes.get("Enabled", False))
 
 
 class CurrentSchedulePeriod(LyricBaseObject):
