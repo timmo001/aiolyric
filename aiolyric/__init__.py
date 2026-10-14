@@ -77,7 +77,7 @@ class Lyric:
         json = await response.json()
         self.logger.debug(json)
         self._devices = [LyricDevice(self._client, device) for device in json or []]
-        self._devices_dict: dict = {}
+        self._devices_dict = {}
         for device in self._devices:
             self._devices_dict[device.mac_id] = device
 
@@ -91,7 +91,7 @@ class Lyric:
         self._locations = [
             LyricLocation(self._client, location) for location in json or []
         ]
-        self._locations_dict: dict = {}
+        self._locations_dict = {}
         for location in self._locations:
             self._locations_dict[location.location_id] = location
 
@@ -123,8 +123,8 @@ class Lyric:
         location: LyricLocation,
         device: LyricDevice,
         mode: str | None = None,
-        heat_setpoint: int | float | None = None,
-        cool_setpoint: int | float | None = None,
+        heat_setpoint: float | None = None,
+        cool_setpoint: float | None = None,
         auto_changeover_active: bool | None = None,
         thermostat_setpoint_status: str | None = None,
         next_period_time: str | None = None,
@@ -132,7 +132,7 @@ class Lyric:
         """Update Theremostat."""
         self.logger.debug("Update Thermostat")
 
-        data = {}
+        data: dict[str, str | float | bool | None] = {}
 
         if mode is not None:
             data["mode"] = mode

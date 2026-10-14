@@ -22,6 +22,7 @@ from . import (
 @pytest.fixture(autouse=True)
 def mock_aioresponse():
     """Return a client session."""
+
     class CompatibleClientResponse(ClientResponse):
         def __init__(self, *args, **kwargs):
             kwargs["stream_writer"] = Mock(output_size=0)
@@ -89,31 +90,31 @@ def mock_aioresponse():
 
 
 @pytest.fixture
-async def lyric_client() -> AsyncGenerator[LyricClient, None]:
+async def lyric_client() -> AsyncGenerator[LyricClient]:
     """Return a LyricClient."""
     async with ClientSession() as session:
         yield LyricClient(session=session)
 
 
-@pytest.fixture()
+@pytest.fixture
 def device_fixture_response() -> dict:
     """Return a fixture response for a device."""
     return RESPONSE_JSON_DEVICE
 
 
-@pytest.fixture()
+@pytest.fixture
 def location_fixture_response() -> dict:
     """Return a fixture response for a location."""
     return RESPONSE_JSON_LOCATION
 
 
-@pytest.fixture()
+@pytest.fixture
 def priority_fixture_response() -> dict:
     """Return a fixture response for a priority."""
     return RESPONSE_JSON_PRIORITY
 
 
-@pytest.fixture()
+@pytest.fixture
 def priority_classic_fixture_response() -> dict:
     """Return a classic schema fixture response for a priority."""
     return RESPONSE_JSON_PRIORITY_CLASSIC

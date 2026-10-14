@@ -1,0 +1,60 @@
+min_version = "2025.1.0"
+
+[tools]
+# renovate: datasource=custom.home-assistant-python-minor depName=python
+python = "3.14"
+uv = "0.13.0"
+
+# Run tasks with `mise run <task>` and list them with `mise tasks`.
+
+[tasks.install]
+description = "Install the package and its test requirements into .venv"
+sources = ["pyproject.toml", "requirements_test.txt"]
+run = [
+  "uv venv --allow-existing",
+  "uv pip install --requirement requirements_test.txt --editable .",
+]
+
+[tasks.format]
+description = "Fix lint issues and format with Ruff"
+depends = ["install"]
+run = ["uv run --no-sync ruff check --fix .", "uv run --no-sync ruff format ."]
+
+[tasks.lint]
+description = "Run linters (Ruff, Ruff format check, Pylint)"
+depends = ["lint:*"]
+
+[tasks."lint:ruff"]
+description = "Lint with Ruff"
+depends = ["install"]
+run = "uv run --no-sync ruff check ."
+
+[tasks."lint:format"]
+description = "Check formatting with Ruff"
+depends = ["install"]
+run = "uv run --no-sync ruff format --check ."
+
+[tasks."lint:pylint"]
+description = "Lint with Pylint"
+depends = ["install"]
+run = "uv run --no-sync pylint aiolyric"
+
+[tasks.typecheck]
+description = "Type check with mypy"
+depends = ["install"]
+run = "uv run --no-sync mypy aiolyric"
+
+[tasks.test]
+description = "Run the tests"
+depends = ["install"]
+run = "uv run --no-sync pytest"
+
+[tasks.build]
+description = "Build the sdist and wheel"
+sources = ["LICENSE", "pyproject.toml", "README.md", "aiolyric/**"]
+outputs = ["dist/*"]
+run = "uv build"
+
+[tasks.check]
+description = "Run all linters, type checks and tests"
+depends = ["lint", "typecheck", "test"]

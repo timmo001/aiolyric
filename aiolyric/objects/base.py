@@ -2,7 +2,7 @@
 
 import logging
 
-from ..client import LyricClient
+from aiolyric.client import LyricClient
 
 
 class LyricBaseObject:
