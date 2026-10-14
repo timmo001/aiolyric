@@ -3,6 +3,19 @@
 from .base import LyricBaseObject
 
 
+def _first(attributes: dict, *keys: str, default=None):
+    """Return the first present key.
+
+    Resideo serves two schemas for the priority endpoint depending on the
+    account, so every field is read from both the current and the classic
+    key (see https://github.com/timmo001/aiolyric/pull/165).
+    """
+    for key in keys:
+        if key in attributes:
+            return attributes[key]
+    return default
+
+
 class LyricAccessory(LyricBaseObject):
     """Lyric accessory."""
 
@@ -14,12 +27,14 @@ class LyricAccessory(LyricBaseObject):
     @property
     def type(self):
         """Get the type of the accessory."""
-        return self.attributes.get("sensorType", "")
+        return _first(self.attributes, "sensorType", "type", default="")
 
     @property
     def exclude_temp(self):
         """Check if temperature is excluded for the accessory."""
-        return self.attributes.get("excludeTemperature", False)
+        return _first(
+            self.attributes, "excludeTemperature", "excludeTemp", default=False
+        )
 
     @property
     def exclude_motion(self):
@@ -53,17 +68,17 @@ class LyricRoom(LyricBaseObject):
     @property
     def room_name(self):
         """Get the name of the room."""
-        return self.attributes.get("name", "")
+        return _first(self.attributes, "name", "roomName", default="")
 
     @property
     def room_avg_temp(self):
         """Get the average temperature of the room."""
-        return self.attributes.get("avgTemperature", None)
+        return _first(self.attributes, "avgTemperature", "roomAvgTemp")
 
     @property
     def room_avg_humidity(self):
         """Get the average humidity of the room."""
-        return self.attributes.get("avgHumidity", None)
+        return _first(self.attributes, "avgHumidity", "roomAvgHumidity")
 
     @property
     def overall_motion(self):
@@ -106,9 +121,11 @@ class LyricPriority(LyricBaseObject):
     @property
     def status(self):
         """Get the status of the priority."""
-        return self.attributes.get("priorityStatus", "")
+        return _first(self.attributes, "priorityStatus", "status", default="")
 
     @property
     def current_priority(self):
         """Get the current priority."""
-        return CurrentPriority(self.attributes.get("priority", {}))
+        return CurrentPriority(
+            _first(self.attributes, "priority", "currentPriority", default={})
+        )
