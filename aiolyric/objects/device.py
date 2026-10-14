@@ -18,12 +18,12 @@ class CurrentSchedulePeriod(LyricBaseObject):
     @property
     def day(self):
         """Return the day."""
-        return self.attributes.get("day", None)
+        return self.attributes.get("day", self.attributes.get("Day", None))
 
     @property
     def period(self):
         """Return the period."""
-        return self.attributes.get("period", None)
+        return self.attributes.get("period", self.attributes.get("Period", None))
 
 
 class ScheduleCapabilities(LyricBaseObject):
