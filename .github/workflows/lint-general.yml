@@ -1,0 +1,19 @@
+---
+name: Lint general
+
+# yamllint disable-line rule:truthy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  workflow_dispatch: {}
+
+permissions: {}
+
+jobs:
+  lint:
+    uses: timmo001/workflows/.github/workflows/lint-general.yml@996dd60d03b12f28b482074a9eed7083a18e2439 # 20261013.1
