@@ -82,6 +82,16 @@ class SettingsTemperatureMode(LyricBaseObject):
 class SettingsSpecialMode(LyricBaseObject):
     """Special mode."""
 
+    @property
+    def auto_changeover_active(self):
+        """Return if auto changeover is active, or None if not supported."""
+        return self.attributes.get("autoChangeoverActive", None)
+
+    @property
+    def emergency_heat_active(self):
+        """Return if emergency heat is active, or None if not supported."""
+        return self.attributes.get("emergencyHeatActive", None)
+
 
 class SettingsFanChangeableValues(LyricBaseObject):
     """Fan changeable values."""
@@ -182,6 +192,11 @@ class ChangeableValues(LyricBaseObject):
         return self.attributes.get("thermostatSetpointStatus", None)
 
     @property
+    def hold_until(self):
+        """Return the hold until time."""
+        return self.attributes.get("holdUntil", None)
+
+    @property
     def next_period_time(self):
         """Return the next period time."""
         return self.attributes.get("nextPeriodTime", None)
@@ -255,6 +270,59 @@ class HeatAndCoolDemand(LyricBaseObject):
         return self.attributes.get("CirculationFanRequest", False)
 
 
+class SmartAway(LyricBaseObject):
+    """Smart away settings, used when nobody is home."""
+
+    @property
+    def active(self):
+        """Return if smart away is active."""
+        return self.attributes.get("active", False)
+
+    @property
+    def time_of_day(self):
+        """Return the time of day smart away ends."""
+        return self.attributes.get("timeOfDay", None)
+
+    @property
+    def duration_in_hours(self):
+        """Return the duration in hours."""
+        return self.attributes.get("durationInHours", None)
+
+    @property
+    def duration_in_days(self):
+        """Return the duration in days."""
+        return self.attributes.get("durationInDays", None)
+
+    @property
+    def last_used_format(self):
+        """Return the last used format."""
+        return self.attributes.get("lastUsedFormat", None)
+
+    @property
+    def ends_in(self):
+        """Return when smart away ends."""
+        return self.attributes.get("endsIn", None)
+
+
+class DeviceGroup(LyricBaseObject):
+    """Group of rooms on a thermostat."""
+
+    @property
+    def id(self):
+        """Return the group ID."""
+        return self.attributes.get("id", None)
+
+    @property
+    def name(self):
+        """Return the group name."""
+        return self.attributes.get("name", None)
+
+    @property
+    def rooms(self):
+        """Return the IDs of the rooms in the group."""
+        return self.attributes.get("rooms", [])
+
+
 class LyricDevice(LyricBaseClient):
     """Lyric Device."""
 
@@ -267,6 +335,11 @@ class LyricDevice(LyricBaseClient):
     def indoor_humidity(self):
         """Return the indoor humidity."""
         return self.attributes.get("indoorHumidity", None)
+
+    @property
+    def indoor_humidity_status(self):
+        """Return the humidity sensor status."""
+        return self.attributes.get("indoorHumidityStatus", None)
 
     @property
     def displayed_outdoor_humidity(self):
@@ -327,6 +400,11 @@ class LyricDevice(LyricBaseClient):
     def device_os_version(self):
         """Return the device OS/firmware version."""
         return self.attributes.get("deviceOsVersion", None)
+
+    @property
+    def user_defined_device_name(self):
+        """Return the name the user gave the device."""
+        return self.attributes.get("userDefinedDeviceName", None)
 
     @property
     def name(self):
@@ -437,6 +515,22 @@ class LyricDevice(LyricBaseClient):
     def heat_and_cool_demand(self):
         """Return the heat and cool demand."""
         return HeatAndCoolDemand(self.attributes.get("heatAndCoolDemand", {}))
+
+    @property
+    def smart_away(self):
+        """Return the smart away settings, or None if not available."""
+        smart_away = self.attributes.get("smartAway")
+        return SmartAway(smart_away) if smart_away is not None else None
+
+    @property
+    def groups(self):
+        """Return the groups of rooms."""
+        return [DeviceGroup(x) for x in self.attributes.get("groups", [])]
+
+    @property
+    def priority_type(self):
+        """Return the room priority type."""
+        return self.attributes.get("priorityType", None)
 
     @property
     def device_model(self):

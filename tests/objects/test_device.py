@@ -76,6 +76,14 @@ def test_device(
     )
     assert isinstance(obj.settings.special_mode, SettingsSpecialMode)
     assert (
+        obj.settings.special_mode.auto_changeover_active
+        == device_fixture_response["settings"]["specialMode"]["autoChangeoverActive"]
+    )
+    assert (
+        obj.settings.special_mode.emergency_heat_active
+        == device_fixture_response["settings"]["specialMode"]["emergencyHeatActive"]
+    )
+    assert (
         obj.settings.device_pairing_enabled
         == device_fixture_response["settings"]["devicePairingEnabled"]
     )
@@ -184,6 +192,36 @@ def test_device(
     )
     assert obj.device_model == device_fixture_response["deviceModel"]
     assert obj.fan_mode == device_fixture_response["fanMode"]
+    assert (
+        obj.user_defined_device_name == device_fixture_response["userDefinedDeviceName"]
+    )
+    assert obj.indoor_humidity_status == device_fixture_response["indoorHumidityStatus"]
+    assert (
+        obj.changeable_values.hold_until
+        == device_fixture_response["changeableValues"]["holdUntil"]
+    )
+    smart_away = device_fixture_response["smartAway"]
+    assert obj.smart_away is not None
+    assert obj.smart_away.active == smart_away["active"]
+    assert obj.smart_away.time_of_day == smart_away["timeOfDay"]
+    assert obj.smart_away.duration_in_hours == smart_away["durationInHours"]
+    assert obj.smart_away.duration_in_days == smart_away["durationInDays"]
+    assert obj.smart_away.last_used_format == smart_away["lastUsedFormat"]
+    assert obj.smart_away.ends_in == smart_away["endsIn"]
+    group = device_fixture_response["groups"][0]
+    assert obj.groups[0].id == group["id"]
+    assert obj.groups[0].name == group["name"]
+    assert obj.groups[0].rooms == group["rooms"]
+    assert obj.priority_type == device_fixture_response["priorityType"]
+
+
+def test_device_optional_fields_missing(lyric_client: LyricClient):
+    """Test optional fields when a device doesn't report them."""
+    obj = LyricDevice(lyric_client, {})
+    assert obj.smart_away is None
+    assert obj.groups == []
+    assert obj.settings.special_mode.auto_changeover_active is None
+    assert obj.settings.special_mode.emergency_heat_active is None
 
 
 def test_schedule_type_sub_type_key_variants():
