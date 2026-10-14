@@ -30,7 +30,7 @@ class Lyric:
         self._locations: list[LyricLocation] = []
         self._locations_dict: dict = {}
         self._priorities_dict: dict[str, LyricPriority] = {}
-        self._rooms_dict: dict = {}
+        self._rooms_dict: dict[str, dict[int, LyricRoom]] = {}
         self._groups_dict: dict[str, dict[int, LyricGroup]] = {}
 
     @property
@@ -64,8 +64,8 @@ class Lyric:
         return self._priorities_dict
 
     @property
-    def rooms_dict(self) -> dict[str, dict[str, LyricRoom]]:
-        """Return the rooms dict."""
+    def rooms_dict(self) -> dict[str, dict[int, LyricRoom]]:
+        """Return the rooms dict, keyed by device MAC address then room ID."""
         return self._rooms_dict
 
     @property
