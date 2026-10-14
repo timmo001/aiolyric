@@ -370,6 +370,7 @@ filterwarnings = [
 
 [tool.ruff]
 required-version = ">=0.16.9"
+extend-exclude = [".agents"]
 
 [tool.ruff.lint]
 select = [
