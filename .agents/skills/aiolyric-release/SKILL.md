@@ -35,6 +35,8 @@ Write the release notes by hand rather than using GitHub's generated list. Read 
 gh release create <version> --target <master commit sha> --title <version> --notes-file notes.md
 ```
 
+`--target` needs the full 40-character SHA (`git rev-parse <sha>`). GitHub rejects a short one.
+
 To fix notes after publishing, `gh release edit <version> --notes-file notes.md`.
 
 ## Checks
