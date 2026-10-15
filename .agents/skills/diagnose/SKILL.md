@@ -58,6 +58,7 @@ Use this skill for debugging work where ad-hoc inspection is likely to miss the 
     - Re-run the original check when available. Otherwise state what source or recorded evidence supports the fix and what remains unverified.
     - Remove temporary instrumentation and throwaway harnesses unless they remain intentionally useful.
     - State the hypothesis that turned out to be correct in the final explanation, commit message, or PR text where relevant.
+    - If the failure was a failing systemd unit, crash, out-of-memory kill, or logged error on a machine triage collects from, apply `triage-resolve` to close its triage issues.
 
 ## Tool Guidance
 
