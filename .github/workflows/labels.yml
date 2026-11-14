@@ -14,4 +14,4 @@ on:
 
 jobs:
   labels:
-    uses: timmo001/workflows/.github/workflows/labels.yml@ec70016a91999259142a156104978174490a0831 # 20261110.0
+    uses: timmo001/workflows/.github/workflows/labels.yml@13dce11f125107b83ea662167f1091d070dcd359 # 20261114.0
