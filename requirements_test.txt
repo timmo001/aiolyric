@@ -8,5 +8,5 @@ pytest-socket==0.8.1
 pytest-sugar==1.1.1
 pytest-timeout==2.4.0
 pytest==9.2.0
-ruff==0.17.5
+ruff==0.17.6
 syrupy==7.0.2
