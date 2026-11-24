@@ -10,12 +10,10 @@ Keep documentation current and accurate as the codebase evolves. Cover recently 
 
 ## Guardrails (always)
 
-- Verify against source. Never document behaviour you have not confirmed in the code, never preserve claims that no longer match implementation, and never fabricate coverage.
+- Verify every claim against the source, existing ones included, and never fabricate coverage.
 - Match the codebase's existing documentation density and style, inferred from its agent instructions and existing code and docs. Shared, exported, or component-level surfaces get docs; single-use or self-explanatory internals do not. Do not introduce documentation conventions the codebase does not already use, such as docstrings in a codebase that avoids them or a new docs site where none exists.
-- Prefer updating existing docs over adding redundant pages.
-- Conform to the user's established writing style and voice: concise, human, house style, no robotic or marketing tone. Defer to any repo house style.
+- Follow `writing-style` and any repo house style.
 - Keep the change documentation-only and focused. Do not mix in unrelated code changes.
-- Do not commit, push, or open a pull request.
 
 ## Quality checks
 
